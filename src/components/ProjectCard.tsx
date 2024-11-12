@@ -12,35 +12,42 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ title, description, image, tags, githubUrl, liveUrl }: ProjectCardProps) {
   return (
-    <div className="bg-white rounded-xl overflow-hidden shadow-lg transition-transform hover:-translate-y-1">
-      <img src={image} alt={title} className="w-full h-48 object-cover" />
+    <div className="bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-700">
+      <div className="aspect-[16/9] w-full relative">
+        <img
+          src={image}
+          alt={title}
+          className="absolute inset-0 w-full h-full object-contain bg-black"
+        />
+      </div>
       <div className="p-6">
-        <h3 className="text-xl font-semibold mb-2">{title}</h3>
-        <p className="text-gray-600 mb-4">{description}</p>
+        <h3 className="text-xl font-semibold mb-2 text-white">{title}</h3>
+        <p className="text-gray-300 mb-4">{description}</p>
         <div className="flex flex-wrap gap-2 mb-4">
-          {tags.map((tag) => (
+          {tags.map((tag, index) => (
             <span
-              key={tag}
-              className="px-3 py-1 bg-indigo-100 text-indigo-600 rounded-full text-sm"
+              key={index}
+              className="px-2 py-1 bg-gray-700 text-sm rounded-full text-gray-300"
             >
               {tag}
             </span>
           ))}
         </div>
         <div className="flex gap-4">
-          <a
-            href={githubUrl}
-            className="flex items-center gap-2 text-gray-600 hover:text-indigo-600 transition-colors"
-          >
-            <Github size={20} />
-            <span>Code</span>
-          </a>
+          {/* Only show GitHub button if URL is valid and not default */}
+          {githubUrl && githubUrl !== "https://github.com" && (
+            <a
+              href={githubUrl}
+              className="text-gray-300 hover:text-indigo-400 transition-colors"
+            >
+              GitHub
+            </a>
+          )}
           <a
             href={liveUrl}
-            className="flex items-center gap-2 text-gray-600 hover:text-indigo-600 transition-colors"
+            className="text-gray-300 hover:text-indigo-400 transition-colors"
           >
-            <ExternalLink size={20} />
-            <span>Live Demo</span>
+            Live Demo
           </a>
         </div>
       </div>
