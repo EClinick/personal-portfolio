@@ -8,7 +8,9 @@ interface ProjectCardProps {
   tags: string[];
   githubUrl: string;
   liveUrl: string;
+  linkedinUrl?: string;
   comingSoon?: boolean;
+  disclaimer?: string;
 }
 
 export default function ProjectCard({
@@ -18,7 +20,9 @@ export default function ProjectCard({
   tags,
   githubUrl,
   liveUrl,
+  linkedinUrl,
   comingSoon = false,
+  disclaimer = "",
 }: ProjectCardProps) {
   return (
     <div className="bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-700">
@@ -39,6 +43,11 @@ export default function ProjectCard({
       <div className="p-6">
         <h3 className="text-xl font-semibold mb-2 text-white">{title}</h3>
         <p className="text-gray-300 mb-4">{description}</p>
+        {disclaimer && (
+          <div className="mb-4 p-3 bg-gray-700/50 rounded-lg">
+            <p className="text-amber-400 text-sm">{disclaimer}</p>
+          </div>
+        )}
         <div className="flex flex-wrap gap-2 mb-4">
           {tags.map((tag, index) => (
             <span
@@ -58,12 +67,22 @@ export default function ProjectCard({
               GitHub
             </a>
           )}
-          <a
-            href={liveUrl}
-            className="text-gray-300 hover:text-indigo-400 transition-colors"
-          >
-            Live Demo
-          </a>
+          {liveUrl && liveUrl !== "#" && (
+            <a
+              href={liveUrl}
+              className="text-gray-300 hover:text-indigo-400 transition-colors"
+            >
+              Website
+            </a>
+          )}
+          {linkedinUrl && (
+            <a
+              href={linkedinUrl}
+              className="text-gray-300 hover:text-indigo-400 transition-colors"
+            >
+              LinkedIn
+            </a>
+          )}
         </div>
       </div>
     </div>

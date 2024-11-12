@@ -40,14 +40,14 @@ function App() {
               >
                 Get in touch
               </a>
-              <a
+              {/* <a
                 href="/resume.pdf"
                 download
                 className="px-8 py-3 border border-indigo-600 text-indigo-600 rounded-full hover:bg-indigo-50 transition-colors inline-flex items-center gap-2"
               >
                 <Download size={20} />
                 Resume
-              </a>
+              </a> */}
             </div>
             <a href="#about" className="animate-bounce inline-block">
               <ArrowDown size={24} className="text-indigo-600" />
@@ -104,16 +104,18 @@ function App() {
               description="Cloud-based trading algorithms with Rust backend and React Native frontend."
               image={vcryptImage}
               tags={['Rust', 'React Native', 'Stripe', 'PostgreSQL', 'Python', 'Docker', 'Product Management']}
-              githubUrl="https://github.com"
+              githubUrl=""
               liveUrl="https://vcryptfinancial.com"
+              linkedinUrl="https://www.linkedin.com/company/vcrypt"
             />
             <ProjectCard
               title="Options Trading Club"
               description="Automated financial market data scraper using Python for daily trading insights."
               image={tradingImage}
               tags={['Python', 'Selenium', 'Playwright']}
-              githubUrl="https://github.com"
-              liveUrl="https://www.linkedin.com/company/oregon-state-options-trading-club/"
+              githubUrl=""
+              liveUrl=""
+              linkedinUrl="https://www.linkedin.com/company/oregon-state-options-trading-club/"
             />
           </div>
           
@@ -140,7 +142,9 @@ function App() {
               tags={['AI', 'iOS', 'AWS', 'PostgreSQL', 'Docker', 'React Native', 'Beta']}
               githubUrl=""
               liveUrl="https://tanai.app/"
+              linkedinUrl="https://www.linkedin.com/feed/update/urn:li:activity:7238027109045088256/"
               comingSoon={true}
+              
             />
             <ProjectCard
               title="Trading Journal Pro"
@@ -148,8 +152,10 @@ function App() {
               image={vcryptImage}
               tags={['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'AI Analytics', 'AWS']}
               githubUrl=""
-              liveUrl="#"
+              liveUrl="https://spiffy-youtiao-ca2503.netlify.app/"
+              linkedinUrl=""
               comingSoon={true}
+              disclaimer="Note: The current website is an early demo version and is outdated. It serves only as a preliminary showcase of the concept."
             />
           </div>
         </div>
