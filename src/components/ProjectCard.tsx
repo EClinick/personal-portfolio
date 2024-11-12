@@ -8,9 +8,18 @@ interface ProjectCardProps {
   tags: string[];
   githubUrl: string;
   liveUrl: string;
+  comingSoon?: boolean;
 }
 
-export default function ProjectCard({ title, description, image, tags, githubUrl, liveUrl }: ProjectCardProps) {
+export default function ProjectCard({
+  title,
+  description,
+  image,
+  tags,
+  githubUrl,
+  liveUrl,
+  comingSoon = false,
+}: ProjectCardProps) {
   return (
     <div className="bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-700">
       <div className="aspect-[16/9] w-full relative">
@@ -19,6 +28,13 @@ export default function ProjectCard({ title, description, image, tags, githubUrl
           alt={title}
           className="absolute inset-0 w-full h-full object-contain bg-black"
         />
+        {comingSoon && (
+          <div className="absolute inset-0 bg-black/70 flex items-center justify-center">
+            <span className="text-2xl font-bold text-white bg-indigo-600/80 px-6 py-2 rounded-lg">
+              Coming Soon
+            </span>
+          </div>
+        )}
       </div>
       <div className="p-6">
         <h3 className="text-xl font-semibold mb-2 text-white">{title}</h3>
@@ -34,7 +50,6 @@ export default function ProjectCard({ title, description, image, tags, githubUrl
           ))}
         </div>
         <div className="flex gap-4">
-          {/* Only show GitHub button if URL is valid and not default */}
           {githubUrl && githubUrl !== "https://github.com" && (
             <a
               href={githubUrl}

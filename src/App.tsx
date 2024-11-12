@@ -8,12 +8,13 @@ import profileImage from './assets/profile.jpg';
 import tanaiImage from './assets/tanai.jpeg';
 import vcryptImage from './assets/vcrypt.png';
 import tradingImage from './assets/trading.png';
-
+//import tradingJournalImage = '/trading-journal.png';
 // Use these constants instead
 //const profileImage = "https://images.unsplash.com/photo-1549692520-acc6669e2f0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80";
 //const tanaiImage = "https://images.unsplash.com/photo-1557821552-17105176677c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80";
 //const vcryptImage = "https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80";
 //const tradingImage = "https://images.unsplash.com/photo-1561484930-998b6a7b22e8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80";
+//const tradingJournalImage= "https://images.unsplash.com/photo-1561484930-998b6a7b22e8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80";
 
 function App() {
   return (
@@ -95,16 +96,9 @@ function App() {
       {/* Projects Section */}
       <section id="projects" className="py-20 bg-gray-900 px-4">
         <div className="max-w-3xl mx-auto">
+          {/* Active Projects */}
           <h2 className="text-3xl font-bold mb-12 text-center text-white">Featured Projects</h2>
           <div className="flex flex-col gap-8">
-            <ProjectCard
-              title="Tan.ai"
-              description="An AI-driven iOS app offering personalized tanning advice using custom-trained models."
-              image={tanaiImage}
-              tags={['AI', 'iOS', 'AWS', 'PostgreSQL', 'Docker', 'React Native']}
-              githubUrl="https://github.com"
-              liveUrl="https://tanai.app/"
-            />
             <ProjectCard
               title="Vcrypt Software"
               description="Cloud-based trading algorithms with Rust backend and React Native frontend."
@@ -120,6 +114,42 @@ function App() {
               tags={['Python', 'Selenium', 'Playwright']}
               githubUrl="https://github.com"
               liveUrl="https://www.linkedin.com/company/oregon-state-options-trading-club/"
+            />
+          </div>
+          
+          {/* In Development Section with enhanced styling */}
+          <div className="mt-32 mb-12 relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-700"></div>
+            </div>
+            <div className="relative flex justify-center">
+              <span className="bg-gray-900 px-6 text-3xl font-bold text-white">
+                In Development
+              </span>
+            </div>
+            <p className="text-gray-400 text-center mt-4 max-w-2xl mx-auto">
+              Upcoming projects currently in active development. These projects are being built and will be released soon.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-8">
+            <ProjectCard
+              title="Tan.ai"
+              description="An AI-driven iOS app offering personalized tanning advice using custom-trained models. Currently in beta testing phase with planned release in Summer 2024."
+              image={tanaiImage}
+              tags={['AI', 'iOS', 'AWS', 'PostgreSQL', 'Docker', 'React Native', 'Beta']}
+              githubUrl=""
+              liveUrl="https://tanai.app/"
+              comingSoon={true}
+            />
+            <ProjectCard
+              title="Trading Journal Pro"
+              description="A comprehensive trading journal application designed to help traders track, analyze, and improve their trading performance through detailed analytics and AI-powered insights."
+              image={vcryptImage}
+              tags={['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'AI Analytics', 'AWS']}
+              githubUrl=""
+              liveUrl="#"
+              comingSoon={true}
             />
           </div>
         </div>
