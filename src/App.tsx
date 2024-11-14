@@ -144,7 +144,7 @@ function App() {
               liveUrl="https://tanai.app/"
               linkedinUrl="https://www.linkedin.com/feed/update/urn:li:activity:7238027109045088256/"
               comingSoon={true}
-              
+              disclaimer="Note: The current website is an early demo version and is outdated. It serves only as a preliminary showcase of the concept. My main focus is on the app development."
             />
             <ProjectCard
               title="Trading Journal Pro"
