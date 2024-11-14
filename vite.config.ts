@@ -1,12 +1,11 @@
+// vite.config.ts
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  base: '/Personal-Portfolio/',
+  base: '/Personal-Portfolio/', // Ensure this matches your repo name
   plugins: [react()],
-  build: {
-    outDir: 'dist',
-    emptyOutDir: true,
+  optimizeDeps: {
+    exclude: ['lucide-react'],
   },
 });
