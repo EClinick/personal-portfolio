@@ -1,13 +1,6 @@
 # Dependencies
 /node_modules
 
-Vite build output
-!dist/
-
-# Uncomment the following line to ensure 'dist/' is not ignored
-# If 'dist/' is currently ignored, remove the '#' to include it
-# !dist/
-
 # Logs
 logs
 *.log
