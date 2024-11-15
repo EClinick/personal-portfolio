@@ -66,12 +66,14 @@ const SYSTEM_CONTEXT = {
   }
 };
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://models.inference.ai.azure.com/chat/completions';
+const API_TOKEN = import.meta.env.VITE_GITHUB_API_TOKEN;
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function ChatBox({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -93,6 +95,7 @@ export default function ChatBox({ isOpen, onClose }: { isOpen: boolean; onClose:
     e.preventDefault();
     if (!input.trim()) return;
 
+    setError(null);
     const userMessage: Message = {
       role: 'user' as const,
       content: input
@@ -103,11 +106,15 @@ export default function ChatBox({ isOpen, onClose }: { isOpen: boolean; onClose:
     setIsLoading(true);
 
     try {
+      if (!API_TOKEN) {
+        throw new Error('API token not configured');
+      }
+
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_GITHUB_API_TOKEN}`
+          'Authorization': `Bearer ${API_TOKEN}`
         },
         body: JSON.stringify({
           messages: [
@@ -125,7 +132,16 @@ export default function ChatBox({ isOpen, onClose }: { isOpen: boolean; onClose:
         })
       });
 
+      if (!response.ok) {
+        throw new Error(`API error: ${response.statusText}`);
+      }
+
       const data = await response.json();
+      
+      if (!data.choices?.[0]?.message?.content) {
+        throw new Error('Invalid response format');
+      }
+
       const assistantMessage: Message = {
         role: 'assistant' as const,
         content: data.choices[0].message.content
@@ -134,9 +150,10 @@ export default function ChatBox({ isOpen, onClose }: { isOpen: boolean; onClose:
       setMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
       console.error('Error:', error);
+      setError(error instanceof Error ? error.message : 'An unexpected error occurred');
       const errorMessage: Message = {
         role: 'assistant' as const,
-        content: 'Sorry, I encountered an error. Please try again.'
+        content: 'Sorry, I encountered an error. Please try again later.'
       };
       setMessages(prev => [...prev, errorMessage]);
     }
@@ -159,6 +176,11 @@ export default function ChatBox({ isOpen, onClose }: { isOpen: boolean; onClose:
       </div>
       
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        {error && (
+          <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3 text-red-400 text-sm">
+            {error}
+          </div>
+        )}
         {messages.map((message, index) => (
           <div
             key={index}
