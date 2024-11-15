@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ArrowDown, Github, Linkedin, Mail, Download, ExternalLink } from 'lucide-react';
 import Navbar from './components/Navbar';
 import ProjectCard from './components/ProjectCard';
+import ChatBox from './components/ChatBox';
 
 // Comment out the imports temporarily
 import profileImage from './assets/profile.jpg';
@@ -17,9 +18,15 @@ import tradingImage from './assets/trading.png';
 //const tradingJournalImage= "https://images.unsplash.com/photo-1561484930-998b6a7b22e8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80";
 
 function App() {
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
+  const toggleChat = () => {
+    setIsChatOpen(!isChatOpen);
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 text-white">
-      <Navbar />
+      <Navbar onChatClick={toggleChat} />
       
       {/* Hero Section */}
       <section id="home" className="pt-32 pb-20 px-4">
@@ -198,6 +205,8 @@ function App() {
       <footer className="py-8 text-center text-gray-400 bg-gray-900">
         <p>© 2024 Ethan Clinick. All rights reserved.</p>
       </footer>
+
+      <ChatBox isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
     </div>
   );
 }

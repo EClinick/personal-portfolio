@@ -1,7 +1,11 @@
 import React from 'react';
-import { Menu, X, Github, Linkedin, Mail } from 'lucide-react';
+import { Menu, X, Github, Linkedin, Mail, MessageSquare } from 'lucide-react';
 
-export default function Navbar() {
+interface NavbarProps {
+  onChatClick: () => void;
+}
+
+export default function Navbar({ onChatClick }: NavbarProps) {
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
@@ -20,6 +24,13 @@ export default function Navbar() {
               <a href="#about" className="text-gray-300 hover:text-indigo-400 transition-colors">About</a>
               <a href="#projects" className="text-gray-300 hover:text-indigo-400 transition-colors">Projects</a>
               <a href="#contact" className="text-gray-300 hover:text-indigo-400 transition-colors">Contact</a>
+              <button
+                onClick={onChatClick}
+                className="flex items-center gap-2 text-gray-300 hover:text-indigo-400 transition-colors"
+              >
+                <MessageSquare size={20} />
+                <span>Chat</span>
+              </button>
             </div>
           </div>
 
@@ -50,6 +61,13 @@ export default function Navbar() {
             <a href="#about" className="block px-3 py-2 text-gray-300 hover:text-indigo-400">About</a>
             <a href="#projects" className="block px-3 py-2 text-gray-300 hover:text-indigo-400">Projects</a>
             <a href="#contact" className="block px-3 py-2 text-gray-300 hover:text-indigo-400">Contact</a>
+            <button
+              onClick={onChatClick}
+              className="flex items-center gap-2 text-gray-300 hover:text-indigo-400 transition-colors"
+            >
+              <MessageSquare size={20} />
+              <span>Chat</span>
+            </button>
           </div>
         </div>
       )}

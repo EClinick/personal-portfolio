@@ -1,6 +1,16 @@
 # Dependencies
 /node_modules
 
+# Production
+/dist
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
 # Logs
 logs
 *.log
@@ -19,13 +29,6 @@ yarn-error.log*
 # Operating system files
 .DS_Store
 Thumbs.db
-
-# Environment variables
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
 
 # Miscellaneous
 *.swp
