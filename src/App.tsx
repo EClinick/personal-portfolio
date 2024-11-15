@@ -38,7 +38,7 @@ function App() {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 mb-8">
-              Technical Project Manager & Software Developer
+              Technical Product Manager & Software Developer
             </p>
             <div className="flex justify-center gap-4 mb-12">
               <a
@@ -75,7 +75,7 @@ function App() {
             />
             <div>
               <p className="text-gray-300 mb-6">
-                I'm a Technical Project Manager and Software Developer with a focus on AI-driven solutions and scalable backend architectures. I've led multiple projects, optimized cloud-based systems, and founded innovative startups like Tan.ai and Vcrypt Software LLC.
+                I'm a Technical Product Manager and Software Developer with a focus on AI-driven solutions and scalable backend architectures. I've led multiple projects, optimized cloud-based systems, and founded innovative startups like Tan.ai and Vcrypt Software LLC.
               </p>
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 bg-gray-700 rounded-lg">
@@ -91,7 +91,7 @@ function App() {
                   <p className="text-gray-300">OpenAI API, Image Analysis, Financial Market Algorithms</p>
                 </div>
                 <div className="p-4 bg-gray-700 rounded-lg">
-                  <h3 className="font-semibold mb-2 text-white">Project Management</h3>
+                  <h3 className="font-semibold mb-2 text-white">Product Management</h3>
                   <p className="text-gray-300">Agile, Risk Management, SaaS Products</p>
                 </div>
               </div>

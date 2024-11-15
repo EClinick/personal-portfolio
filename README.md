@@ -48,6 +48,11 @@ Visit the live site: [https://ethanclinick.netlify.app](https://ethanclinick.net
   - Netlify Functions
   - Azure AI Models
 
+- **Product Management**:
+  - Agile Methodologies
+  - Risk Management
+  - SaaS Product Development
+
 - **Deployment**:
   - Netlify
   - GitHub Actions

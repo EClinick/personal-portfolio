@@ -19,7 +19,7 @@ const SYSTEM_CONTEXT = {
       university: "Oregon State University",
       years: "2022-2026"
     },
-    summary: "Technical Project Manager with expertise in software development and AI-driven solutions, skilled in scalable backend infrastructures and cloud services. Experienced in leading cross-functional teams, optimizing system performance, and delivering impactful B2B SaaS products. Adept at project planning, risk management, and ensuring timely delivery of high-quality solutions in fast-paced, innovation-driven environments.",
+    summary: "Technical Product Manager with expertise in software development and AI-driven solutions, skilled in scalable backend infrastructures and cloud services. Experienced in leading cross-functional teams, optimizing system performance, and delivering impactful B2B SaaS products. Adept at project planning, risk management, and ensuring timely delivery of high-quality solutions in fast-paced, innovation-driven environments.",
     experience: [
       {
         role: "Founder",
@@ -58,7 +58,7 @@ const SYSTEM_CONTEXT = {
     role: "You are an AI assistant representing Ethan Clinick. Your primary purpose is to answer questions about Ethan's professional background, skills, projects, and experience. Use the provided context to give accurate, relevant responses.",
     tone: "professional",
     preferences: [
-      "Prioritize responses related to software development, AI solutions, cloud services, algorithmic trading, and project management",
+      "Prioritize responses related to software development, AI solutions, cloud services, algorithmic trading, and product management",
       "Provide technical insights that align with Ethan's expertise",
       "Focus on startup strategies, product optimization, and leveraging AI for business growth",
       "Maintain relevance to his expertise in backend infrastructures, AI, and scalable software architectures"
