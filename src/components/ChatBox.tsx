@@ -66,8 +66,9 @@ const SYSTEM_CONTEXT = {
   }
 };
 
-const API_TOKEN = import.meta.env.VITE_GITHUB_API_TOKEN;
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = process.env.NODE_ENV === 'development' 
+  ? '/.netlify/functions/chat'  // Local development
+  : 'https://ethanclinick.netlify.app/.netlify/functions/chat';  // Production
 
 export default function ChatBox({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -91,6 +92,16 @@ export default function ChatBox({ isOpen, onClose }: { isOpen: boolean; onClose:
     }]);
   }, []);
 
+  console.log('ChatBox mounted');
+  
+  useEffect(() => {
+    console.log('ChatBox Configuration:', {
+      'API URL': API_URL,
+      'Environment': process.env.NODE_ENV,
+      'Request URL': new URL(API_URL, window.location.origin).toString()
+    });
+  }, []);
+
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
@@ -106,15 +117,10 @@ export default function ChatBox({ isOpen, onClose }: { isOpen: boolean; onClose:
     setIsLoading(true);
 
     try {
-      if (!API_TOKEN) {
-        throw new Error('API token not configured');
-      }
-
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${API_TOKEN}`
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           messages: [
@@ -133,7 +139,8 @@ export default function ChatBox({ isOpen, onClose }: { isOpen: boolean; onClose:
       });
 
       if (!response.ok) {
-        throw new Error(`API error: ${response.statusText}`);
+        const errorText = await response.text();
+        throw new Error(`API error: ${response.statusText} - ${errorText}`);
       }
 
       const data = await response.json();
@@ -153,7 +160,7 @@ export default function ChatBox({ isOpen, onClose }: { isOpen: boolean; onClose:
       setError(error instanceof Error ? error.message : 'An unexpected error occurred');
       const errorMessage: Message = {
         role: 'assistant' as const,
-        content: 'Sorry, I encountered an error. Please try again later.'
+        content: `Error: ${error instanceof Error ? error.message : 'An unexpected error occurred'}`
       };
       setMessages(prev => [...prev, errorMessage]);
     }
