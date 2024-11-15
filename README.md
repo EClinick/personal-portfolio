@@ -87,7 +87,7 @@ Visit the live site: [https://ethanclinick.netlify.app](https://ethanclinick.net
    ```bash
    npm run build
    ```
-6. 
+
 ## 🌐 Deployment
 
 The project is set up for automatic deployment to Netlify:
