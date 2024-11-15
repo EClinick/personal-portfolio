@@ -213,6 +213,9 @@ Project Link: [https://github.com/eclinick/personal-portfolio](https://github.co
 
 2. **Manual Deployment**
    ```bash
+   # Build the project
+   npm run build
+
    # Deploy to Netlify
    netlify deploy
 
