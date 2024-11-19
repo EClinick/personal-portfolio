@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowDown, Github, Linkedin, Mail, Download, ExternalLink } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Mail, Download, ExternalLink, MapPin } from 'lucide-react';
 import Navbar from './components/Navbar';
 import ProjectCard from './components/ProjectCard';
 import ChatBox from './components/ChatBox';
@@ -9,6 +9,7 @@ import profileImage from './assets/profile.jpg';
 import tanaiImage from './assets/tanai.jpeg';
 import vcryptImage from './assets/vcrypt.png';
 import tradingImage from './assets/trading.png';
+import cryptoMinerImage from './assets/cryptov2.png';
 //import tradingJournalImage = '/trading-journal.png';
 // Use these constants instead
 //const profileImage = "https://images.unsplash.com/photo-1549692520-acc6669e2f0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80";
@@ -66,7 +67,11 @@ function App() {
       {/* About Section */}
       <section id="about" className="py-20 bg-gray-800 px-4">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center text-white">About Me</h2>
+          <h2 className="text-3xl font-bold mb-4 text-center text-white">About Me</h2>
+          <div className="flex items-center justify-center gap-2 mb-12">
+            <MapPin size={20} className="text-indigo-400" />
+            <span className="text-lg text-gray-300">Fall City, Washington</span>
+          </div>
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <img
               src={profileImage}
@@ -74,25 +79,56 @@ function App() {
               className="rounded-xl shadow-lg"
             />
             <div>
-              <p className="text-gray-300 mb-6">
-                I'm a Technical Product Manager and Software Developer with a focus on AI-driven solutions and scalable backend architectures. I've led multiple projects, optimized cloud-based systems, and founded innovative startups like Tan.ai and Vcrypt Software LLC.
+              <p className="text-gray-300 mb-6 text-lg leading-relaxed">
+                Based in <span className="text-indigo-400 font-medium">Fall City, Washington</span>, I'm a{' '}
+                <span className="text-white font-semibold">Technical Product Manager</span> and{' '}
+                <span className="text-white font-semibold">Software Developer</span> with a focus on{' '}
+                <span className="text-indigo-400 font-medium">AI-driven solutions</span> and{' '}
+                <span className="text-indigo-400 font-medium">scalable backend architectures</span>. 
+                I've led multiple projects, optimized cloud-based systems, and founded innovative startups like{' '}
+                <span className="text-white font-semibold">Tan.ai</span> and{' '}
+                <span className="text-white font-semibold">Vcrypt Software LLC</span>.
               </p>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-4">
                 <div className="p-4 bg-gray-700 rounded-lg">
-                  <h3 className="font-semibold mb-2 text-white">Skills</h3>
-                  <p className="text-gray-300">Python, Rust, Node.js, React Native</p>
+                  <h3 className="font-semibold mb-3 text-white">Skills</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {['Python', 'Rust', 'Node.js', 'React Native', 'TypeScript', 'iOS'].map((skill) => (
+                      <span key={skill} className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
                 <div className="p-4 bg-gray-700 rounded-lg">
-                  <h3 className="font-semibold mb-2 text-white">Cloud & Tools</h3>
-                  <p className="text-gray-300">AWS, Docker, Git, Stripe</p>
+                  <h3 className="font-semibold mb-3 text-white">Cloud & Tools</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {['AWS', 'Docker', 'Git', 'Stripe', 'Auth0', 'PostgreSQL', 'Supabase'].map((tool) => (
+                      <span key={tool} className="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm">
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
                 </div>
                 <div className="p-4 bg-gray-700 rounded-lg">
-                  <h3 className="font-semibold mb-2 text-white">AI & Data Analysis</h3>
-                  <p className="text-gray-300">OpenAI API, Image Analysis, Financial Market Algorithms</p>
+                  <h3 className="font-semibold mb-3 text-white">AI & Data Analysis</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {['OpenAI API', 'Image Analysis', 'Financial Market Algorithms'].map((item) => (
+                      <span key={item} className="px-3 py-1 bg-red-500/20 text-red-300 rounded-full text-sm">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
                 </div>
                 <div className="p-4 bg-gray-700 rounded-lg">
-                  <h3 className="font-semibold mb-2 text-white">Product Management</h3>
-                  <p className="text-gray-300">Agile, Risk Management, SaaS Products</p>
+                  <h3 className="font-semibold mb-3 text-white">Product Management</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {['Agile', 'Risk Management', 'SaaS Products'].map((item) => (
+                      <span key={item} className="px-3 py-1 bg-yellow-500/20 text-yellow-300 rounded-full text-sm">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -110,16 +146,43 @@ function App() {
               title="Vcrypt Software"
               description="Cloud-based trading algorithms with Rust backend and React Native frontend."
               image={vcryptImage}
-              tags={['Rust', 'React Native', 'Stripe', 'PostgreSQL', 'Python', 'Docker', 'Product Management']}
+              tags={[
+                { text: 'Rust', color: 'blue' },
+                { text: 'React Native', color: 'blue' },
+                { text: 'Stripe', color: 'green' },
+                { text: 'PostgreSQL', color: 'green' },
+                { text: 'Python', color: 'blue' },
+                { text: 'Docker', color: 'green' },
+                { text: 'Product Management', color: 'yellow' }
+              ]}
               githubUrl=""
               liveUrl="https://vcryptfinancial.com"
               linkedinUrl="https://www.linkedin.com/company/vcrypt"
             />
             <ProjectCard
+              title="Crypto Mining Monitor Bot"
+              description="A comprehensive Discord bot for monitoring cryptocurrency mining operations, specifically designed for Litecoin (LTC) and Dogecoin (DOGE) mining through litecoinpool.org. Features real-time profitability monitoring, worker status tracking, and automated alerts."
+              image={cryptoMinerImage}
+              tags={[
+                { text: 'Python', color: 'blue' },
+                { text: 'Docker', color: 'green' },
+                { text: 'Cryptocurrency', color: 'red' },
+                { text: 'API Integration', color: 'green' },
+                { text: 'Real-time Monitoring', color: 'red' }
+              ]}
+              githubUrl="https://github.com/EClinick/litecoinpool-bot"
+              liveUrl=""
+              linkedinUrl=""
+            />
+            <ProjectCard
               title="Options Trading Club"
               description="Automated financial market data scraper using Python for daily trading insights."
               image={tradingImage}
-              tags={['Python', 'Selenium', 'Playwright']}
+              tags={[
+                { text: 'Python', color: 'blue' },
+                { text: 'Selenium', color: 'green' },
+                { text: 'Playwright', color: 'green' }
+              ]}
               githubUrl=""
               liveUrl=""
               linkedinUrl="https://www.linkedin.com/company/oregon-state-options-trading-club/"
@@ -146,7 +209,15 @@ function App() {
               title="Tan.ai"
               description="An AI-driven iOS app offering personalized tanning advice using custom-trained models. Currently in beta testing phase with planned release in Summer 2024."
               image={tanaiImage}
-              tags={['AI', 'iOS', 'AWS', 'PostgreSQL', 'Docker', 'React Native', 'Beta']}
+              tags={[
+                { text: 'AI', color: 'red' },
+                { text: 'iOS', color: 'blue' },
+                { text: 'AWS', color: 'green' },
+                { text: 'PostgreSQL', color: 'green' },
+                { text: 'Docker', color: 'green' },
+                { text: 'React Native', color: 'blue' },
+                { text: 'Beta', color: 'yellow' }
+              ]}
               githubUrl=""
               liveUrl="https://tanai.app/"
               linkedinUrl="https://www.linkedin.com/feed/update/urn:li:activity:7238027109045088256/"
@@ -157,7 +228,14 @@ function App() {
               title="Trading Journal Pro"
               description="A comprehensive trading journal application designed to help traders track, analyze, and improve their trading performance through detailed analytics and AI-powered insights."
               image={vcryptImage}
-              tags={['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'AI Analytics', 'AWS']}
+              tags={[
+                { text: 'React', color: 'blue' },
+                { text: 'TypeScript', color: 'blue' },
+                { text: 'Node.js', color: 'blue' },
+                { text: 'PostgreSQL', color: 'green' },
+                { text: 'AI Analytics', color: 'red' },
+                { text: 'AWS', color: 'green' }
+              ]}
               githubUrl=""
               liveUrl="https://spiffy-youtiao-ca2503.netlify.app/"
               linkedinUrl=""

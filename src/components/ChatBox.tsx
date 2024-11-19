@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 
 interface Message {
   role: 'user' | 'assistant' | 'system';
@@ -32,6 +33,16 @@ const SYSTEM_CONTEXT = {
           "Optimized backend architecture through AWS integration, enhancing data security and reducing latency by 25%",
           "Implemented a custom-trained AI model for skin tone detection using OpenAI's API",
           "Utilized image analysis techniques to generate data-driven user insights"
+        ],
+        links: [
+          {
+            name: "Website",
+            url: "https://tanai.app"
+          },
+          {
+            name: "LinkedIn",
+            url: "https://www.linkedin.com/feed/update/urn:li:activity:7238027109045088256/"
+          }
         ]
       },
       {
@@ -45,13 +56,40 @@ const SYSTEM_CONTEXT = {
           "Designed and deployed trading algorithms, including long-term, intra-week, and high-frequency strategies",
           "Enhanced data processing efficiency by 30% through algorithm optimization",
           "Secured initial funding by demonstrating business acumen and algorithmic performance"
+        ],
+        links: [
+          {
+            name: "Website",
+            url: "https://vcryptfinancial.com"
+          },
+          {
+            name: "LinkedIn",
+            url: "https://www.linkedin.com/company/vcrypt"
+          }
         ]
+      }
+    ],
+    projects: [
+      {
+        name: "Crypto Mining Monitor Bot",
+        description: "A comprehensive Discord bot for monitoring cryptocurrency mining operations",
+        technologies: ["Python", "Discord.py", "Docker", "API Integration"],
+        features: [
+          "Real-time mining profitability monitoring for LTC & DOGE",
+          "Automated worker status tracking with 30-second intervals",
+          "Instant notifications for offline/online workers",
+          "Price tracking and daily profit calculations",
+          "Comprehensive Discord command interface"
+        ],
+        githubUrl: "https://github.com/EClinick/litecoinpool-bot",
+        status: "Active"
       }
     ],
     skills: [
       "Python", "Rust", "AWS", "React Native", "OpenAI API", "Algorithmic trading",
       "Cloud services", "Project management", "Backend development", "AI and ML models",
-      "Financial data analysis", "Automation with Selenium and Playwright"
+      "Financial data analysis", "Automation with Selenium and Playwright",
+      "Discord Bot Development", "Cryptocurrency Mining", "Real-time Monitoring Systems"
     ]
   },
   instructions: {
@@ -61,7 +99,8 @@ const SYSTEM_CONTEXT = {
       "Prioritize responses related to software development, AI solutions, cloud services, algorithmic trading, and product management",
       "Provide technical insights that align with Ethan's expertise",
       "Focus on startup strategies, product optimization, and leveraging AI for business growth",
-      "Maintain relevance to his expertise in backend infrastructures, AI, and scalable software architectures"
+      "Maintain relevance to his expertise in backend infrastructures, AI, and scalable software architectures",
+      "Highlight experience with cryptocurrency and automated monitoring systems"
     ]
   }
 };
@@ -69,6 +108,26 @@ const SYSTEM_CONTEXT = {
 const API_URL = process.env.NODE_ENV === 'development' 
   ? '/.netlify/functions/chat'  // Local development
   : 'https://ethanclinick.netlify.app/.netlify/functions/chat';  // Production
+
+// Helper function to format AI responses
+const formatAIResponse = (text: string): string => {
+  // Add double line breaks between sections
+  text = text.replace(/\n(?=[A-Z])/g, '\n\n');
+  
+  // Add spacing after punctuation if missing
+  text = text.replace(/([.!?])([A-Z])/g, '$1\n\n$2');
+  
+  // Ensure proper spacing around lists
+  text = text.replace(/([.!?])\n([•\-*])/g, '$1\n\n$2');
+  
+  // Add spacing around code blocks
+  text = text.replace(/```/g, '\n```\n');
+  
+  // Ensure proper spacing after headings
+  text = text.replace(/(?:^|\n)(#{1,6} .+)\n(?!\n)/g, '$1\n\n');
+  
+  return text.trim();
+};
 
 export default function ChatBox({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -168,10 +227,76 @@ export default function ChatBox({ isOpen, onClose }: { isOpen: boolean; onClose:
     setIsLoading(false);
   };
 
+  const renderMessage = (message: Message) => {
+    if (message.role === 'assistant') {
+      const formattedContent = formatAIResponse(message.content);
+      return (
+        <ReactMarkdown
+          components={{
+            p: ({children}) => (
+              <p className="mb-4 last:mb-0">{children}</p>
+            ),
+            h1: ({children}) => (
+              <h1 className="text-xl font-bold mb-4 mt-6">{children}</h1>
+            ),
+            h2: ({children}) => (
+              <h2 className="text-lg font-bold mb-3 mt-5">{children}</h2>
+            ),
+            h3: ({children}) => (
+              <h3 className="text-md font-bold mb-2 mt-4">{children}</h3>
+            ),
+            ul: ({children}) => (
+              <ul className="list-disc pl-4 mb-4 space-y-2">{children}</ul>
+            ),
+            ol: ({children}) => (
+              <ol className="list-decimal pl-4 mb-4 space-y-2">{children}</ol>
+            ),
+            li: ({children}) => (
+              <li className="mb-1">{children}</li>
+            ),
+            code: ({inline, className, children}) => {
+              if (inline) {
+                return <code className="bg-gray-800 px-1 py-0.5 rounded">{children}</code>;
+              }
+              return (
+                <div className="my-4">
+                  <pre className="bg-gray-800 p-4 rounded-lg overflow-x-auto">
+                    <code className={className}>{children}</code>
+                  </pre>
+                </div>
+              );
+            },
+            blockquote: ({children}) => (
+              <blockquote className="border-l-4 border-gray-600 pl-4 my-4 italic">
+                {children}
+              </blockquote>
+            ),
+            a: ({href, children}) => (
+              <a 
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-indigo-400 hover:underline"
+              >
+                {children}
+              </a>
+            ),
+          }}
+        >
+          {formattedContent}
+        </ReactMarkdown>
+      );
+    }
+    
+    return (
+      <p className="whitespace-pre-wrap break-words">{message.content}</p>
+    );
+  };
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed bottom-8 right-8 w-96 h-[600px] bg-gray-900 rounded-lg shadow-xl border border-gray-700 flex flex-col">
+    <div className="fixed bottom-8 right-8 w-[400px] h-[1000px] bg-gray-900 rounded-lg shadow-xl border border-gray-700 flex flex-col">
       <div className="p-4 border-b border-gray-700 flex justify-between items-center">
         <h3 className="text-lg font-semibold text-white">Chat with AI Assistant</h3>
         <button 
@@ -196,13 +321,13 @@ export default function ChatBox({ isOpen, onClose }: { isOpen: boolean; onClose:
             }`}
           >
             <div
-              className={`max-w-[80%] rounded-lg p-3 ${
+              className={`max-w-[85%] rounded-lg p-3 ${
                 message.role === 'user'
                   ? 'bg-indigo-600 text-white'
                   : 'bg-gray-800 text-gray-200'
               }`}
             >
-              {message.content}
+              {renderMessage(message)}
             </div>
           </div>
         ))}
