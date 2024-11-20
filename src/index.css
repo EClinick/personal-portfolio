@@ -8,4 +8,52 @@ html {
 
 body {
   font-family: 'Inter', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Remove Safari/Chrome mobile browser default styles */
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Custom scrollbar for the chat */
+.overflow-y-auto {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(107, 114, 128, 0.3) transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background-color: rgba(107, 114, 128, 0.3);
+  border-radius: 3px;
+}
+
+/* Remove mobile browser default styles */
+input,
+textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Remove blue highlight on mobile tap */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent text selection on buttons */
+button {
+  -webkit-user-select: none;
+  user-select: none;
 }

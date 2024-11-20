@@ -296,12 +296,13 @@ export default function ChatBox({ isOpen, onClose }: { isOpen: boolean; onClose:
   if (!isOpen) return null;
 
   return (
-    <div className="fixed bottom-8 right-8 w-[400px] h-[1000px] bg-gray-900 rounded-lg shadow-xl border border-gray-700 flex flex-col">
-      <div className="p-4 border-b border-gray-700 flex justify-between items-center">
+    <div className="fixed inset-0 md:inset-auto md:bottom-8 md:right-8 w-full md:w-[400px] h-screen md:h-auto md:max-h-[80vh] bg-gray-900 rounded-none md:rounded-lg shadow-xl flex flex-col z-50 overflow-hidden">
+      <div className="sticky top-0 p-4 flex justify-between items-center bg-gray-900 z-10">
         <h3 className="text-lg font-semibold text-white">Chat with AI Assistant</h3>
         <button 
           onClick={onClose}
-          className="text-gray-400 hover:text-white transition-colors"
+          className="text-gray-400 hover:text-white transition-colors text-2xl md:text-xl p-2"
+          aria-label="Close chat"
         >
           ×
         </button>
@@ -345,24 +346,26 @@ export default function ChatBox({ isOpen, onClose }: { isOpen: boolean; onClose:
         <div ref={messagesEndRef} />
       </div>
 
-      <form onSubmit={sendMessage} className="p-4 border-t border-gray-700">
-        <div className="flex space-x-2">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Type your message..."
-            className="flex-1 bg-gray-800 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          />
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="bg-indigo-600 text-white rounded-lg px-4 py-2 hover:bg-indigo-700 transition-colors disabled:opacity-50"
-          >
-            <Send size={20} />
-          </button>
-        </div>
-      </form>
+      <div className="sticky bottom-0 bg-gray-900">
+        <form onSubmit={sendMessage} className="p-4">
+          <div className="flex space-x-2">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Type your message..."
+              className="flex-1 bg-gray-800 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="bg-indigo-600 text-white rounded-lg px-4 py-3 hover:bg-indigo-700 transition-colors disabled:opacity-50"
+            >
+              <Send size={20} />
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 } 
