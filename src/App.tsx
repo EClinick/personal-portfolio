@@ -3,6 +3,7 @@ import { ArrowDown, Github, Linkedin, Mail, Download, ExternalLink, MapPin } fro
 import Navbar from './components/Navbar';
 import ProjectCard from './components/ProjectCard';
 import ChatBox from './components/ChatBox';
+import { Github as GithubIcon } from 'lucide-react';
 
 // Comment out the imports temporarily
 import profileImage from './assets/profile.jpg';
@@ -10,6 +11,7 @@ import tanaiImage from './assets/tanai.jpeg';
 import vcryptImage from './assets/vcrypt.png';
 import tradingImage from './assets/trading.png';
 import cryptoMinerImage from './assets/cryptov2.png';
+import weatherford from './assets/weatherford.jpg';
 //import tradingJournalImage = '/trading-journal.png';
 // Use these constants instead
 //const profileImage = "https://images.unsplash.com/photo-1549692520-acc6669e2f0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80";
@@ -91,9 +93,9 @@ function App() {
               </p>
               <div className="space-y-4">
                 <div className="p-4 bg-gray-700 rounded-lg">
-                  <h3 className="font-semibold mb-3 text-white">Skills</h3>
+                  <h3 className="font-semibold mb-3 text-white">Programming Languages</h3>
                   <div className="flex flex-wrap gap-2">
-                    {['Python', 'Rust', 'Node.js', 'React Native', 'TypeScript', 'iOS'].map((skill) => (
+                    {['Python', 'Rust', 'TypeScript', 'C', 'JavaScript', 'C++', 'SQL'].map((skill) => (
                       <span key={skill} className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">
                         {skill}
                       </span>
@@ -101,9 +103,9 @@ function App() {
                   </div>
                 </div>
                 <div className="p-4 bg-gray-700 rounded-lg">
-                  <h3 className="font-semibold mb-3 text-white">Cloud & Tools</h3>
+                  <h3 className="font-semibold mb-3 text-white">Frameworks & Technologies</h3>
                   <div className="flex flex-wrap gap-2">
-                    {['AWS', 'Docker', 'Git', 'Stripe', 'Auth0', 'PostgreSQL', 'Supabase'].map((tool) => (
+                    {['React Native', 'React', 'Node.js', 'Docker', 'PostgreSQL', 'Discord API', 'Selenium', 'Playwright', 'Stripe', 'Auth0', 'Supabase'].map((tool) => (
                       <span key={tool} className="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm">
                         {tool}
                       </span>
@@ -111,9 +113,9 @@ function App() {
                   </div>
                 </div>
                 <div className="p-4 bg-gray-700 rounded-lg">
-                  <h3 className="font-semibold mb-3 text-white">AI & Data Analysis</h3>
+                  <h3 className="font-semibold mb-3 text-white">Systems & Architecture</h3>
                   <div className="flex flex-wrap gap-2">
-                    {['OpenAI API', 'Image Analysis', 'Financial Market Algorithms'].map((item) => (
+                    {['Systems Programming', 'Multi-threading', 'Memory Management', 'Network Programming', 'File Systems', 'AWS', 'Azure', 'Docker'].map((item) => (
                       <span key={item} className="px-3 py-1 bg-red-500/20 text-red-300 rounded-full text-sm">
                         {item}
                       </span>
@@ -121,9 +123,9 @@ function App() {
                   </div>
                 </div>
                 <div className="p-4 bg-gray-700 rounded-lg">
-                  <h3 className="font-semibold mb-3 text-white">Product Management</h3>
+                  <h3 className="font-semibold mb-3 text-white">Specialized Skills</h3>
                   <div className="flex flex-wrap gap-2">
-                    {['Agile', 'Risk Management', 'SaaS Products'].map((item) => (
+                    {['AI Integration', 'Financial Markets', 'Cloud Architecture', 'Product Management', 'API Design'].map((item) => (
                       <span key={item} className="px-3 py-1 bg-yellow-500/20 text-yellow-300 rounded-full text-sm">
                         {item}
                       </span>
@@ -237,10 +239,44 @@ function App() {
                 { text: 'AWS', color: 'green' }
               ]}
               githubUrl=""
-              liveUrl="https://spiffy-youtiao-ca2503.netlify.app/"
+              liveUrl="https://cal.vcryptfinancial.com/"
               linkedinUrl=""
               comingSoon={true}
               disclaimer="Note: The current website is an early demo version and is outdated. It serves only as a preliminary showcase of the concept."
+            />
+          </div>
+
+          {/* Academic Projects Section */}
+          <div className="mt-32 mb-12 relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-700"></div>
+            </div>
+            <div className="relative flex justify-center">
+              <span className="bg-gray-900 px-6 text-3xl font-bold text-white">
+                Academic Projects
+              </span>
+            </div>
+            <p className="text-gray-400 text-center mt-4 max-w-2xl mx-auto">
+              Notable academic projects showcasing technical skills and programming concepts.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-8">
+            <ProjectCard
+              title="Operating Systems I (CS374)"
+              description="A comprehensive systems programming course implementation featuring 5 assignments covering various OS concepts. Includes parallel implementations in both C and Rust, demonstrating low-level system operations and memory management."
+              image={`https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png`}
+              tags={[
+                { text: 'C', color: 'blue' },
+                { text: 'Rust', color: 'red' },
+                { text: 'Systems Programming', color: 'green' },
+                { text: 'Multi-threading', color: 'yellow' },
+                { text: 'Memory Management', color: 'green' },
+                { text: 'Network Programming', color: 'blue' },
+                { text: 'File Systems', color: 'yellow' }
+              ]}
+              githubUrl="https://github.com/EClinick/OS1/"
+              disclaimer="Course projects demonstrating fundamental OS concepts including process management, threading, networking, and file systems."
             />
           </div>
         </div>

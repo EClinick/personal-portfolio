@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ExternalLink, Github, Linkedin } from 'lucide-react';
 
 interface Tag {
@@ -29,6 +29,43 @@ export default function ProjectCard({
   comingSoon,
   disclaimer
 }: ProjectCardProps) {
+  const [rotation, setRotation] = useState({ x: 0, y: 0 });
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: MouseEvent) => {
+    if (!cardRef.current) return;
+
+    const card = cardRef.current;
+    const rect = card.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    // Calculate rotation based on mouse position relative to card center
+    // Limit the rotation to a small range (-3 to 3 degrees)
+    const rotateY = ((e.clientX - centerX) / (rect.width / 2)) * 3;
+    const rotateX = -((e.clientY - centerY) / (rect.height / 2)) * 3;
+
+    setRotation({ x: rotateX, y: rotateY });
+  };
+
+  const handleMouseLeave = () => {
+    // Reset rotation when mouse leaves the card
+    setRotation({ x: 0, y: 0 });
+  };
+
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+
+    card.addEventListener('mousemove', handleMouseMove);
+    card.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove);
+      card.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
   const getTagStyles = (color: Tag['color']) => {
     const styles = {
       blue: 'bg-blue-500/20 text-blue-300',
@@ -40,8 +77,16 @@ export default function ProjectCard({
   };
 
   return (
-    <div className="bg-gray-900 rounded-lg overflow-hidden">
-      <div className="aspect-[2/1] w-full relative">
+    <div 
+      ref={cardRef}
+      className="bg-gray-900 rounded-lg overflow-hidden transform transition-transform duration-200 ease-out hover:scale-[1.02]"
+      style={{
+        transform: `perspective(1000px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
+        transformStyle: 'preserve-3d',
+        willChange: 'transform'
+      }}
+    >
+      <div className="aspect-[2/1] w-full relative" style={{ transform: 'translateZ(20px)' }}>
         <img 
           src={image} 
           alt={title} 
@@ -55,7 +100,7 @@ export default function ProjectCard({
           </div>
         )}
       </div>
-      <div className="p-6 bg-gray-800/50">
+      <div className="p-6 bg-gray-800/50" style={{ transform: 'translateZ(30px)' }}>
         <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
         <p className="text-gray-400 text-sm mb-4">{description}</p>
         <div className="flex flex-wrap gap-2 mb-4">
