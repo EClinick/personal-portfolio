@@ -12,6 +12,7 @@ import vcryptImage from './assets/vcrypt.png';
 import tradingImage from './assets/trading.png';
 import cryptoMinerImage from './assets/cryptov2.png';
 import weatherford from './assets/weatherford.jpg';
+import trademindImage from './assets/trademind.gif';
 //import tradingJournalImage = '/trading-journal.png';
 // Use these constants instead
 //const profileImage = "https://images.unsplash.com/photo-1549692520-acc6669e2f0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80";
@@ -208,6 +209,24 @@ function App() {
 
           <div className="flex flex-col gap-8">
             <ProjectCard
+              title="TradeMind"
+              description="A comprehensive trading journal application designed to help traders track, analyze, and improve their trading performance through detailed analytics and AI-powered insights."
+              image={trademindImage}
+              tags={[
+                { text: 'React', color: 'blue' },
+                { text: 'TypeScript', color: 'blue' },
+                { text: 'Node.js', color: 'blue' },
+                { text: 'PostgreSQL', color: 'green' },
+                { text: 'AI Analytics', color: 'red' },
+                { text: 'AWS', color: 'green' }
+              ]}
+              githubUrl=""
+              liveUrl="https://trademind.pro"
+              linkedinUrl=""
+              //comingSoon={true}
+              disclaimer="Note: The current website is an early beta version, currently working on phase 2 of development."
+            />
+            <ProjectCard
               title="Tan.ai"
               description="An AI-driven iOS app offering personalized tanning advice using custom-trained models. Currently in beta testing phase with planned release in Summer 2024."
               image={tanaiImage}
@@ -226,24 +245,7 @@ function App() {
               comingSoon={true}
               disclaimer="Note: The current website is an early demo version and is outdated. It serves only as a preliminary showcase of the concept. My main focus is on the app development."
             />
-            <ProjectCard
-              title="Trading Journal Pro"
-              description="A comprehensive trading journal application designed to help traders track, analyze, and improve their trading performance through detailed analytics and AI-powered insights."
-              image={vcryptImage}
-              tags={[
-                { text: 'React', color: 'blue' },
-                { text: 'TypeScript', color: 'blue' },
-                { text: 'Node.js', color: 'blue' },
-                { text: 'PostgreSQL', color: 'green' },
-                { text: 'AI Analytics', color: 'red' },
-                { text: 'AWS', color: 'green' }
-              ]}
-              githubUrl=""
-              liveUrl="https://cal.vcryptfinancial.com/"
-              linkedinUrl=""
-              comingSoon={true}
-              disclaimer="Note: The current website is an early demo version and is outdated. It serves only as a preliminary showcase of the concept."
-            />
+       
           </div>
 
           {/* Academic Projects Section */}

@@ -1,10 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send } from 'lucide-react';
+import { Send, X, Trash2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
 interface Message {
   role: 'user' | 'assistant' | 'system';
   content: string;
+}
+
+interface ChatBoxProps {
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 const SYSTEM_CONTEXT = {
@@ -83,8 +88,27 @@ const SYSTEM_CONTEXT = {
         ],
         githubUrl: "https://github.com/EClinick/litecoinpool-bot",
         status: "Active"
+      },
+      {
+        name: "Trademind",
+        description: "An AI-driven trading journaling platform that provides predictive insights and a comprehensive interface for users to track their portfolios. It is a subdivision of Vcrypt Software LLC, with the goal to combine the two to integrate a algorithmic trading platform.",
+        technologies: ["AI", "Predictive Analytics", "Portfolio Tracking"],
+        features: [
+          "Real-time market analysis",
+          "Automated trade tracking",
+          "Comprehensive trading journal",
+          "Portfolio performance metrics",
+          "User-friendly interface"
+        ],
+        links: [
+          {
+            name: "Website",
+            url: "https://trademind.pro"
+          }
+        ]
       }
     ],
+    
     skills: [
       "Python", "Rust", "AWS", "React Native", "OpenAI API", "Algorithmic trading",
       "Cloud services", "Project management", "Backend development", "AI and ML models",
@@ -129,7 +153,7 @@ const formatAIResponse = (text: string): string => {
   return text.trim();
 };
 
-export default function ChatBox({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+export default function ChatBox({ isOpen, onClose }: ChatBoxProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -293,19 +317,32 @@ export default function ChatBox({ isOpen, onClose }: { isOpen: boolean; onClose:
     );
   };
 
+  const handleClearChat = () => {
+    setMessages([]);
+  };
+
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 md:inset-auto md:bottom-8 md:right-8 w-full md:w-[400px] h-screen md:h-auto md:max-h-[80vh] bg-gray-900 rounded-none md:rounded-lg shadow-xl flex flex-col z-50 overflow-hidden">
       <div className="sticky top-0 p-4 flex justify-between items-center bg-gray-900 z-10">
         <h3 className="text-lg font-semibold text-white">Chat with AI Assistant</h3>
-        <button 
-          onClick={onClose}
-          className="text-gray-400 hover:text-white transition-colors text-2xl md:text-xl p-2"
-          aria-label="Close chat"
-        >
-          ×
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={handleClearChat}
+            className="text-gray-400 hover:text-red-500 transition-colors"
+            title="Clear chat"
+          >
+            <Trash2 size={20} />
+          </button>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-white transition-colors text-2xl md:text-xl p-2"
+            aria-label="Close chat"
+          >
+            ×
+          </button>
+        </div>
       </div>
       
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
