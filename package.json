@@ -12,7 +12,10 @@
     "deploy": "cross-env VITE_GITHUB_API_TOKEN=$API_TOKEN gh-pages -d dist --dotfiles"
   },
   "dependencies": {
+    "@heroui/react": "^2.6.14",
     "@netlify/functions": "^2.8.2",
+    "@nextui-org/react": "^2.6.11",
+    "framer-motion": "^12.4.1",
     "lucide-react": "^0.344.0",
     "re-resizable": "^6.10.1",
     "react": "^18.3.1",

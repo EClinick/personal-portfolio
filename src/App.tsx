@@ -13,6 +13,7 @@ import tradingImage from './assets/trading.png';
 import cryptoMinerImage from './assets/cryptov2.png';
 import weatherford from './assets/weatherford.jpg';
 import trademindImage from './assets/trademind.gif';
+import planGenieImage from './assets/plangenie.jpg';
 //import tradingJournalImage = '/trading-journal.png';
 // Use these constants instead
 //const profileImage = "https://images.unsplash.com/photo-1549692520-acc6669e2f0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80";
@@ -89,7 +90,8 @@ function App() {
                 <span className="text-indigo-400 font-medium">AI-driven solutions</span> and{' '}
                 <span className="text-indigo-400 font-medium">scalable backend architectures</span>. 
                 I've led multiple projects, optimized cloud-based systems, and founded innovative startups like{' '}
-                <span className="text-white font-semibold">Tan.ai</span> and{' '}
+                <span className="text-white font-semibold">Tan.ai</span>,{' '}
+                <span className="text-white font-semibold">PlanGenie</span>, and{' '}
                 <span className="text-white font-semibold">Vcrypt Software LLC</span>.
               </p>
               <div className="space-y-4">
@@ -142,8 +144,84 @@ function App() {
       {/* Projects Section */}
       <section id="projects" className="py-20 bg-gray-900 px-4">
         <div className="max-w-3xl mx-auto">
-          {/* Active Projects */}
-          <h2 className="text-3xl font-bold mb-12 text-center text-white">Featured Projects</h2>
+          {/* In Development Section */}
+          <h2 className="text-3xl font-bold mb-12 text-center text-white">In Development</h2>
+          <div className="flex flex-col gap-8">
+            <ProjectCard
+              title="TradeMind"
+              description="A comprehensive trading journal application designed to help traders track, analyze, and improve their trading performance through detailed analytics and AI-powered insights."
+              image={trademindImage}
+              tags={[
+                { text: 'React', color: 'blue' },
+                { text: 'TypeScript', color: 'blue' },
+                { text: 'Node.js', color: 'blue' },
+                { text: 'PostgreSQL', color: 'green' },
+                { text: 'AI Analytics', color: 'red' },
+                { text: 'AWS', color: 'green' }
+              ]}
+              githubUrl=""
+              liveUrl="https://trademind.pro"
+              linkedinUrl=""
+              disclaimer="Note: The current website is an early beta version, currently working on phase 2 of development."
+            />
+           
+            <ProjectCard
+              title="PlanGenie"
+              description="An AI-powered task management platform built specifically for neurodivergent minds. PlanGenie adapts to your unique thought process, helping break down complex tasks and providing a natural organization flow that works with your cognitive style."
+              image={planGenieImage}
+              tags={[
+                { text: 'AI Agent', color: 'red' },
+
+                { text: 'React', color: 'blue' },
+                { text: 'TypeScript', color: 'blue' },
+                { text: 'Node.js', color: 'blue' },
+                { text: 'LLM Integration', color: 'red' },
+                { text: 'iOS', color: 'green' },
+                { text: 'Accessibility', color: 'yellow' },
+                { text: 'Fullstack', color: 'green' }
+              ]}
+              githubUrl=""
+              liveUrl="https://plangenie.net"
+              linkedinUrl=""
+              //comingSoon={true}
+              disclaimer="Currently in early development. Developing the mobile app currently."
+            />
+             <ProjectCard
+              title="Tan.ai"
+              description="An AI-driven iOS app offering personalized tanning advice using custom-trained models. Currently in beta testing phase with planned release in Summer 2024."
+              image={tanaiImage}
+              tags={[
+                { text: 'AI', color: 'red' },
+                { text: 'iOS', color: 'blue' },
+                { text: 'AWS', color: 'green' },
+                { text: 'PostgreSQL', color: 'green' },
+                { text: 'Docker', color: 'green' },
+                { text: 'React Native', color: 'blue' },
+                { text: 'Beta', color: 'yellow' }
+              ]}
+              githubUrl=""
+              liveUrl="https://tanai.app/"
+              linkedinUrl="https://www.linkedin.com/feed/update/urn:li:activity:7238027109045088256/"
+              comingSoon={true}
+              disclaimer="Note: The current website is an early demo version and is outdated. It serves only as a preliminary showcase of the concept. My main focus is on the app development."
+            />
+          </div>
+
+          {/* Employment Section */}
+          <div className="mt-32 mb-12 relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-700"></div>
+            </div>
+            <div className="relative flex justify-center">
+              <span className="bg-gray-900 px-6 text-3xl font-bold text-white">
+                Employment
+              </span>
+            </div>
+            <p className="text-gray-400 text-center mt-4 max-w-2xl mx-auto">
+              Current professional roles and responsibilities.
+            </p>
+          </div>
+
           <div className="flex flex-col gap-8">
             <ProjectCard
               title="Vcrypt Software"
@@ -162,6 +240,24 @@ function App() {
               liveUrl="https://vcryptfinancial.com"
               linkedinUrl="https://www.linkedin.com/company/vcrypt"
             />
+          </div>
+
+          {/* Featured Projects Section */}
+          <div className="mt-32 mb-12 relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-700"></div>
+            </div>
+            <div className="relative flex justify-center">
+              <span className="bg-gray-900 px-6 text-3xl font-bold text-white">
+                Featured Projects
+              </span>
+            </div>
+            <p className="text-gray-400 text-center mt-4 max-w-2xl mx-auto">
+              Notable personal and professional projects.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-8">
             <ProjectCard
               title="Crypto Mining Monitor Bot"
               description="A comprehensive Discord bot for monitoring cryptocurrency mining operations, specifically designed for Litecoin (LTC) and Dogecoin (DOGE) mining through litecoinpool.org. Features real-time profitability monitoring, worker status tracking, and automated alerts."
@@ -190,62 +286,6 @@ function App() {
               liveUrl=""
               linkedinUrl="https://www.linkedin.com/company/oregon-state-options-trading-club/"
             />
-          </div>
-          
-          {/* In Development Section with enhanced styling */}
-          <div className="mt-32 mb-12 relative">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-700"></div>
-            </div>
-            <div className="relative flex justify-center">
-              <span className="bg-gray-900 px-6 text-3xl font-bold text-white">
-                In Development
-              </span>
-            </div>
-            <p className="text-gray-400 text-center mt-4 max-w-2xl mx-auto">
-              Upcoming projects currently in active development. These projects are being built and will be released soon.
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-8">
-            <ProjectCard
-              title="TradeMind"
-              description="A comprehensive trading journal application designed to help traders track, analyze, and improve their trading performance through detailed analytics and AI-powered insights."
-              image={trademindImage}
-              tags={[
-                { text: 'React', color: 'blue' },
-                { text: 'TypeScript', color: 'blue' },
-                { text: 'Node.js', color: 'blue' },
-                { text: 'PostgreSQL', color: 'green' },
-                { text: 'AI Analytics', color: 'red' },
-                { text: 'AWS', color: 'green' }
-              ]}
-              githubUrl=""
-              liveUrl="https://trademind.pro"
-              linkedinUrl=""
-              //comingSoon={true}
-              disclaimer="Note: The current website is an early beta version, currently working on phase 2 of development."
-            />
-            <ProjectCard
-              title="Tan.ai"
-              description="An AI-driven iOS app offering personalized tanning advice using custom-trained models. Currently in beta testing phase with planned release in Summer 2024."
-              image={tanaiImage}
-              tags={[
-                { text: 'AI', color: 'red' },
-                { text: 'iOS', color: 'blue' },
-                { text: 'AWS', color: 'green' },
-                { text: 'PostgreSQL', color: 'green' },
-                { text: 'Docker', color: 'green' },
-                { text: 'React Native', color: 'blue' },
-                { text: 'Beta', color: 'yellow' }
-              ]}
-              githubUrl=""
-              liveUrl="https://tanai.app/"
-              linkedinUrl="https://www.linkedin.com/feed/update/urn:li:activity:7238027109045088256/"
-              comingSoon={true}
-              disclaimer="Note: The current website is an early demo version and is outdated. It serves only as a preliminary showcase of the concept. My main focus is on the app development."
-            />
-       
           </div>
 
           {/* Academic Projects Section */}

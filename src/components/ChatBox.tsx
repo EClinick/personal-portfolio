@@ -49,6 +49,27 @@ const SYSTEM_CONTEXT = {
             url: "https://www.linkedin.com/feed/update/urn:li:activity:7238027109045088256/"
           }
         ]
+      },  
+      {
+        "role": "Founder",
+        "company": "PlanGenie",
+        "location": "Fall City, WA",
+        "dates": "November 2024 - Present",
+        "responsibilities": [
+          "Conceptualized and developed an AI-powered task management platform tailored for neurodivergent individuals",
+          "Integrated advanced AI models for intelligent task breakdown and scheduling",
+          "Designed a user-friendly interface to facilitate natural task creation and organization for individuals with ADHD",
+          "Implemented features like interactive timeline views, multi-calendar synchronization, and customizable notifications",
+          "Developed scalable backend architecture supporting secure user authentication and subscription-based services",
+          "Collaborated with neurodivergent communities to ensure the platform meets their unique needs and challenges"
+        ],
+        "links": [
+          {
+            "name": "Website",
+            "url": "https://plangenie.net"
+          },
+
+        ]
       },
       {
         role: "Co-founder/President of Algorithms and Analytics",
