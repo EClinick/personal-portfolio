@@ -9,6 +9,8 @@ html {
 body {
   font-family: 'Inter', sans-serif;
   -webkit-tap-highlight-color: transparent;
+  min-height: 100vh;
+  transition: background 0.3s ease;
 }
 
 /* Remove Safari/Chrome mobile browser default styles */
@@ -20,23 +22,29 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Custom scrollbar for the chat */
+/* Custom scrollbar with glassmorphism */
 .overflow-y-auto {
   scrollbar-width: thin;
-  scrollbar-color: rgba(107, 114, 128, 0.3) transparent;
+  scrollbar-color: rgba(139, 92, 246, 0.4) transparent;
 }
 
 .overflow-y-auto::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 .overflow-y-auto::-webkit-scrollbar-track {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
 }
 
 .overflow-y-auto::-webkit-scrollbar-thumb {
-  background-color: rgba(107, 114, 128, 0.3);
-  border-radius: 3px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(99, 102, 241, 0.4));
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.6), rgba(99, 102, 241, 0.6));
 }
 
 /* Remove mobile browser default styles */
@@ -56,6 +64,86 @@ textarea {
 button {
   -webkit-user-select: none;
   user-select: none;
+}
+
+/* Glassmorphism utility classes */
+@layer components {
+  .glass {
+    @apply bg-glass backdrop-blur-md border border-glass shadow-glass;
+  }
+
+  .glass-card {
+    @apply bg-glass-card backdrop-blur-lg border border-glass-light shadow-glass-sm;
+  }
+
+  .glass-nav {
+    @apply bg-glass-nav backdrop-blur-xl border-b border-glass;
+  }
+
+  .glass-modal {
+    @apply bg-glass-modal backdrop-blur-2xl border border-glass-light shadow-glass-lg;
+  }
+
+  .glass-button {
+    @apply bg-glass-light backdrop-blur-sm border border-glass-light shadow-glass-sm hover:bg-glass-card hover:shadow-glass transition-all duration-300;
+  }
+
+  .glass-input {
+    @apply bg-glass backdrop-blur-md border border-glass-dark focus:border-glass-light shadow-glass-inset;
+  }
+
+  .glass-shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+    background-size: 200% 100%;
+    animation: glass-shimmer 2s ease-in-out infinite;
+  }
+
+  .glass-hover {
+    @apply glass-button hover:bg-glass-light hover:border-glass-light hover:shadow-glass transition-all duration-300;
+  }
+
+  .glass-focus {
+    @apply focus:ring-2 focus:ring-indigo-400/50 focus:border-glass-light;
+  }
+
+  .hero-curve {
+    clip-path: ellipse(100% 100% at 50% 0%);
+  }
+
+  .hero-section {
+    background: radial-gradient(ellipse at center top, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at center bottom, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+  }
+
+  /* Chat button special animations */
+  .chat-button-animated {
+    position: relative;
+    transform-origin: center bottom;
+  }
+
+  .chat-button-animated:hover {
+    animation-duration: 1s !important;
+  }
+
+  /* Magical gradient text animation */
+  .chat-button-animated span {
+    background-size: 200% 200%;
+    animation: gradient-shift 5s ease-in-out infinite;
+  }
+
+  .chat-button-animated:hover span {
+    animation-duration: 2s;
+  }
+
+  /* Stop gradient animation when chat is clicked */
+  .chat-button-animated.chat-clicked span {
+    animation: none;
+  }
 }
 
 /* Add these to your existing CSS */
