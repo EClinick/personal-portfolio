@@ -80,6 +80,8 @@ export default function FeaturedProjects() {
     let timeoutId: number
 
     const handleScroll = () => {
+      // Disable sticky scroll behavior on mobile (screens smaller than 768px)
+      if (window.innerWidth < 768) return
       if (userInteracting) return
 
       if (!sectionRef.current) return
@@ -131,14 +133,164 @@ export default function FeaturedProjects() {
   const currentProject = projects[activeProject]
 
   return (
-    <section id="projects" ref={sectionRef} className="relative bg-black" style={{ height: `${100 + projects.length * 100}vh` }}>
-      {/* Header Section OUTSIDE sticky */}
-      <div className="container mx-auto px-6">
-        <div className="flex items-center justify-between py-6 flex-shrink-0">
-          <div className="flex items-center space-x-8">
-            <div className="text-2xl">✱</div>
+    <>
+      {/* Desktop Layout - Sticky Cards */}
+      <section 
+        id="projects" 
+        ref={sectionRef} 
+        className="hidden md:block relative bg-black" 
+        style={{ height: `${100 + projects.length * 100}vh` }}
+      >
+        {/* Header Section OUTSIDE sticky */}
+        <div className="container mx-auto px-6">
+          <div className="flex items-center justify-between py-6 flex-shrink-0">
+            <div className="flex items-center space-x-8">
+              <div className="text-2xl">✱</div>
+              <div>
+                <h2 className="text-4xl lg:text-5xl font-light leading-tight">
+                  SOME
+                  <br />
+                  <span className="font-semibold">FEATURED</span>
+                  <br />
+                  <span className="font-semibold">PROJECTS</span>
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* Sticky Card & Info Section */}
+        <div className="sticky top-0 flex flex-col overflow-hidden">
+          <div className="container mx-auto px-6 h-full flex flex-col py-12">
+            {/* Main Card Display */}
+            <div className="flex-1 flex items-center justify-center min-h-0">
+              <div className="relative w-full max-w-6xl h-[60vh]">
+                {projects.map((project, index) => {
+                  const isActive = index === activeProject
+                  const isPrevious = index < activeProject
+                  const isNext = index > activeProject
+                  
+                  let transform = ""
+                  let opacity = 1
+                  let zIndex = projects.length - index
+                  let display = "block"
+                  
+                  if (isPrevious) {
+                    transform = `translateY(-${(activeProject - index) * 20}px) scale(${1 - (activeProject - index) * 0.05})`
+                    opacity = 1
+                    zIndex = index
+                    display = "none" // Hide previous cards completely
+                  } else if (isActive) {
+                    transform = "translateY(0px) scale(1)"
+                    opacity = 1
+                    zIndex = projects.length
+                  } else if (isNext) {
+                    transform = `translateY(${(index - activeProject) * 20}px) scale(${1 - (index - activeProject) * 0.05})`
+                    opacity = 1
+                    zIndex = projects.length - index
+                  }
+
+                  return (
+                    <div
+                      key={project.id}
+                      className="absolute inset-0 transition-all duration-700 ease-out"
+                      style={{
+                        transform,
+                        opacity,
+                        zIndex,
+                        display,
+                      }}
+                    >
+                      <div className="rounded-2xl p-6 shadow-2xl border border-gray-800 h-full relative backdrop-blur-sm">
+                        <div className="h-full flex flex-col">
+                          {/* Project Header */}
+                          <div className="flex items-center justify-between">
+                            <span className="text-gray-400 text-sm">{project.tech}</span>
+                          </div>
+
+                          {/* Project Content */}
+                          <div className="flex-1">
+                            <div
+                              className={`h-full bg-gradient-to-br ${project.color} rounded-xl relative overflow-hidden`}
+                            >
+                              {project.name === "Tan.ai" ? (
+                                <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-black/60 text-white z-10">
+                                  <span className="text-5xl mb-4">🚧</span>
+                                  <span className="text-2xl font-semibold mb-2">In Development</span>
+                                  <span className="text-lg text-gray-300">Live preview coming soon</span>
+                                </div>
+                              ) : project.liveUrl ? (
+                                <iframe
+                                  src={project.liveUrl}
+                                  title={project.name}
+                                  className="absolute inset-0 w-full h-full rounded-xl border-0"
+                                  allow="fullscreen"
+                                  loading="lazy"
+                                />
+                              ) : (
+                                <img
+                                  src={project.image}
+                                  alt={project.name}
+                                  className="absolute inset-0 w-full h-full object-cover"
+                                />
+                              )}
+                              <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+
+            {/* Bottom Project Info Section */}
+            <div className="py-8 flex justify-center">
+              <div className="w-full max-w-6xl">
+                <ScrollFadeIn delay={200} className="space-y-6">
+                  {/* Current Project Details */}
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-3xl font-bold text-white">{currentProject.name}</h3>
+                      <span className="text-gray-400">:: {currentProject.tech}</span>
+                    </div>
+                    <p className="text-gray-400 text-lg leading-relaxed max-w-4xl">
+                      {currentProject.description}
+                    </p>
+                  </div>
+
+                  {/* Navigation Dots */}
+                  <div className="flex space-x-3 mt-8">
+                    {projects.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setActiveProject(index)}
+                        className={`h-2 rounded-full transition-all duration-500 ${
+                          index === activeProject ? "bg-orange-500 w-8" : "bg-white/20 w-2 hover:bg-white/40"
+                        }`}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Project Counter */}
+                  <div className="text-gray-500 text-sm">
+                    {String(activeProject + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
+                  </div>
+                </ScrollFadeIn>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Mobile Layout - Normal Scrollable Cards */}
+      <section id="projects" className="md:hidden bg-black py-12">
+        {/* Header Section */}
+        <div className="container mx-auto px-4">
+          <div className="flex items-center space-x-4 mb-12">
+            <div className="text-xl">✱</div>
             <div>
-              <h2 className="text-4xl lg:text-5xl font-light leading-tight">
+              <h2 className="text-2xl sm:text-3xl font-light leading-tight">
                 SOME
                 <br />
                 <span className="font-semibold">FEATURED</span>
@@ -147,136 +299,65 @@ export default function FeaturedProjects() {
               </h2>
             </div>
           </div>
-          <Link to="/projects">
-            <button className="bg-lime-400 hover:bg-lime-500 text-black font-semibold px-8 py-3 rounded-full text-lg transition-colors">
-              ✱ Go to Projects Page
-            </button>
-          </Link>
         </div>
-      </div>
-      {/* Sticky Card & Info Section */}
-      <div className="sticky top-0 flex flex-col overflow-hidden">
-        <div className="container mx-auto px-6 h-full flex flex-col py-12">
-          {/* Main Card Display */}
-          <div className="flex-1 flex items-center justify-center min-h-0">
-            <div className="relative w-full max-w-6xl h-[60vh]">
-              {projects.map((project, index) => {
-                const isActive = index === activeProject
-                const isPrevious = index < activeProject
-                const isNext = index > activeProject
-                
-                let transform = ""
-                let opacity = 1
-                let zIndex = projects.length - index
-                let display = "block"
-                
-                if (isPrevious) {
-                  transform = `translateY(-${(activeProject - index) * 20}px) scale(${1 - (activeProject - index) * 0.05})`
-                  opacity = 1
-                  zIndex = index
-                  display = "none" // Hide previous cards completely
-                } else if (isActive) {
-                  transform = "translateY(0px) scale(1)"
-                  opacity = 1
-                  zIndex = projects.length
-                } else if (isNext) {
-                  transform = `translateY(${(index - activeProject) * 20}px) scale(${1 - (index - activeProject) * 0.05})`
-                  opacity = 1
-                  zIndex = projects.length - index
-                }
 
-                return (
-                  <div
-                    key={project.id}
-                    className="absolute inset-0 transition-all duration-700 ease-out"
-                    style={{
-                      transform,
-                      opacity,
-                      zIndex,
-                      display,
-                    }}
-                  >
-                    <div className="rounded-2xl p-6 shadow-2xl border border-gray-800 h-full relative backdrop-blur-sm">
-                      <div className="h-full flex flex-col">
-                        {/* Project Header */}
-                        <div className="flex items-center justify-between">
-                          <span className="text-gray-400 text-sm">{project.tech}</span>
-                        </div>
+        {/* Projects Grid */}
+        <div className="container mx-auto px-4 space-y-8">
+          {projects.map((project, index) => (
+            <ScrollFadeIn key={project.id} delay={index * 100}>
+              <div className="rounded-2xl p-4 shadow-2xl border border-gray-800 relative backdrop-blur-sm">
+                <div className="space-y-4">
+                  {/* Project Header */}
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-400 text-sm">{project.tech}</span>
+                  </div>
 
-                        {/* Project Content */}
-                        <div className="flex-1">
-                          <div
-                            className={`h-full bg-gradient-to-br ${project.color} rounded-xl relative overflow-hidden`}
-                          >
-                            {project.name === "Tan.ai" ? (
-                              <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-black/60 text-white z-10">
-                                <span className="text-5xl mb-4">🚧</span>
-                                <span className="text-2xl font-semibold mb-2">In Development</span>
-                                <span className="text-lg text-gray-300">Live preview coming soon</span>
-                              </div>
-                            ) : project.liveUrl ? (
-                              <iframe
-                                src={project.liveUrl}
-                                title={project.name}
-                                className="absolute inset-0 w-full h-full rounded-xl border-0"
-                                allow="fullscreen"
-                                loading="lazy"
-                              />
-                            ) : (
-                              <img
-                                src={project.image}
-                                alt={project.name}
-                                className="absolute inset-0 w-full h-full object-cover"
-                              />
-                            )}
-                            <div className="absolute inset-0 bg-black/20 pointer-events-none" />
-                          </div>
+                  {/* Project Content */}
+                  <div className="h-[300px] relative">
+                    <div
+                      className={`h-full bg-gradient-to-br ${project.color} rounded-xl relative overflow-hidden`}
+                    >
+                      {project.name === "Tan.ai" ? (
+                        <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-black/60 text-white z-10">
+                          <span className="text-4xl mb-3">🚧</span>
+                          <span className="text-xl font-semibold mb-2">In Development</span>
+                          <span className="text-sm text-gray-300">Live preview coming soon</span>
                         </div>
-                      </div>
+                      ) : project.liveUrl ? (
+                        <iframe
+                          src={project.liveUrl}
+                          title={project.name}
+                          className="absolute inset-0 w-full h-full rounded-xl border-0"
+                          allow="fullscreen"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <img
+                          src={project.image}
+                          alt={project.name}
+                          className="absolute inset-0 w-full h-full object-cover"
+                        />
+                      )}
+                      <div className="absolute inset-0 bg-black/20 pointer-events-none" />
                     </div>
                   </div>
-                )
-              })}
-            </div>
-          </div>
 
-          {/* Bottom Project Info Section */}
-          <div className="py-8 flex justify-center">
-            <div className="w-full max-w-6xl">
-              <ScrollFadeIn delay={200} className="space-y-6">
-                {/* Current Project Details */}
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-3xl font-bold text-white">{currentProject.name}</h3>
-                    <span className="text-gray-400">:: {currentProject.tech}</span>
+                  {/* Project Info */}
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                      <h3 className="text-xl font-bold text-white">{project.name}</h3>
+                      <span className="text-gray-400 text-sm">:: {project.tech}</span>
+                    </div>
+                    <p className="text-gray-400 text-sm leading-relaxed">
+                      {project.description}
+                    </p>
                   </div>
-                  <p className="text-gray-400 text-lg leading-relaxed max-w-4xl">
-                    {currentProject.description}
-                  </p>
                 </div>
-
-                {/* Navigation Dots */}
-                <div className="flex space-x-3 mt-8">
-                  {projects.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setActiveProject(index)}
-                      className={`h-2 rounded-full transition-all duration-500 ${
-                        index === activeProject ? "bg-orange-500 w-8" : "bg-white/20 w-2 hover:bg-white/40"
-                      }`}
-                    />
-                  ))}
-                </div>
-
-                {/* Project Counter */}
-                <div className="text-gray-500 text-sm">
-                  {String(activeProject + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
-                </div>
-              </ScrollFadeIn>
-            </div>
-          </div>
+              </div>
+            </ScrollFadeIn>
+          ))}
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   )
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { CornerRightUp, Mic } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { useAutoResizeTextarea } from "@/components/hooks/use-auto-resize-textarea";
@@ -30,6 +30,41 @@ export function AIInput({
     maxHeight,
   });
   const [inputValue, setInputValue] = useState("");
+  const [isListening, setIsListening] = useState(false);
+  const recognitionRef = useRef<any>(null);
+
+  // Speech-to-text logic
+  const handleMicClick = () => {
+    if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+      alert('Speech recognition is not supported in this browser.');
+      return;
+    }
+    let SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!recognitionRef.current) {
+      recognitionRef.current = new SpeechRecognition();
+      recognitionRef.current.continuous = false;
+      recognitionRef.current.interimResults = false;
+      recognitionRef.current.lang = 'en-US';
+      recognitionRef.current.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setInputValue((prev: string) => (prev ? prev + ' ' : '') + transcript);
+        adjustHeight();
+      };
+      recognitionRef.current.onerror = (event: any) => {
+        setIsListening(false);
+      };
+      recognitionRef.current.onend = () => {
+        setIsListening(false);
+      };
+    }
+    if (!isListening) {
+      setIsListening(true);
+      recognitionRef.current.start();
+    } else {
+      setIsListening(false);
+      recognitionRef.current.stop();
+    }
+  };
 
   const handleReset = () => {
     if (!inputValue.trim()) return;
@@ -72,16 +107,27 @@ export function AIInput({
         <div
           className={cn(
             "absolute top-1/2 -translate-y-1/2 rounded-xl py-1 px-1 transition-all duration-200",
-            inputValue ? "right-10" : "right-3",
-            isDarkMode
-              ? "bg-white/10"
-              : "bg-black/5"
+            inputValue ? "right-10" : "right-3"
           )}
         >
-          <Mic className={cn(
-            "w-4 h-4",
-            isDarkMode ? "text-white/70" : "text-black/70"
-          )} />
+          <button
+            type="button"
+            onClick={handleMicClick}
+            aria-label={isListening ? "Stop listening" : "Start listening"}
+            className={cn(
+              // Match send icon button style:
+              "rounded-xl py-1 px-1 transition-all duration-200 bg-transparent border-none",
+              isDarkMode
+                ? "bg-white/10 hover:bg-white/20"
+                : "bg-black/5 hover:bg-black/10"
+            )}
+          >
+            <Mic className={cn(
+              "w-4 h-4",
+              isListening ? "text-orange-500" : (isDarkMode ? "text-white/70" : "text-black/70")
+            )} />
+            {/* Removed 'Listening...' text */}
+          </button>
         </div>
         
         <button
@@ -89,7 +135,7 @@ export function AIInput({
           type="button"
           className={cn(
             "absolute top-1/2 -translate-y-1/2 right-3",
-            "rounded-xl py-1 px-1 transition-all duration-200",
+            "rounded-xl py-1 px-1 transition-all duration-200 bg-transparent border-none",
             inputValue 
               ? "opacity-100 scale-100" 
               : "opacity-0 scale-95 pointer-events-none",
