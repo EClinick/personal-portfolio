@@ -26,7 +26,7 @@ export default function About() {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Header */}
-      <header className="flex items-center justify-between p-6">
+      {/* <header className="flex items-center justify-between p-6">
         <button className="bg-white/10 border-white/20 text-white hover:bg-white/20 rounded-full px-6 py-3 border inline-flex items-center transition-all">
           <Calendar className="w-4 h-4 mr-2" />
           Schedule a call
@@ -36,7 +36,7 @@ export default function About() {
           <Menu className="w-4 h-4 mr-2" />
           Go to menu
         </button>
-      </header>
+      </header> */}
 
       {/* Main Content */}
       <main className="container mx-auto px-6 py-12">
@@ -142,9 +142,9 @@ export default function About() {
             <Link to="/#projects" className="text-gray-400 hover:text-white transition-colors">
               Projects
             </Link>
-            <button className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+            {/* <button className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
               <Moon className="w-4 h-4" />
-            </button>
+            </button> */}
             <Link to="/about" className="text-white hover:text-orange-500 transition-colors font-medium">
               About
             </Link>

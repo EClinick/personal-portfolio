@@ -1,5 +1,8 @@
 # Dependencies
 /node_modules
+#ignore all folders and files in dist
+dist/
+
 
 # Logs
 logs
@@ -34,3 +37,4 @@ Thumbs.db
 
 # Local Netlify folder
 .netlify
+dist/assets/index-DBCbKdaL.js

@@ -14,27 +14,27 @@ export default function Portfolio() {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Header */}
-      <header className="flex items-center justify-between p-4 md:p-6 relative">
+      {/* <header className="flex items-center justify-between p-4 md:p-6 relative">
         <button className="bg-white/10 border-white/20 text-white hover:bg-white/20 rounded-full px-3 py-2 md:px-6 md:py-3 border inline-flex items-center transition-all text-sm md:text-base">
           <Calendar className="w-4 h-4 mr-1 md:mr-2" />
           <span className="hidden sm:inline">Schedule a call</span>
           <span className="sm:hidden">Call</span>
-        </button>
+        </button> */}
 
         {/* Desktop Menu Button */}
-        <button className="hidden md:inline-flex bg-orange-500 hover:bg-orange-600 text-white rounded-full px-6 py-3 items-center transition-all">
+        {/* <button className="hidden md:inline-flex bg-orange-500 hover:bg-orange-600 text-white rounded-full px-6 py-3 items-center transition-all">
           <Menu className="w-4 h-4 mr-2" />
           Go to menu
-        </button>
+        </button> */}
 
         {/* Mobile Menu Button */}
-        <button 
+        {/* <button 
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className="md:hidden bg-orange-500 hover:bg-orange-600 text-white rounded-full p-3 transition-all"
         >
           {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
-      </header>
+      </header> */}
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
@@ -70,9 +70,9 @@ export default function Portfolio() {
             >
               Contact
             </button>
-            <button className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+            {/* <button className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
               <Moon className="w-6 h-6" />
-            </button>
+            </button> */}
           </div>
         </div>
       )}
@@ -129,9 +129,9 @@ export default function Portfolio() {
             <a href="#projects" className="text-gray-400 hover:text-white transition-colors">
               Projects
             </a>
-            <button className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+            {/* <button className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
               <Moon className="w-4 h-4" />
-            </button>
+            </button> */}
             <Link to="/about" className="text-gray-400 hover:text-white transition-colors">
               About
             </Link>
@@ -152,9 +152,9 @@ export default function Portfolio() {
             <a href="#projects" className="text-gray-400 hover:text-white transition-colors text-sm">
               Projects
             </a>
-            <button className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+            {/* <button className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
               <Moon className="w-4 h-4" />
-            </button>
+            </button> */}
             <Link to="/about" className="text-gray-400 hover:text-white transition-colors text-sm">
               About
             </Link>
