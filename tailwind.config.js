@@ -38,8 +38,19 @@ export default {
         'chat-shimmer': 'chat-shimmer 3s ease-in-out infinite',
         'chat-glow': 'chat-glow 2.5s ease-in-out infinite alternate',
         'gradient-shift': 'gradient-shift 3s ease-in-out infinite',
+        'fade-scale': 'fade-scale 0.2s ease-out',
       },
       keyframes: {
+        'fade-scale': {
+          '0%': { 
+            opacity: '0',
+            transform: 'translateY(-50%) scale(0.95)'
+          },
+          '100%': { 
+            opacity: '1',
+            transform: 'translateY(-50%) scale(1)'
+          }
+        },
         'glass-shimmer': {
           '0%': { 'background-position': '-200% 0' },
           '100%': { 'background-position': '200% 0' },

@@ -1,10 +1,15 @@
 import React from 'react'
 import { Calendar, Menu, Moon } from "lucide-react"
 import FeaturedProjects from "../components/featured-projects"
+import { EmploymentTimeline } from "../components/employment-timeline"
 import { ScrollFadeIn, ScrollSlideIn } from "../components/scroll-animations"
 import profileImage from '../assets/profile.jpg';
+import ChatBox from '../components/ChatBox';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Portfolio() {
+  const [isChatOpen, setIsChatOpen] = useState(false);
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Header */}
@@ -58,6 +63,10 @@ export default function Portfolio() {
       {/* Featured Projects Section */}
       <FeaturedProjects />
 
+      {/* Employment Timeline Section */}
+      <EmploymentTimeline />
+
+
       {/* Bottom Navigation */}
       <nav className="fixed bottom-6 left-1/2 transform -translate-x-1/2">
         <div className="bg-white/10 backdrop-blur-md rounded-full px-8 py-4 border border-white/20">
@@ -71,15 +80,38 @@ export default function Portfolio() {
             <button className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
               <Moon className="w-4 h-4" />
             </button>
-            <a href="#about" className="text-gray-400 hover:text-white transition-colors">
+            <Link to="/about" className="text-gray-400 hover:text-white transition-colors">
               About
-            </a>
-            <a href="#contact" className="text-gray-400 hover:text-white transition-colors">
+            </Link>
+            <button onClick={() => setIsChatOpen(true)} className="text-gray-400 hover:text-white transition-colors font-medium">
               Contact
-            </a>
+            </button>
           </div>
         </div>
       </nav>
+
+      {/* ChatBox Modal */}
+      <ChatBox isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+
+      {/* Footer Section */}
+      <footer className="w-full bg-black border-t border-gray-800 mt-24">
+        <div className="container mx-auto px-6 py-12 flex flex-col md:flex-row items-center justify-between">
+          <div className="flex items-center space-x-4 mb-6 md:mb-0">
+            <div className="text-2xl">✱</div>
+            <div>
+              <h2 className="text-xl md:text-2xl font-light leading-tight">
+                Let&apos;s <span className="font-semibold">Connect</span>
+              </h2>
+            </div>
+          </div>
+          <div className="flex space-x-4">
+            <a href="mailto:your.email@example.com" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-full text-base transition-colors">Email Me</a>
+            <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" className="bg-lime-400 hover:bg-lime-500 text-black font-semibold px-6 py-2 rounded-full text-base transition-colors">LinkedIn</a>
+            <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-2 rounded-full text-base border border-white/20 transition-colors">GitHub</a>
+          </div>
+        </div>
+        <div className="text-center text-gray-600 text-xs pb-6">© {new Date().getFullYear()} Your Name. All rights reserved.</div>
+      </footer>
     </div>
   )
 }

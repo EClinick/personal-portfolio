@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, X, Trash2 } from 'lucide-react';
+import { X, Trash2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
-import { Message, ChatBoxProps, SYSTEM_CONTEXT } from '../types/types'; 
+import { Message, ChatBoxProps, SYSTEM_CONTEXT } from '../types/types';
+import { AIInput } from './ui/ai-input'; 
 
 
 const API_URL = process.env.NODE_ENV === 'development' 
@@ -28,9 +29,8 @@ const formatAIResponse = (text: string): string => {
   return text.trim();
 };
 
-export default function ChatBox({ isOpen, onClose, isDarkMode = false }: ChatBoxProps) {
+export default function ChatBox({ isOpen, onClose, isDarkMode = true }: ChatBoxProps) {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -60,18 +60,16 @@ export default function ChatBox({ isOpen, onClose, isDarkMode = false }: ChatBox
     });
   }, []);
 
-  const sendMessage = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim()) return;
+  const sendMessage = async (messageContent: string) => {
+    if (!messageContent.trim()) return;
 
     setError(null);
     const userMessage: Message = {
       role: 'user' as const,
-      content: input
+      content: messageContent
     };
     
     setMessages(prev => [...prev, userMessage]);
-    setInput('');
     setIsLoading(true);
 
     try {
@@ -155,24 +153,18 @@ export default function ChatBox({ isOpen, onClose, isDarkMode = false }: ChatBox
             ),
             code: ({inline, className, children}) => {
               if (inline) {
-                return <code className={`glass-button px-2 py-1 rounded transition-colors duration-300 ${
-                  isDarkMode ? 'text-blue-300' : 'text-blue-600'
-                }`}>{children}</code>;
+                return <code className="bg-gray-800 text-orange-400 px-2 py-1 rounded transition-colors duration-300">{children}</code>;
               }
               return (
                 <div className="my-4">
-                  <pre className="glass-card p-4 rounded-xl overflow-x-auto">
+                  <pre className="bg-gray-900 border border-gray-700 p-4 rounded-xl overflow-x-auto">
                     <code className={className}>{children}</code>
                   </pre>
                 </div>
               );
             },
             blockquote: ({children}) => (
-              <blockquote className={`glass-card border-l-4 pl-4 my-4 italic rounded-r-lg transition-all duration-300 ${
-                isDarkMode
-                  ? 'border-blue-400/50'
-                  : 'border-slate-400/50'
-              }`}>
+              <blockquote className="bg-gray-900 border-l-4 border-orange-500/50 pl-4 my-4 italic rounded-r-lg p-3">
                 {children}
               </blockquote>
             ),
@@ -181,9 +173,7 @@ export default function ChatBox({ isOpen, onClose, isDarkMode = false }: ChatBox
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`hover:underline transition-colors duration-300 ${
-                  isDarkMode ? 'text-blue-400' : 'text-blue-600'
-                }`}
+                className="text-orange-400 hover:text-orange-300 hover:underline transition-colors duration-300"
               >
                 {children}
               </a>
@@ -207,38 +197,25 @@ export default function ChatBox({ isOpen, onClose, isDarkMode = false }: ChatBox
   if (!isOpen) return null;
 
   return (
-    <div className={`fixed inset-0 md:inset-auto md:bottom-8 md:right-8 w-full md:w-[400px] h-screen md:h-auto md:max-h-[80vh] glass-modal rounded-none md:rounded-2xl shadow-glass-lg flex flex-col z-50 overflow-hidden transition-all duration-300 ${
-      isDarkMode
-        ? 'bg-gray-900/30 border-gray-700/30'
-        : 'bg-white/30 border-white/40'
-    }`}>
-      <div className={`sticky top-0 p-4 flex justify-between items-center glass-nav rounded-t-2xl z-10 transition-all duration-300 ${
-        isDarkMode
-          ? 'bg-gray-900/30 border-gray-700/30'
-          : 'bg-white/30 border-white/40'
-      }`}>
-        <h3 className={`text-lg font-semibold transition-colors duration-300 ${
-          isDarkMode ? 'text-white' : 'text-slate-800'
-        }`}>Chat with AI Assistant</h3>
-        <div className="flex gap-2">
+    <div className="fixed inset-0 md:inset-auto md:bottom-8 md:right-8 w-full md:w-[480px] h-screen md:h-auto md:max-h-[80vh] bg-black rounded-none md:rounded-2xl border border-gray-800 shadow-2xl flex flex-col z-50 overflow-hidden transition-all duration-300">
+      <div className="sticky top-0 p-6 flex justify-between items-center bg-black border-b border-gray-800 rounded-t-2xl z-10">
+        <div className="flex items-center space-x-4">
+          <div className="text-2xl text-white">✱</div>
+          <h3 className="text-xl font-light text-white">
+            AI <span className="font-semibold">ASSISTANT</span>
+          </h3>
+        </div>
+        <div className="flex gap-3">
           <button
             onClick={handleClearChat}
-            className={`glass-button p-2 rounded-lg transition-colors duration-300 ${
-              isDarkMode
-                ? 'text-gray-400 hover:text-red-400'
-                : 'text-slate-500 hover:text-red-500'
-            }`}
+            className="text-gray-400 hover:text-orange-500 transition-colors duration-300 p-2 rounded-lg hover:bg-gray-800/50"
             title="Clear chat"
           >
             <Trash2 size={20} />
           </button>
           <button
             onClick={onClose}
-            className={`glass-button p-2 rounded-lg transition-colors duration-300 ${
-              isDarkMode
-                ? 'text-gray-400 hover:text-white'
-                : 'text-slate-500 hover:text-slate-800'
-            }`}
+            className="text-gray-400 hover:text-white transition-colors duration-300 p-2 rounded-lg hover:bg-gray-800/50"
             aria-label="Close chat"
           >
             <X size={20} />
@@ -246,13 +223,9 @@ export default function ChatBox({ isOpen, onClose, isDarkMode = false }: ChatBox
         </div>
       </div>
       
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-black">
         {error && (
-          <div className={`glass-card border rounded-xl p-3 text-sm transition-all duration-300 ${
-            isDarkMode
-              ? 'border-red-500/30 text-red-300'
-              : 'border-red-400/30 text-red-600'
-          }`}>
+          <div className="bg-gray-900 border border-red-500/30 rounded-xl p-4 text-sm text-red-300">
             {error}
           </div>
         )}
@@ -264,14 +237,10 @@ export default function ChatBox({ isOpen, onClose, isDarkMode = false }: ChatBox
             }`}
           >
             <div
-              className={`max-w-[85%] rounded-xl p-3 transition-all duration-300 ${
+              className={`max-w-[85%] rounded-xl p-4 transition-all duration-300 ${
                 message.role === 'user'
-                  ? isDarkMode
-                    ? 'glass-button bg-blue-500/20 text-white border border-blue-400/30'
-                    : 'glass-button bg-slate-600/20 text-slate-800 border border-slate-400/30'
-                  : isDarkMode
-                    ? 'glass-card text-gray-200'
-                    : 'glass-card text-slate-700'
+                  ? 'bg-gray-900 border border-gray-700 text-white'
+                  : 'bg-gray-900/50 border border-gray-800 text-gray-200'
               }`}
             >
               {renderMessage(message)}
@@ -280,19 +249,11 @@ export default function ChatBox({ isOpen, onClose, isDarkMode = false }: ChatBox
         ))}
         {isLoading && (
           <div className="flex justify-start">
-            <div className={`glass-card rounded-xl p-3 transition-all duration-300 ${
-              isDarkMode ? 'text-gray-200' : 'text-slate-700'
-            }`}>
+            <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-4 text-gray-200">
               <div className="flex space-x-2">
-                <div className={`w-2 h-2 rounded-full animate-bounce ${
-                  isDarkMode ? 'bg-blue-400' : 'bg-slate-600'
-                }`} />
-                <div className={`w-2 h-2 rounded-full animate-bounce ${
-                  isDarkMode ? 'bg-blue-400' : 'bg-slate-600'
-                }`} style={{ animationDelay: '0.2s' }} />
-                <div className={`w-2 h-2 rounded-full animate-bounce ${
-                  isDarkMode ? 'bg-blue-400' : 'bg-slate-600'
-                }`} style={{ animationDelay: '0.4s' }} />
+                <div className="w-2 h-2 rounded-full animate-bounce bg-orange-500" />
+                <div className="w-2 h-2 rounded-full animate-bounce bg-orange-500" style={{ animationDelay: '0.2s' }} />
+                <div className="w-2 h-2 rounded-full animate-bounce bg-orange-500" style={{ animationDelay: '0.4s' }} />
               </div>
             </div>
           </div>
@@ -300,37 +261,15 @@ export default function ChatBox({ isOpen, onClose, isDarkMode = false }: ChatBox
         <div ref={messagesEndRef} />
       </div>
 
-      <div className={`sticky bottom-0 glass-nav rounded-b-2xl transition-all duration-300 ${
-        isDarkMode
-          ? 'bg-gray-900/30 border-gray-700/30'
-          : 'bg-white/30 border-white/40'
-      }`}>
-        <form onSubmit={sendMessage} className="p-4">
-          <div className="flex space-x-2">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Type your message..."
-              className={`flex-1 glass-input rounded-xl px-4 py-3 focus:outline-none focus:ring-2 transition-all duration-300 ${
-                isDarkMode
-                  ? 'text-white focus:ring-blue-400/50 placeholder-gray-400'
-                  : 'text-slate-800 focus:ring-slate-400/50 placeholder-slate-500'
-              }`}
-            />
-            <button
-              type="submit"
-              disabled={isLoading}
-              className={`glass-button rounded-xl px-4 py-3 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed ${
-                isDarkMode
-                  ? 'text-white hover:bg-blue-500/30'
-                  : 'text-slate-800 hover:bg-slate-500/30'
-              }`}
-            >
-              <Send size={20} />
-            </button>
-          </div>
-        </form>
+      <div className="sticky bottom-0 bg-black border-t border-gray-800 rounded-b-2xl">
+        <AIInput
+          placeholder="Type your message..."
+          onSubmit={sendMessage}
+          isDarkMode={true}
+          className="px-6 py-4"
+          minHeight={48}
+          maxHeight={120}
+        />
       </div>
     </div>
   );

@@ -3,44 +3,70 @@ import { Link } from "react-router-dom"
 import { ScrollFadeIn, ScrollSlideIn } from "../components/scroll-animations"
 import { useEffect, useState, useRef } from "react"
 
+// Import project images
+import planGenieImage from "../assets/plangenie.jpg"
+import tanaiImage from "../assets/tanai.jpeg"
+import vcryptImage from "../assets/vcrypt.png"
+
 const projects = [
   {
     id: 1,
-    name: "Audacity",
-    tech: "React.js",
-    description:
-      "A revolutionary platform that redefines how we share and experience aesthetics online. Whether you're exploring new creative horizons or building your digital presence, Audacity offers a seamless and intuitive experience.",
-    color: "from-purple-900 via-blue-900 to-indigo-900",
+    name: "TradeMind",
+    tech: "React + TypeScript",
+    description: "TradeMind is a smart trading journal and analytics platform helping traders boost profitability through automation and behavioral insights. Launched in 2025, it's already serving 1,000+ monthly active users.",
+    color: "from-green-600 via-emerald-700 to-teal-800",
+    image: "https://wxvmssqfidodxyoxjtju.supabase.co/storage/v1/object/public/non-protected-route-imgs/Landing-Page/image-dashboard.png",
+    tags: ["AI Analytics", "Trading", "Full Stack"],
+    liveUrl: "https://trademind.pro",
     mockupContent: {
-      title: "Audacity",
-      subtitle: "A New way to share Aesthetics",
-      interface: "social",
+      title: "TradeMind",
+      subtitle: "Smart Trading Journal & Analytics Platform",
+      interface: "trading",
     },
   },
   {
     id: 2,
-    name: "Fix My Code",
-    tech: "Next.js",
-    description:
-      "An intelligent code review platform that helps developers identify bugs, optimize performance, and improve code quality through AI-powered analysis and collaborative peer reviews.",
-    color: "from-green-900 via-emerald-900 to-teal-900",
+    name: "PlanGenie",
+    tech: "React + AI",
+    description: "An AI-powered task management platform built specifically for neurodivergent minds. PlanGenie adapts to your unique thought process, helping break down complex tasks and providing a natural organization flow.",
+    color: "from-purple-600 via-purple-700 to-indigo-800",
+    image: planGenieImage,
+    tags: ["AI Agent", "Accessibility", "Task Management"],
+    liveUrl: "https://plangenie.net",
     mockupContent: {
-      title: "Fix My Code",
-      subtitle: "AI-Powered Code Review",
-      interface: "code",
+      title: "PlanGenie",
+      subtitle: "AI-Powered Task Management for Neurodivergent Minds",
+      interface: "productivity",
     },
   },
   {
     id: 3,
-    name: "AirBnb Clone",
-    tech: "MERN Stack",
-    description:
-      "A full-featured vacation rental platform with advanced search filters, real-time booking, secure payments, and an intuitive host dashboard for property management.",
-    color: "from-red-900 via-pink-900 to-rose-900",
+    name: "Tan.ai",
+    tech: "React Native + AI",
+    description: "An AI-driven iOS app offering personalized tanning advice using custom-trained models. Currently in beta testing phase with planned release in Summer 2024.",
+    color: "from-orange-600 via-amber-700 to-yellow-800",
+    image: tanaiImage,
+    tags: ["AI", "iOS", "Health & Wellness"],
+    liveUrl: "https://tanai.app/",
     mockupContent: {
-      title: "AirBnb Clone",
-      subtitle: "Vacation Rental Platform",
-      interface: "booking",
+      title: "Tan.ai",
+      subtitle: "AI-Powered Personalized Tanning Advice",
+      interface: "mobile",
+    },
+  },
+  {
+    id: 4,
+    name: "Vcrypt Software",
+    tech: "Rust + React Native",
+    description: "Cloud-based trading algorithms with Rust backend and React Native frontend. Advanced financial technology solutions for modern trading.",
+    color: "from-blue-600 via-indigo-700 to-purple-800",
+    image: vcryptImage,
+    tags: ["Fintech", "Rust", "Trading Algorithms"],
+    liveUrl: "https://vcryptfinancial.com",
+    mockupContent: {
+      title: "Vcrypt Software",
+      subtitle: "Cloud-Based Trading Algorithms",
+      interface: "trading",
     },
   },
 ]
@@ -48,11 +74,10 @@ const projects = [
 export default function FeaturedProjects() {
   const [activeProject, setActiveProject] = useState(0)
   const sectionRef = useRef<HTMLElement>(null)
-  const projectRefs = useRef<(HTMLDivElement | null)[]>([])
   const [userInteracting, setUserInteracting] = useState(false)
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout
+    let timeoutId: number
 
     const handleScroll = () => {
       if (userInteracting) return
@@ -85,7 +110,7 @@ export default function FeaturedProjects() {
     const handleUserInteraction = () => {
       setUserInteracting(true)
       clearTimeout(timeoutId)
-      timeoutId = setTimeout(() => {
+      timeoutId = window.setTimeout(() => {
         setUserInteracting(false)
       }, 2000) // Resume auto-scroll after 2 seconds of no interaction
     }
@@ -106,188 +131,150 @@ export default function FeaturedProjects() {
   const currentProject = projects[activeProject]
 
   return (
-    <section ref={sectionRef} className="py-20 bg-black min-h-[200vh]">
+    <section id="projects" ref={sectionRef} className="relative bg-black" style={{ height: `${100 + projects.length * 100}vh` }}>
+      {/* Header Section OUTSIDE sticky */}
       <div className="container mx-auto px-6">
-        <div className="sticky top-20">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left Side - Device Mockups */}
-            <ScrollSlideIn className="relative">
-              <div className="relative">
-                {/* Main Device Mockup */}
-                <div className="relative z-10 transform rotate-3 hover:rotate-0 transition-all duration-700">
-                  <div className="bg-gray-900 rounded-3xl p-4 shadow-2xl border border-gray-800">
-                    <div className="bg-black rounded-2xl overflow-hidden">
-                      {/* Device Screen Content */}
-                      <div
-                        className={`aspect-[4/3] bg-gradient-to-br ${currentProject.color} relative transition-all duration-1000`}
-                      >
-                        <div className="absolute inset-0 bg-black/20" />
+        <div className="flex items-center justify-between py-6 flex-shrink-0">
+          <div className="flex items-center space-x-8">
+            <div className="text-2xl">✱</div>
+            <div>
+              <h2 className="text-4xl lg:text-5xl font-light leading-tight">
+                SOME
+                <br />
+                <span className="font-semibold">FEATURED</span>
+                <br />
+                <span className="font-semibold">PROJECTS</span>
+              </h2>
+            </div>
+          </div>
+          <Link to="/projects">
+            <button className="bg-lime-400 hover:bg-lime-500 text-black font-semibold px-8 py-3 rounded-full text-lg transition-colors">
+              ✱ Go to Projects Page
+            </button>
+          </Link>
+        </div>
+      </div>
+      {/* Sticky Card & Info Section */}
+      <div className="sticky top-0 flex flex-col overflow-hidden">
+        <div className="container mx-auto px-6 h-full flex flex-col py-12">
+          {/* Main Card Display */}
+          <div className="flex-1 flex items-center justify-center min-h-0">
+            <div className="relative w-full max-w-6xl h-[60vh]">
+              {projects.map((project, index) => {
+                const isActive = index === activeProject
+                const isPrevious = index < activeProject
+                const isNext = index > activeProject
+                
+                let transform = ""
+                let opacity = 1
+                let zIndex = projects.length - index
+                let display = "block"
+                
+                if (isPrevious) {
+                  transform = `translateY(-${(activeProject - index) * 20}px) scale(${1 - (activeProject - index) * 0.05})`
+                  opacity = 1
+                  zIndex = index
+                  display = "none" // Hide previous cards completely
+                } else if (isActive) {
+                  transform = "translateY(0px) scale(1)"
+                  opacity = 1
+                  zIndex = projects.length
+                } else if (isNext) {
+                  transform = `translateY(${(index - activeProject) * 20}px) scale(${1 - (index - activeProject) * 0.05})`
+                  opacity = 1
+                  zIndex = projects.length - index
+                }
 
-                        {/* Simulated App Interface */}
-                        <div className="absolute inset-4 space-y-4">
-                          <div className="flex items-center justify-between">
-                            <div className="flex space-x-2">
-                              <div className="w-3 h-3 bg-red-500 rounded-full" />
-                              <div className="w-3 h-3 bg-yellow-500 rounded-full" />
-                              <div className="w-3 h-3 bg-green-500 rounded-full" />
-                            </div>
+                return (
+                  <div
+                    key={project.id}
+                    className="absolute inset-0 transition-all duration-700 ease-out"
+                    style={{
+                      transform,
+                      opacity,
+                      zIndex,
+                      display,
+                    }}
+                  >
+                    <div className="rounded-2xl p-6 shadow-2xl border border-gray-800 h-full relative backdrop-blur-sm">
+                      <div className="h-full flex flex-col">
+                        {/* Project Header */}
+                        <div className="flex items-center justify-between">
+                          <span className="text-gray-400 text-sm">{project.tech}</span>
+                        </div>
+
+                        {/* Project Content */}
+                        <div className="flex-1">
+                          <div
+                            className={`h-full bg-gradient-to-br ${project.color} rounded-xl relative overflow-hidden`}
+                          >
+                            {project.name === "Tan.ai" ? (
+                              <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-black/60 text-white z-10">
+                                <span className="text-5xl mb-4">🚧</span>
+                                <span className="text-2xl font-semibold mb-2">In Development</span>
+                                <span className="text-lg text-gray-300">Live preview coming soon</span>
+                              </div>
+                            ) : project.liveUrl ? (
+                              <iframe
+                                src={project.liveUrl}
+                                title={project.name}
+                                className="absolute inset-0 w-full h-full rounded-xl border-0"
+                                allow="fullscreen"
+                                loading="lazy"
+                              />
+                            ) : (
+                              <img
+                                src={project.image}
+                                alt={project.name}
+                                className="absolute inset-0 w-full h-full object-cover"
+                              />
+                            )}
+                            <div className="absolute inset-0 bg-black/20 pointer-events-none" />
                           </div>
-
-                          {/* Dynamic Interface Based on Project */}
-                          {currentProject.mockupContent.interface === "social" && (
-                            <div className="space-y-3">
-                              <div className="grid grid-cols-3 gap-3">
-                                {Array.from({ length: 6 }).map((_, i) => (
-                                  <div
-                                    key={i}
-                                    className="aspect-square bg-white/10 rounded-lg backdrop-blur-sm border border-white/20 flex items-center justify-center"
-                                  >
-                                    <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-pink-400 rounded-lg" />
-                                  </div>
-                                ))}
-                              </div>
-                              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-                                <div className="flex items-center space-x-3">
-                                  <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full" />
-                                  <div className="flex-1">
-                                    <div className="h-3 bg-white/30 rounded mb-2" />
-                                    <div className="h-2 bg-white/20 rounded w-2/3" />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          )}
-
-                          {currentProject.mockupContent.interface === "code" && (
-                            <div className="space-y-3">
-                              <div className="bg-gray-900/50 rounded-lg p-3 font-mono text-xs space-y-1">
-                                <div className="text-green-400">{"function fixCode() {"}</div>
-                                <div className="text-white ml-4">{"  return optimized;"}</div>
-                                <div className="text-green-400">{"}"}</div>
-                              </div>
-                              <div className="grid grid-cols-2 gap-2">
-                                <div className="bg-red-500/20 rounded p-2 text-xs text-red-300">3 Issues</div>
-                                <div className="bg-green-500/20 rounded p-2 text-xs text-green-300">Fixed</div>
-                              </div>
-                            </div>
-                          )}
-
-                          {currentProject.mockupContent.interface === "booking" && (
-                            <div className="space-y-3">
-                              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/20">
-                                <div className="h-16 bg-gradient-to-r from-orange-400 to-red-400 rounded-lg mb-2" />
-                                <div className="h-2 bg-white/30 rounded mb-1" />
-                                <div className="h-2 bg-white/20 rounded w-3/4" />
-                              </div>
-                              <div className="flex space-x-2">
-                                <div className="flex-1 bg-white/10 rounded-lg p-2">
-                                  <div className="h-2 bg-white/30 rounded" />
-                                </div>
-                                <div className="w-16 bg-orange-500/30 rounded-lg flex items-center justify-center">
-                                  <div className="text-xs text-orange-300">Book</div>
-                                </div>
-                              </div>
-                            </div>
-                          )}
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-
-                {/* Secondary Device Mockups */}
-                <div className="absolute -top-8 -right-8 transform -rotate-12 z-0 transition-all duration-700">
-                  <div className="bg-gray-900 rounded-2xl p-3 shadow-xl border border-gray-800 w-32 h-48">
-                    <div
-                      className={`bg-gradient-to-b ${currentProject.color} rounded-xl h-full flex items-center justify-center transition-all duration-1000`}
-                    >
-                      <div className="text-white text-xs font-bold">Mobile</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="absolute -bottom-6 -left-6 transform rotate-6 z-0 transition-all duration-700">
-                  <div className="bg-gray-900 rounded-xl p-2 shadow-xl border border-gray-800 w-24 h-32">
-                    <div
-                      className={`bg-gradient-to-b ${currentProject.color} rounded-lg h-full flex items-center justify-center transition-all duration-1000`}
-                    >
-                      <div className="text-white text-xs font-bold">App</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Project Branding */}
-              <div className="absolute bottom-0 left-0 bg-black/80 backdrop-blur-sm rounded-xl p-6 border border-white/10 transition-all duration-700">
-                <h3 className="text-3xl font-bold text-white mb-2">{currentProject.mockupContent.title}</h3>
-                <p className="text-gray-400 text-sm">{currentProject.mockupContent.subtitle}</p>
-              </div>
-            </ScrollSlideIn>
-
-            {/* Right Side - Project Info */}
-            <ScrollFadeIn delay={200} className="space-y-8">
-              <div className="text-2xl">✱</div>
-
-              <div className="space-y-6">
-                <h2 className="text-5xl lg:text-6xl font-light leading-tight">
-                  SOME
-                  <br />
-                  <span className="font-semibold">FEATURED</span>
-                  <br />
-                  <span className="font-semibold">PROJECTS</span>
-                </h2>
-
-                <Link to="/projects">
-                  <button className="bg-lime-400 hover:bg-lime-500 text-black font-semibold px-8 py-3 rounded-full text-lg">
-                    ✱ Go to Projects Page
-                  </button>
-                </Link>
-              </div>
-
-              {/* Project List */}
-              <div className="space-y-4 mt-12">
-                {projects.map((project, index) => (
-                  <div
-                    key={project.id}
-                    ref={(el) => (projectRefs.current[index] = el)}
-                    onClick={() => setActiveProject(index)}
-                    className={`p-4 rounded-xl transition-all duration-500 cursor-pointer ${
-                      index === activeProject
-                        ? "bg-white/10 border border-white/20 scale-105"
-                        : "hover:bg-white/5 opacity-60 hover:opacity-80"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-white font-medium">{project.name}</span>
-                      <span className="text-gray-400 text-sm">:: {project.tech}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Progress Indicator */}
-              <div className="flex space-x-2 mt-8">
-                {projects.map((_, index) => (
-                  <div
-                    key={index}
-                    className={`h-1 rounded-full transition-all duration-500 ${
-                      index === activeProject ? "bg-orange-500 w-8" : "bg-white/20 w-4"
-                    }`}
-                  />
-                ))}
-              </div>
-            </ScrollFadeIn>
+                )
+              })}
+            </div>
           </div>
 
-          {/* Bottom Description */}
-          <ScrollFadeIn delay={600} className="mt-16 max-w-4xl">
-            <p className="text-gray-400 text-lg leading-relaxed transition-all duration-700">
-              {currentProject.description}{" "}
-              <span className="text-orange-400 cursor-pointer hover:text-orange-300">
-                click to See post on Dribbble...
-              </span>
-            </p>
-          </ScrollFadeIn>
+          {/* Bottom Project Info Section */}
+          <div className="py-8 flex justify-center">
+            <div className="w-full max-w-6xl">
+              <ScrollFadeIn delay={200} className="space-y-6">
+                {/* Current Project Details */}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-3xl font-bold text-white">{currentProject.name}</h3>
+                    <span className="text-gray-400">:: {currentProject.tech}</span>
+                  </div>
+                  <p className="text-gray-400 text-lg leading-relaxed max-w-4xl">
+                    {currentProject.description}
+                  </p>
+                </div>
+
+                {/* Navigation Dots */}
+                <div className="flex space-x-3 mt-8">
+                  {projects.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setActiveProject(index)}
+                      className={`h-2 rounded-full transition-all duration-500 ${
+                        index === activeProject ? "bg-orange-500 w-8" : "bg-white/20 w-2 hover:bg-white/40"
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                {/* Project Counter */}
+                <div className="text-gray-500 text-sm">
+                  {String(activeProject + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
+                </div>
+              </ScrollFadeIn>
+            </div>
+          </div>
         </div>
       </div>
     </section>
