@@ -8,6 +8,7 @@ import { LogoCarousel } from "../components/ui/logo-carousel";
 import { SiFigma, SiGithub, SiDiscord, SiPostman, SiSupabase, SiReact, SiTailwindcss, SiPython, SiGit } from "react-icons/si";
 import { SVGProps } from "react";
 import Menu from '../components/Menu';
+import Footer from '../components/Footer';
 import { useState, useEffect } from 'react';
 
 const stackLogos = [
@@ -131,6 +132,8 @@ export default function About() {
         </ScrollFadeIn>
       </main>
 
+      {/* Footer Section */}
+      <Footer />
     </div>
   )
 }
