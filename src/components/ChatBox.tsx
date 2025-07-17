@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { X, Trash2 } from 'lucide-react';
+import { X, Trash2, Maximize2, Minimize2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { Message, ChatBoxProps, SYSTEM_CONTEXT } from '../types/types';
 import { AIInput } from './ui/ai-input'; 
@@ -33,6 +33,7 @@ export default function ChatBox({ isOpen, onClose, isDarkMode = true }: ChatBoxP
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -131,7 +132,7 @@ export default function ChatBox({ isOpen, onClose, isDarkMode = true }: ChatBoxP
         <ReactMarkdown
           components={{
             p: ({children}) => (
-              <p className="mb-4 last:mb-0">{children}</p>
+              <p className="mb-4 last:mb-0 text-sm">{children}</p>
             ),
             h1: ({children}) => (
               <h1 className="text-xl font-bold mb-4 mt-6">{children}</h1>
@@ -194,10 +195,18 @@ export default function ChatBox({ isOpen, onClose, isDarkMode = true }: ChatBoxP
     setMessages([]);
   };
 
+  const toggleFullscreen = () => {
+    setIsFullscreen(!isFullscreen);
+  };
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 md:inset-auto md:bottom-8 md:right-8 w-full md:w-[480px] h-screen md:h-auto md:max-h-[80vh] bg-black rounded-none md:rounded-2xl border border-gray-800 shadow-2xl flex flex-col z-50 overflow-hidden transition-all duration-300">
+    <div className={`fixed ${
+      isFullscreen 
+        ? 'inset-0 w-full h-screen rounded-none' 
+        : 'inset-0 md:inset-auto md:bottom-8 md:right-8 w-full md:w-[480px] h-screen md:h-auto md:max-h-[80vh] rounded-none md:rounded-2xl'
+    } bg-black border border-gray-800 shadow-2xl flex flex-col z-50 overflow-hidden transition-all duration-300`}>
       <div className="sticky top-0 p-6 flex justify-between items-center bg-black border-b border-gray-800 rounded-t-2xl z-10">
         <div className="flex items-center space-x-4">
           <div className="text-2xl text-white">✱</div>
@@ -214,6 +223,13 @@ export default function ChatBox({ isOpen, onClose, isDarkMode = true }: ChatBoxP
             <Trash2 size={20} />
           </button>
           <button
+            onClick={toggleFullscreen}
+            className="hidden md:block text-gray-400 hover:text-blue-500 transition-colors duration-300 p-2 rounded-lg hover:bg-gray-800/50"
+            title={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+          >
+            {isFullscreen ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
+          </button>
+          <button
             onClick={onClose}
             className="text-gray-400 hover:text-white transition-colors duration-300 p-2 rounded-lg hover:bg-gray-800/50"
             aria-label="Close chat"
@@ -223,53 +239,67 @@ export default function ChatBox({ isOpen, onClose, isDarkMode = true }: ChatBoxP
         </div>
       </div>
       
-      <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-black">
-        {error && (
-          <div className="bg-gray-900 border border-red-500/30 rounded-xl p-4 text-sm text-red-300">
-            {error}
-          </div>
-        )}
-        {messages.map((message, index) => (
-          <div
-            key={index}
-            className={`flex ${
-              message.role === 'user' ? 'justify-end' : 'justify-start'
-            }`}
-          >
+      <div className="flex-1 overflow-y-auto bg-black">
+        <div className={`${
+          isFullscreen 
+            ? 'max-w-4xl mx-auto px-6 py-6' 
+            : 'p-6'
+        } space-y-4`}>
+          {error && (
+            <div className="bg-gray-900 border border-red-500/30 rounded-xl p-4 text-sm text-red-300">
+              {error}
+            </div>
+          )}
+          {messages.map((message, index) => (
             <div
-              className={`max-w-[85%] rounded-xl p-4 transition-all duration-300 ${
-                message.role === 'user'
-                  ? 'bg-gray-900 border border-gray-700 text-white'
-                  : 'bg-gray-900/50 border border-gray-800 text-gray-200'
+              key={index}
+              className={`flex ${
+                message.role === 'user' ? 'justify-end' : 'justify-start'
               }`}
             >
-              {renderMessage(message)}
-            </div>
-          </div>
-        ))}
-        {isLoading && (
-          <div className="flex justify-start">
-            <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-4 text-gray-200">
-              <div className="flex space-x-2">
-                <div className="w-2 h-2 rounded-full animate-bounce bg-orange-500" />
-                <div className="w-2 h-2 rounded-full animate-bounce bg-orange-500" style={{ animationDelay: '0.2s' }} />
-                <div className="w-2 h-2 rounded-full animate-bounce bg-orange-500" style={{ animationDelay: '0.4s' }} />
+              <div
+                className={`${
+                  isFullscreen ? 'max-w-[70%]' : 'max-w-[85%]'
+                } rounded-xl p-4 transition-all duration-300 ${
+                  message.role === 'user'
+                    ? 'bg-gray-900 border border-gray-700 text-white'
+                    : 'bg-gray-900/50 border border-gray-800 text-gray-200'
+                }`}
+              >
+                {renderMessage(message)}
               </div>
             </div>
-          </div>
-        )}
-        <div ref={messagesEndRef} />
+          ))}
+          {isLoading && (
+            <div className="flex justify-start">
+              <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-4 text-gray-200">
+                <div className="flex space-x-2">
+                  <div className="w-2 h-2 rounded-full animate-bounce bg-orange-500" />
+                  <div className="w-2 h-2 rounded-full animate-bounce bg-orange-500" style={{ animationDelay: '0.2s' }} />
+                  <div className="w-2 h-2 rounded-full animate-bounce bg-orange-500" style={{ animationDelay: '0.4s' }} />
+                </div>
+              </div>
+            </div>
+          )}
+          <div ref={messagesEndRef} />
+        </div>
       </div>
 
       <div className="sticky bottom-0 bg-black border-t border-gray-800 rounded-b-2xl">
-        <AIInput
-          placeholder="Type your message..."
-          onSubmit={sendMessage}
-          isDarkMode={true}
-          className="px-6 py-4"
-          minHeight={48}
-          maxHeight={120}
-        />
+        <div className={`${
+          isFullscreen 
+            ? 'max-w-4xl mx-auto' 
+            : ''
+        }`}>
+          <AIInput
+            placeholder="Type your message..."
+            onSubmit={sendMessage}
+            isDarkMode={true}
+            className="px-6 py-4"
+            minHeight={48}
+            maxHeight={120}
+          />
+        </div>
       </div>
     </div>
   );
