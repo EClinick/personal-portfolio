@@ -38,3 +38,4 @@ Thumbs.db
 # Local Netlify folder
 .netlify
 dist/assets/index-DBCbKdaL.js
+dist/index.html
