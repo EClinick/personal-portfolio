@@ -178,9 +178,9 @@ export default function Portfolio() {
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
-            <a href="mailto:your.email@example.com" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 sm:px-6 py-2 rounded-full text-sm sm:text-base transition-colors text-center">Email Me</a>
-            <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" className="bg-lime-400 hover:bg-lime-500 text-black font-semibold px-4 sm:px-6 py-2 rounded-full text-sm sm:text-base transition-colors text-center">LinkedIn</a>
-            <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="bg-white/10 hover:bg-white/20 text-white font-semibold px-4 sm:px-6 py-2 rounded-full text-sm sm:text-base border border-white/20 transition-colors text-center">GitHub</a>
+            <a href="mailto:ethan@clinick.net" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 sm:px-6 py-2 rounded-full text-sm sm:text-base transition-colors text-center">Email Me</a>
+            <a href="https://www.linkedin.com/in/ethanclinick" target="_blank" rel="noopener noreferrer" className="bg-lime-400 hover:bg-lime-500 text-black font-semibold px-4 sm:px-6 py-2 rounded-full text-sm sm:text-base transition-colors text-center">LinkedIn</a>
+            <a href="https://github.com/eclinick" target="_blank" rel="noopener noreferrer" className="bg-white/10 hover:bg-white/20 text-white font-semibold px-4 sm:px-6 py-2 rounded-full text-sm sm:text-base border border-white/20 transition-colors text-center">GitHub</a>
           </div>
         </div>
         <div className="text-center text-gray-600 text-xs pb-6">© {new Date().getFullYear()} Your Name. All rights reserved.</div>
