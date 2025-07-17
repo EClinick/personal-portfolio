@@ -33,10 +33,8 @@ export default function About() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Header */}
-      <header className="flex items-center justify-end p-4 md:p-6 relative">
-        <Menu isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
-      </header>
+      {/* Menu Component */}
+      <Menu isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
 
       {/* Main Content */}
       <main className="container mx-auto px-6 py-12">

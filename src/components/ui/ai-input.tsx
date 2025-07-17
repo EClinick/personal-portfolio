@@ -82,7 +82,7 @@ export function AIInput({
           className={cn(
             "max-w-xl rounded-3xl pl-6 pr-16",
             "border-none ring-0 focus-visible:ring-0 focus-visible:ring-offset-0",
-            "text-wrap overflow-y-auto resize-none",
+            "text-wrap overflow-y-hidden resize-none",
             "transition-[height] duration-100 ease-out leading-[1.2] py-[16px]",
             `min-h-[${minHeight}px] max-h-[${maxHeight}px]`,
             "[&::-webkit-resizer]:hidden",
