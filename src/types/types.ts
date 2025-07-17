@@ -147,10 +147,21 @@ export const SYSTEM_CONTEXT = {
       ],
       
       skills: [
-        "Python", "Rust", "AWS", "React Native", "OpenAI API", "Algorithmic trading",
-        "Cloud services", "Project management", "Backend development", "AI and ML models",
-        "Financial data analysis", "Automation with Selenium and Playwright",
-        "Discord Bot Development", "Cryptocurrency Mining", "Real-time Monitoring Systems"
+        "Python (2022)", 
+        "Rust (2023)", 
+        "AWS (2024)", 
+        "React Native (2024)", 
+        "OpenAI API (2024)", 
+        "Algorithmic trading (2024)",
+        "Cloud services (2024)", 
+        "Project management (2023)", 
+        "Backend development (2023)", 
+        "AI and ML models (2023)",
+        "Financial data analysis (2024)", 
+        "Automation with Selenium and Playwright (2023)",
+        "Discord Bot Development (2022)", 
+        "Cryptocurrency Mining (2022)", 
+        "Real-time Monitoring Systems (2023)"
       ]
     },
     instructions: {

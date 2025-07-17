@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { X, Trash2, Maximize2, Minimize2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
-import { Message, ChatBoxProps, SYSTEM_CONTEXT } from '../types/types';
-import { AIInput } from './ui/ai-input'; 
+import { Message, ChatBoxProps } from '../types/types';
+import { AIInput } from './ui/ai-input';
+import { createEnhancedSystemPrompt } from '../prompts/system-prompt-loader'; 
 
 
 const API_URL = process.env.NODE_ENV === 'development' 
@@ -83,14 +84,14 @@ export default function ChatBox({ isOpen, onClose, isDarkMode = true }: ChatBoxP
           messages: [
             {
               role: 'system' as const,
-              content: JSON.stringify(SYSTEM_CONTEXT)
+              content: createEnhancedSystemPrompt()
             },
             ...messages,
             userMessage
           ],
           temperature: 0.7,
           top_p: 0.9,
-          max_tokens: 1000,
+          max_tokens: 4000,
           model: "gpt-4o-mini"
         })
       });
