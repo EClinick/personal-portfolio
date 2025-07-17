@@ -1,24 +1,19 @@
 import React from 'react'
-import { Calendar, Menu, Moon } from "lucide-react"
 import { ScrollFadeIn, ScrollSlideIn } from "../components/scroll-animations"
 import { Link } from 'react-router-dom'
 import ExpandableCardDemo from '../components/ui/expandable-card-demo-standard'
+import Menu from '../components/Menu'
+import { useState } from 'react'
 
 export default function Projects() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Header */}
-      {/* <header className="flex items-center justify-between p-6">
-        <button className="bg-white/10 border-white/20 text-white hover:bg-white/20 rounded-full px-6 py-3 border inline-flex items-center transition-all">
-          <Calendar className="w-4 h-4 mr-2" />
-          Schedule a call
-        </button>
-
-        <button className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-6 py-3 inline-flex items-center transition-all">
-          <Menu className="w-4 h-4 mr-2" />
-          Go to menu
-        </button>
-      </header> */}
+      <header className="flex items-center justify-end p-4 md:p-6 relative">
+        <Menu isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
+      </header>
 
       {/* Main Content */}
       <main className="container mx-auto px-6 py-12">
@@ -110,28 +105,6 @@ export default function Projects() {
         </ScrollFadeIn>
       </main>
 
-      {/* Bottom Navigation */}
-      <nav className="fixed bottom-6 left-1/2 transform -translate-x-1/2">
-        <div className="bg-white/10 backdrop-blur-md rounded-full px-8 py-4 border border-white/20">
-          <div className="flex items-center space-x-8">
-            <Link to="/" className="text-gray-400 hover:text-white transition-colors font-medium">
-              Home
-            </Link>
-            <Link to="/#projects" className="text-white hover:text-orange-500 transition-colors font-medium">
-              Projects
-            </Link>
-            {/* <button className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
-              <Moon className="w-4 h-4" />
-            </button> */}
-            <Link to="/about" className="text-gray-400 hover:text-white transition-colors">
-              About
-            </Link>
-            <Link to="/chat" className="text-gray-400 hover:text-white transition-colors font-medium">
-              Chat
-            </Link>
-          </div>
-        </div>
-      </nav>
     </div>
   )
 }

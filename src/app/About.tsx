@@ -1,14 +1,14 @@
 import React from 'react'
-import { Calendar, Menu, Moon, Github, Linkedin, Mail, MapPin, Code, Coffee, Headphones, Globe, ExternalLink, User, Briefcase, Clock, Star, Trophy, Heart } from "lucide-react"
+import { Clock, Star } from "lucide-react"
 import { ScrollFadeIn, ScrollSlideIn } from "../components/scroll-animations"
-import { Link } from 'react-router-dom'
 import profileImage from '../assets/profile.jpg'
 import { BentoGrid, BentoGridItem } from "../components/ui/bento-grid"
-import { GlobeDemo } from "../components/ui/demo"
 import ExpandableCardDemo from "../components/ui/expandable-card-demo-standard";
 import { LogoCarousel } from "../components/ui/logo-carousel";
-import { SiVscodium, SiFigma, SiNotion, SiGithub, SiMongodb, SiDiscord, SiPostman, SiFramer, SiGooglechrome, SiSupabase, SiReact, SiTailwindcss, SiPython, SiGit } from "react-icons/si";
+import { SiFigma, SiGithub, SiDiscord, SiPostman, SiSupabase, SiReact, SiTailwindcss, SiPython, SiGit } from "react-icons/si";
 import { SVGProps } from "react";
+import Menu from '../components/Menu';
+import { useState, useEffect } from 'react';
 
 const stackLogos = [
   { name: "Figma", id: 1, img: (props: SVGProps<SVGSVGElement>) => <SiFigma color="#F24E1E" {...props} /> },
@@ -23,20 +23,19 @@ const stackLogos = [
 ];
 
 export default function About() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    // Scroll to top when component mounts
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Header */}
-      {/* <header className="flex items-center justify-between p-6">
-        <button className="bg-white/10 border-white/20 text-white hover:bg-white/20 rounded-full px-6 py-3 border inline-flex items-center transition-all">
-          <Calendar className="w-4 h-4 mr-2" />
-          Schedule a call
-        </button>
-
-        <button className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-6 py-3 inline-flex items-center transition-all">
-          <Menu className="w-4 h-4 mr-2" />
-          Go to menu
-        </button>
-      </header> */}
+      <header className="flex items-center justify-end p-4 md:p-6 relative">
+        <Menu isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
+      </header>
 
       {/* Main Content */}
       <main className="container mx-auto px-6 py-12">
@@ -78,7 +77,7 @@ export default function About() {
               }
               description={
                 <div className="space-y-2 text-white/90">
-                  <div className="text-lg">I'm a full stack developer with a passion for building scalable and efficient buisnesses. I ship 24/7 365 days a year.</div>
+                  <div className="text-lg">I'm a full stack developer with a passion for building scalable and efficient buisnesses. I ship <span className="font-bold text-green-500">24/7</span> <span className="font-bold text-orange-500">365 </span>days a year.</div>
                 </div>
               }
             />
@@ -126,34 +125,12 @@ export default function About() {
             <BentoGridItem
               className="md:col-span-2 bg-gray-900 border-gray-800"
               title={<span className="text-white text-2xl font-bold">STACK.</span>}
-              description={<LogoCarousel columnCount={9} logos={stackLogos} />}
+              description={<LogoCarousel logos={stackLogos} visibleCount={6} />}
             />
           </BentoGrid>
         </ScrollFadeIn>
       </main>
 
-      {/* Bottom Navigation */}
-      <nav className="fixed bottom-6 left-1/2 transform -translate-x-1/2">
-        <div className="bg-white/10 backdrop-blur-md rounded-full px-8 py-4 border border-white/20">
-          <div className="flex items-center space-x-8">
-            <Link to="/" className="text-gray-400 hover:text-white transition-colors font-medium">
-              Home
-            </Link>
-            <Link to="/#projects" className="text-gray-400 hover:text-white transition-colors">
-              Projects
-            </Link>
-            {/* <button className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
-              <Moon className="w-4 h-4" />
-            </button> */}
-            <Link to="/about" className="text-white hover:text-orange-500 transition-colors font-medium">
-              About
-            </Link>
-            <button className="text-gray-400 hover:text-white transition-colors font-medium">
-              Chat
-            </button>
-          </div>
-        </div>
-      </nav>
     </div>
   )
 }

@@ -75,6 +75,49 @@ export default function FeaturedProjects() {
   const [activeProject, setActiveProject] = useState(0)
   const sectionRef = useRef<HTMLElement>(null)
   const [userInteracting, setUserInteracting] = useState(false)
+  const [programmaticScrolling, setProgrammaticScrolling] = useState(false)
+
+  // Function to scroll to a specific project position
+  const scrollToProject = (projectIndex: number) => {
+    if (!sectionRef.current) return
+
+    const sectionHeight = sectionRef.current.offsetHeight
+    const windowHeight = window.innerHeight
+    const sectionTop = sectionRef.current.offsetTop
+    
+    // Calculate the scroll position that corresponds to this project
+    // We want the scroll progress to match the project index
+    const targetProgress = projectIndex / (projects.length - 1) // Use (length - 1) for better distribution
+    
+    // Calculate the scroll position needed to achieve this progress
+    // The effective scrollable height within the section
+    const effectiveScrollHeight = sectionHeight - windowHeight / 2
+    const targetScrollOffset = targetProgress * effectiveScrollHeight
+    const targetScrollY = sectionTop + targetScrollOffset - windowHeight / 2
+    
+    // Smooth scroll to the calculated position
+    window.scrollTo({
+      top: Math.max(0, targetScrollY),
+      behavior: 'smooth'
+    })
+  }
+
+  // Enhanced dot click handler
+  const handleDotClick = (projectIndex: number) => {
+    setUserInteracting(true)
+    setProgrammaticScrolling(true)
+    setActiveProject(projectIndex)
+    scrollToProject(projectIndex)
+    
+    // Reset flags after scroll animation completes
+    setTimeout(() => {
+      setProgrammaticScrolling(false)
+    }, 1000) // Match smooth scroll duration
+    
+    setTimeout(() => {
+      setUserInteracting(false)
+    }, 3000) // Give more time after manual navigation
+  }
 
   useEffect(() => {
     let timeoutId: number
@@ -82,7 +125,7 @@ export default function FeaturedProjects() {
     const handleScroll = () => {
       // Disable sticky scroll behavior on mobile (screens smaller than 768px)
       if (window.innerWidth < 768) return
-      if (userInteracting) return
+      if (userInteracting || programmaticScrolling) return
 
       if (!sectionRef.current) return
 
@@ -128,7 +171,7 @@ export default function FeaturedProjects() {
       window.removeEventListener("touchstart", handleUserInteraction)
       clearTimeout(timeoutId)
     }
-  }, [activeProject, userInteracting])
+  }, [activeProject, userInteracting, programmaticScrolling])
 
   const currentProject = projects[activeProject]
 
@@ -264,7 +307,7 @@ export default function FeaturedProjects() {
                     {projects.map((_, index) => (
                       <button
                         key={index}
-                        onClick={() => setActiveProject(index)}
+                        onClick={() => handleDotClick(index)}
                         className={`h-2 rounded-full transition-all duration-500 ${
                           index === activeProject ? "bg-orange-500 w-8" : "bg-white/20 w-2 hover:bg-white/40"
                         }`}

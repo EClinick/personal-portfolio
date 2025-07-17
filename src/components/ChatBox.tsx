@@ -151,7 +151,7 @@ export default function ChatBox({ isOpen, onClose, isDarkMode = true }: ChatBoxP
             li: ({children}) => (
               <li className="mb-1">{children}</li>
             ),
-            code: ({inline, className, children}) => {
+            code: ({inline, className, children}: {inline?: boolean, className?: string, children?: React.ReactNode}) => {
               if (inline) {
                 return <code className="bg-gray-800 text-orange-400 px-2 py-1 rounded transition-colors duration-300">{children}</code>;
               }
