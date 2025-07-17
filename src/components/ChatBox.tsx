@@ -212,7 +212,7 @@ export default function ChatBox({ isOpen, onClose, isDarkMode = true }: ChatBoxP
         <div className="flex items-center space-x-4">
           <div className="text-2xl text-white">✱</div>
           <h3 className="text-xl font-light text-white">
-            AI <span className="font-semibold">ASSISTANT</span>
+            Ethan&apos;s <span className="font-semibold">ASSISTANT</span>
           </h3>
         </div>
         <div className="flex gap-3">
