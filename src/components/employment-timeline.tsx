@@ -91,7 +91,7 @@ export function EmploymentTimeline() {
   ];
 
   return (
-    <div className="min-h-screen w-full bg-black">
+    <div className="w-full bg-black py-16 md:py-24">
       <ScrollFadeIn>
         <Timeline data={employmentData} />
       </ScrollFadeIn>
