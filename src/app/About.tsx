@@ -149,7 +149,7 @@ export default function About() {
               About
             </Link>
             <button className="text-gray-400 hover:text-white transition-colors font-medium">
-              Contact
+              Chat
             </button>
           </div>
         </div>

@@ -127,7 +127,7 @@ export default function Projects() {
               About
             </Link>
             <Link to="/chat" className="text-gray-400 hover:text-white transition-colors font-medium">
-              Contact
+              Chat
             </Link>
           </div>
         </div>

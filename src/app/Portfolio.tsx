@@ -68,7 +68,7 @@ export default function Portfolio() {
               }} 
               className="text-white text-2xl font-medium hover:text-orange-500 transition-colors"
             >
-              Contact
+              Chat
             </button>
             {/* <button className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
               <Moon className="w-6 h-6" />
@@ -90,9 +90,7 @@ export default function Portfolio() {
               </h1>
 
               <p className="text-gray-400 text-base md:text-lg leading-relaxed max-w-lg">
-                From designing beautiful interfaces to making sure everything runs smoothly behind the scenes, I've got
-                you covered. Let's turn your ideas into interactive wonders that make waves online. With me by your
-                side, your website will be more than just pixels"
+                I'm a full stack developer with a passion for building scalable and efficient buisnesses. Shipping is my middle name.
               </p>
 
               <div className="text-orange-500 text-lg md:text-xl font-mono">{"{ Simplicity for the Future }"}</div>
@@ -136,7 +134,7 @@ export default function Portfolio() {
               About
             </Link>
             <button onClick={() => setIsChatOpen(true)} className="text-gray-400 hover:text-white transition-colors font-medium">
-              Contact
+              Chat
             </button>
           </div>
         </div>
@@ -159,7 +157,7 @@ export default function Portfolio() {
               About
             </Link>
             <button onClick={() => setIsChatOpen(true)} className="text-gray-400 hover:text-white transition-colors font-medium text-sm">
-              Contact
+              Chat
             </button>
           </div>
         </div>
