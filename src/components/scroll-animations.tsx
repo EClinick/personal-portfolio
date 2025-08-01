@@ -16,7 +16,7 @@ export function ScrollFadeIn({ children, className = "", delay = 0 }: ScrollAnim
           if (entry.isIntersecting) {
             setTimeout(() => {
               entry.target.classList.add("animate-fade-in-up")
-              entry.target.classList.remove("opacity-0", "translate-y-8")
+              entry.target.classList.remove("opacity-0", "translate-y-4")
             }, delay)
           }
         })
@@ -32,7 +32,7 @@ export function ScrollFadeIn({ children, className = "", delay = 0 }: ScrollAnim
   }, [delay])
 
   return (
-    <div ref={elementRef} className={`opacity-0 translate-y-8 transition-all duration-700 ease-out ${className}`}>
+    <div ref={elementRef} className={`opacity-0 translate-y-4 transition-all duration-500 ease-out ${className}`}>
       {children}
     </div>
   )
@@ -48,7 +48,7 @@ export function ScrollSlideIn({ children, className = "", delay = 0 }: ScrollAni
           if (entry.isIntersecting) {
             setTimeout(() => {
               entry.target.classList.add("animate-slide-in-left")
-              entry.target.classList.remove("opacity-0", "-translate-x-8")
+              entry.target.classList.remove("opacity-0", "-translate-x-4")
             }, delay)
           }
         })
@@ -64,7 +64,7 @@ export function ScrollSlideIn({ children, className = "", delay = 0 }: ScrollAni
   }, [delay])
 
   return (
-    <div ref={elementRef} className={`opacity-0 -translate-x-8 transition-all duration-700 ease-out ${className}`}>
+    <div ref={elementRef} className={`opacity-0 -translate-x-4 transition-all duration-500 ease-out ${className}`}>
       {children}
     </div>
   )
