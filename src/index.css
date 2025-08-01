@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html {
-  scroll-behavior: smooth;
+  /* Removed global smooth scroll to prevent scroll jacking */
 }
 
 body {

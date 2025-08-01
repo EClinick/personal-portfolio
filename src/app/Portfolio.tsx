@@ -27,10 +27,10 @@ export default function Portfolio() {
               </h1>
 
               <p className="text-gray-400 text-base md:text-lg leading-relaxed max-w-lg">
-                I'm a full stack developer with a passion for building scalable and efficient buisnesses. <span className="font-semibold text-orange-500">Shipping </span> is my middle name
+                I'm Ethan <span className="font-semibold text-orange-500">"Shipping"</span> Clinick, a full stack developer who builds scalable businesses. I combine rapid prototyping with production-ready architecture to deliver working solutions that scale.
               </p>
 
-              <div className="text-orange-500 text-lg md:text-xl font-mono">{"{ Simplicity for the Future }"}</div>
+              <div className="text-orange-500 text-lg md:text-xl font-mono">{"{ Build. Deploy. Scale. }"}</div>
             </div>
           </ScrollSlideIn>
 

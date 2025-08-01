@@ -42,7 +42,7 @@ export default function About() {
           <div className="text-2xl">✱</div>
           <div className="space-y-6">
             <h1 className="text-5xl lg:text-6xl font-light leading-tight">
-              I'm <span className="font-semibold">Ethan Clinick</span>
+              I'm <span className="font-semibold">Ethan "Shipping" Clinick</span>
             </h1>
             <div className="text-orange-500 text-xl font-mono">{"{ Full Stack Developer }"}</div>
           </div>
@@ -76,7 +76,7 @@ export default function About() {
               }
               description={
                 <div className="space-y-2 text-white/90">
-                  <div className="text-lg">I'm a full stack developer with a passion for building scalable and efficient buisnesses. I ship <span className="font-bold text-green-500">24/7</span> <span className="font-bold text-orange-500">365 </span>days a year.</div>
+                  <div className="text-lg">I'm a full stack developer who builds scalable businesses. I combine rapid development cycles with production-grade architecture to deliver working solutions that actually scale. I ship <span className="font-bold text-green-500">24/7</span> <span className="font-bold text-orange-500">365 </span>days a year.</div>
                 </div>
               }
             />
