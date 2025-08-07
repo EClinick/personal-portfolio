@@ -14,6 +14,14 @@ const Footer: React.FC = () => {
         </div>
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
           <a 
+            href="https://newsletter.zalkazemi.com/p/the-landing-page-formula" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="glass-button text-white font-semibold px-4 sm:px-6 py-2 rounded-full text-sm sm:text-base transition-colors text-center"
+          >
+            Join feedback list
+          </a>
+          <a 
             href="mailto:ethan@clinick.net" 
             className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 sm:px-6 py-2 rounded-full text-sm sm:text-base transition-colors text-center"
           >
