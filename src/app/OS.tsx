@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useState } from 'react';
-import { FileText, Calculator, Folder, Power, ChevronUp, Search, StickyNote, Minus, Square, X, Wifi, Volume2, Battery } from 'lucide-react';
+import { FileText, Calculator, Folder, Power, Search, StickyNote, Minus, Square, X, Wifi, Volume2, Battery } from 'lucide-react';
 import { Rnd } from 'react-rnd';
 
 // Windows 7 color palette and helpers
@@ -348,11 +348,12 @@ export default function OS() {
 
       {/* Taskbar */}
       <div
-        className="absolute left-0 right-0 bottom-0 h-[46px] px-3 flex items-center gap-2 relative"
+        className="fixed left-0 right-0 bottom-0 h-[46px] px-3 flex items-center gap-2 relative z-50"
         style={{
-          background: `linear-gradient(to top, ${win7Blue}, ${win7BlueLight})`,
+          background: `linear-gradient(to top, rgba(15,70,150,0.78), rgba(34,110,200,0.58))`,
           borderTop: `1px solid ${taskbarBorder}`,
-          boxShadow: '0 -1px 0 rgba(0,0,0,0.4) inset, 0 -4px 16px rgba(0,0,0,0.35)'
+          boxShadow: '0 -1px 0 rgba(255,255,255,0.25) inset, 0 -6px 18px rgba(0,0,0,0.35)',
+          backdropFilter: 'blur(10px) saturate(1.2)'
         }}
       >
         <div className="absolute top-0 left-0 right-0 h-[1px] bg-white/20 pointer-events-none" />
@@ -364,7 +365,7 @@ export default function OS() {
             className="h-10 w-10 -mt-3 rounded-full bg-[radial-gradient(circle_at_30%_30%,#aaf27d,transparent_60%),linear-gradient(to_bottom,#6bcf4a,#2a8f2b)] border border-white/70 shadow-[0_4px_8px_rgba(0,0,0,0.4)] flex items-center justify-center"
             title="Start"
           >
-            <ChevronUp className={`text-white drop-shadow transition-transform ${startOpen ? 'rotate-180' : ''}`} />
+            <span className="text-white text-lg drop-shadow">⊞</span>
           </button>
           {startOpen && (
             <div
