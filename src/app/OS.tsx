@@ -1,13 +1,12 @@
 import React, { useMemo, useRef, useState } from 'react';
-import { FileText, Calculator, Folder, Power, ChevronUp, Search, StickyNote, Minus, Square, X } from 'lucide-react';
+import { FileText, Calculator, Folder, Power, ChevronUp, Search, StickyNote, Minus, Square, X, Wifi, Volume2, Battery } from 'lucide-react';
 import { Rnd } from 'react-rnd';
 
 // Windows 7 color palette and helpers
 const win7Blue = '#1a4c8b';
 const win7BlueDark = '#0e3564';
 const win7BlueLight = '#2b6bb0';
-const taskbarGlass = 'rgba(15, 40, 80, 0.7)';
-const taskbarBorder = 'rgba(255,255,255,0.2)';
+const taskbarBorder = 'rgba(255,255,255,0.25)';
 
 // Types
 type AppId = 'notes' | 'calc' | 'explorer';
@@ -59,7 +58,7 @@ function TitleBar({ title, icon, onMinimize, onClose, onFocus }: {
   return (
     <div
       onMouseDown={onFocus}
-      className="flex items-center justify-between h-7 select-none"
+      className="win7-titlebar cursor-move flex items-center justify-between h-9 select-none"
       style={{
         background: `linear-gradient(to bottom, ${win7BlueLight}, ${win7BlueDark})`,
         color: 'white',
@@ -102,19 +101,19 @@ function NotesApp() {
   const [editing, setEditing] = useState(false);
   return (
     <div className="w-full h-full bg-[#fff8b1] text-black" style={{ borderBottomLeftRadius: 6, borderBottomRightRadius: 6 }}>
-      <div className="p-2">
+      <div className="p-2 no-drag">
         {editing ? (
           <textarea
             value={text}
             onChange={(e) => setText(e.target.value)}
             onBlur={() => setEditing(false)}
-            className="w-full h-[260px] bg-transparent outline-none resize-none"
+            className="w-full h-[260px] bg-transparent outline-none resize-none no-drag"
             autoFocus
           />
         ) : (
           <div
             onDoubleClick={() => setEditing(true)}
-            className="whitespace-pre-wrap text-sm leading-relaxed"
+            className="whitespace-pre-wrap text-sm leading-relaxed no-drag"
           >
             {text}
           </div>
@@ -163,7 +162,7 @@ function CalculatorApp() {
   const btn = 'bg-gradient-to-b from-gray-200 to-gray-300 hover:from-gray-100 active:to-gray-400 border border-white/60 shadow-sm text-sm rounded-sm';
 
   return (
-    <div className="w-full h-full p-2 bg-gradient-to-br from-gray-100 to-gray-200" style={{ borderBottomLeftRadius: 6, borderBottomRightRadius: 6 }}>
+    <div className="w-full h-full p-2 bg-gradient-to-br from-gray-100 to-gray-200 no-drag" style={{ borderBottomLeftRadius: 6, borderBottomRightRadius: 6 }}>
       <div className="mb-2 p-2 bg-white/80 border border-white/60 rounded-sm text-right font-mono text-xl shadow-inner">{display}</div>
       <div className="grid grid-cols-4 gap-2">
         <button className={btn} onClick={clear}>C</button>
@@ -198,11 +197,11 @@ function ExplorerApp() {
           <Folder size={14} />
           <span className="font-medium">Libraries</span>
         </div>
-        <div className="ml-auto flex items-center gap-2 text-xs text-black/70 bg-white px-2 py-1 rounded-sm border border-black/10">
+        <div className="ml-auto flex items-center gap-2 text-xs text-black/70 bg-white px-2 py-1 rounded-sm border border-black/10 no-drag">
           <Search size={12} /> Search Libraries
         </div>
       </div>
-      <div className="grid grid-cols-5 gap-4 p-4 text-sm">
+      <div className="grid grid-cols-5 gap-4 p-4 text-sm no-drag">
         {items.map((it) => (
           <div key={it.name} className="flex flex-col items-center gap-2">
             <div className="w-14 h-12 bg-gradient-to-b from-blue-200 to-blue-300 border border-white/50 rounded-sm shadow-sm flex items-center justify-center">
@@ -249,12 +248,15 @@ export default function OS() {
     return (
       <button
         onClick={() => (active ? setWindows((cur) => ({ ...cur, [id]: { ...cur[id], minimized: true } })) : bringToFront(id))}
-        className={`flex items-center gap-2 px-3 py-1 rounded-sm border transition-all ${
-          active ? 'bg-white/15 border-white/30' : 'bg-white/5 border-white/10 hover:bg-white/10'
+        className={`relative h-9 flex items-center gap-2 px-3 rounded-sm border transition-all ${
+          active
+            ? 'bg-gradient-to-b from-white/40 to-white/20 border-white/40 shadow-inner'
+            : 'bg-gradient-to-b from-white/20 to-white/10 border-white/20 hover:from-white/30 hover:to-white/15'
         }`}
       >
         <span className="opacity-90">{icon}</span>
         <span className="text-[12px]">{label}</span>
+        {active && <span className="absolute inset-x-2 bottom-0 h-[2px] bg-white/70 rounded-sm" />}
       </button>
     );
   };
@@ -300,67 +302,73 @@ export default function OS() {
         const w = windows[id];
         if (!w || w.minimized) return null;
         return (
-          <div key={id} style={{ position: 'absolute', left: w.position.x, top: w.position.y, zIndex: w.zIndex }}>
-            <Rnd
-              default={{ x: w.position.x, y: w.position.y, width: w.size.width, height: w.size.height }}
-              minWidth={260}
-              minHeight={200}
-              bounds="window"
-              onDragStop={(_, d) => setWindows((cur) => ({ ...cur, [id]: { ...cur[id], position: { x: d.x, y: d.y } } }))}
-              onResizeStop={(_, __, ref, ___, pos) => setWindows((cur) => ({
-                ...cur,
-                [id]: {
-                  ...cur[id],
-                  size: { width: ref.offsetWidth, height: ref.offsetHeight },
-                  position: { x: pos.x, y: pos.y },
-                },
-              }))}
-              style={{
-                borderRadius: 6,
-                boxShadow: '0 20px 60px rgba(0,0,0,0.45)',
-                border: '1px solid rgba(255,255,255,0.3)',
-                background: 'linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(240,240,240,0.95))',
-              }}
-              onMouseDown={() => bringToFront(id)}
-            >
-              <div className="w-full h-full flex flex-col" style={{ borderRadius: 6 }}>
-                <TitleBar
-                  title={w.title}
-                  icon={w.icon}
-                  onMinimize={() => setWindows((cur) => ({ ...cur, [id]: { ...cur[id], minimized: true } }))}
-                  onClose={() => closeWindow(id)}
-                  onFocus={() => bringToFront(id)}
-                />
-                <div className="flex-1 overflow-hidden">
-                  {renderApp(id)}
-                </div>
+          <Rnd
+            key={id}
+            size={{ width: w.size.width, height: w.size.height }}
+            position={{ x: w.position.x, y: w.position.y }}
+            minWidth={260}
+            minHeight={200}
+            bounds="window"
+            dragHandleClassName="win7-titlebar"
+            cancel=".no-drag"
+            onDragStart={() => bringToFront(id)}
+            onDragStop={(_, d) => setWindows((cur) => ({ ...cur, [id]: { ...cur[id], position: { x: d.x, y: d.y } } }))}
+            onResizeStop={(_, __, ref, ___, pos) => setWindows((cur) => ({
+              ...cur,
+              [id]: {
+                ...cur[id],
+                size: { width: ref.offsetWidth, height: ref.offsetHeight },
+                position: { x: pos.x, y: pos.y },
+              },
+            }))}
+            enableResizing={{ top: true, right: true, bottom: true, left: true, topRight: true, bottomRight: true, bottomLeft: true, topLeft: true }}
+            style={{
+              zIndex: w.zIndex,
+              borderRadius: 6,
+              boxShadow: '0 20px 60px rgba(0,0,0,0.45)',
+              border: '1px solid rgba(255,255,255,0.3)',
+              background: 'linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(240,240,240,0.95))',
+            }}
+          >
+            <div className="w-full h-full flex flex-col" style={{ borderRadius: 6 }}>
+              <TitleBar
+                title={w.title}
+                icon={w.icon}
+                onMinimize={() => setWindows((cur) => ({ ...cur, [id]: { ...cur[id], minimized: true } }))}
+                onClose={() => closeWindow(id)}
+                onFocus={() => bringToFront(id)}
+              />
+              <div className="flex-1 overflow-hidden">
+                {renderApp(id)}
               </div>
-            </Rnd>
-          </div>
+            </div>
+          </Rnd>
         );
       })}
 
       {/* Taskbar */}
       <div
-        className="absolute left-0 right-0 bottom-0 h-12 px-3 flex items-center gap-2"
+        className="absolute left-0 right-0 bottom-0 h-[46px] px-3 flex items-center gap-2 relative"
         style={{
           background: `linear-gradient(to top, ${win7Blue}, ${win7BlueLight})`,
           borderTop: `1px solid ${taskbarBorder}`,
           boxShadow: '0 -1px 0 rgba(0,0,0,0.4) inset, 0 -4px 16px rgba(0,0,0,0.35)'
         }}
       >
+        <div className="absolute top-0 left-0 right-0 h-[1px] bg-white/20 pointer-events-none" />
+
         {/* Start Button */}
-        <div className="relative">
+        <div className="relative mr-2">
           <button
             onClick={toggleStart}
-            className="h-9 w-9 rounded-full bg-gradient-to-b from-green-300 to-green-500 border border-white/60 shadow-md flex items-center justify-center"
+            className="h-10 w-10 -mt-3 rounded-full bg-[radial-gradient(circle_at_30%_30%,#aaf27d,transparent_60%),linear-gradient(to_bottom,#6bcf4a,#2a8f2b)] border border-white/70 shadow-[0_4px_8px_rgba(0,0,0,0.4)] flex items-center justify-center"
             title="Start"
           >
-            <ChevronUp className={`transition-transform ${startOpen ? 'rotate-180' : ''}`} />
+            <ChevronUp className={`text-white drop-shadow transition-transform ${startOpen ? 'rotate-180' : ''}`} />
           </button>
           {startOpen && (
             <div
-              className="absolute bottom-12 left-0 w-72 rounded-md overflow-hidden"
+              className="absolute bottom-[50px] left-0 w-[720px] rounded-md overflow-hidden"
               style={{
                 background: 'linear-gradient(to bottom, rgba(255,255,255,0.98), rgba(240,240,240,0.98))',
                 border: '1px solid rgba(255,255,255,0.6)',
@@ -369,20 +377,24 @@ export default function OS() {
             >
               <div className="p-3 border-b border-black/10">
                 <input
-                  className="w-full text-sm px-2 py-1 bg-white/80 border border-black/10 rounded-sm outline-none"
+                  className="w-full text-sm px-2 py-1 bg-white/80 border border-black/10 rounded-sm outline-none no-drag"
                   placeholder="Search programs and files"
                 />
               </div>
-              <div className="p-2 grid grid-cols-1 gap-1 text-sm">
-                <button onClick={() => launch('explorer')} className="flex items-center gap-2 px-2 py-2 hover:bg-black/5 rounded">
-                  <Folder size={16} /> Libraries
-                </button>
-                <button onClick={() => launch('notes')} className="flex items-center gap-2 px-2 py-2 hover:bg-black/5 rounded">
-                  <StickyNote size={16} /> Sticky Notes
-                </button>
-                <button onClick={() => launch('calc')} className="flex items-center gap-2 px-2 py-2 hover:bg-black/5 rounded">
-                  <Calculator size={16} /> Calculator
-                </button>
+              <div className="grid grid-cols-[260px_1fr] gap-0">
+                <div className="p-2 border-r border-black/10">
+                  <div className="text-[12px] uppercase tracking-wide text-black/60 px-2 py-1">Recently used</div>
+                  <div className="flex flex-col text-sm">
+                    {['Word','OneDrive','PowerPoint','Adobe Premiere Pro CC','Adobe Photoshop CC','Calendar','Calculator','Clock','Contacts','Files'].map((name) => (
+                      <button key={name} className="text-left px-2 py-[6px] hover:bg-black/5 rounded no-drag">{name}</button>
+                    ))}
+                  </div>
+                </div>
+                <div className="p-3 grid grid-cols-3 gap-3 text-sm">
+                  <button onClick={() => launch('explorer')} className="px-3 py-4 bg-gradient-to-b from-sky-200 to-sky-300 border border-white/60 rounded hover:from-sky-100 no-drag">Libraries</button>
+                  <button onClick={() => launch('notes')} className="px-3 py-4 bg-gradient-to-b from-yellow-200 to-yellow-300 border border-white/60 rounded hover:from-yellow-100 no-drag">Sticky Notes</button>
+                  <button onClick={() => launch('calc')} className="px-3 py-4 bg-gradient-to-b from-gray-200 to-gray-300 border border-white/60 rounded hover:from-gray-100 no-drag">Calculator</button>
+                </div>
               </div>
               <div className="flex items-center justify-between px-3 py-2 text-xs border-t border-black/10 bg-gradient-to-b from-gray-50 to-gray-100">
                 <span className="text-black/60">Ethan</span>
@@ -395,16 +407,28 @@ export default function OS() {
         </div>
 
         {/* Pinned Icons */}
-        <div className="flex items-center gap-2 ml-2">
+        <div className="flex items-center gap-2 ml-1">
           <TaskbarButton id="explorer" label="Libraries" icon={<Folder size={14} />} />
           <TaskbarButton id="notes" label="Sticky Notes" icon={<StickyNote size={14} />} />
           <TaskbarButton id="calc" label="Calculator" icon={<Calculator size={14} />} />
         </div>
 
-        {/* Clock */}
-        <div className="ml-auto text-white/90 text-[12px]">
-          {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+        {/* Spacer */}
+        <div className="flex-1" />
+
+        {/* System tray */}
+        <div className="flex items-center gap-3 text-white/90 text-[12px]">
+          <Wifi size={16} className="opacity-90" />
+          <Volume2 size={16} className="opacity-90" />
+          <Battery size={16} className="opacity-90" />
+          <div className="text-right leading-4">
+            <div>{new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+            <div className="text-white/75 text-[10px] -mt-0.5">{new Date().toLocaleDateString([], { month: 'short', day: 'numeric' })}</div>
+          </div>
         </div>
+
+        {/* Show desktop */}
+        <div className="ml-3 h-[28px] w-[8px] rounded-sm bg-white/30 hover:bg-white/50 border border-white/40" title="Show desktop" />
       </div>
     </div>
   );
