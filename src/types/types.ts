@@ -9,6 +9,17 @@ export type ChatBoxProps = {
   isDarkMode?: boolean;
 };
 
+export type OSAppId = 'notes' | 'calc' | 'explorer';
+
+export type OSWindowState = {
+  id: OSAppId;
+  title: string;
+  minimized: boolean;
+  zIndex: number;
+  position: { x: number; y: number };
+  size: { width: number; height: number };
+};
+
 export const SYSTEM_CONTEXT = {
     context: {
       name: "Ethan Clinick",
