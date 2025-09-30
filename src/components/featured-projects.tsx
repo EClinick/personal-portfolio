@@ -253,7 +253,7 @@ export default function FeaturedProjects() {
                           {/* Project Content */}
                           <div className="flex-1">
                             <div
-                              className={`h-full bg-gradient-to-br ${project.color} rounded-xl relative overflow-hidden`}
+                              className={`h-full rounded-xl relative overflow-hidden`}
                             >
                               {project.name === "Tan.ai" ? (
                                 <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-black/60 text-white z-10">
@@ -358,7 +358,7 @@ export default function FeaturedProjects() {
                   {/* Project Content */}
                   <div className="h-[300px] relative">
                     <div
-                      className={`h-full bg-gradient-to-br ${project.color} rounded-xl relative overflow-hidden`}
+                      className={`h-full rounded-xl relative overflow-hidden`}
                     >
                       {project.name === "Tan.ai" ? (
                         <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-black/60 text-white z-10">
