@@ -5,6 +5,7 @@ import { ScrollFadeIn, ScrollSlideIn } from "../components/scroll-animations"
 import profileImage from '../assets/profile.jpg';
 import Menu from '../components/Menu';
 import Footer from '../components/Footer';
+import GitHubContributionGraph from '../components/github-contribution-graph';
 import { useState } from 'react';
 
 export default function Portfolio() {
@@ -47,6 +48,13 @@ export default function Portfolio() {
         </div>
       </main>
 
+      {/* GitHub Contribution Graph Section */}
+      <div className="container mx-auto px-4 md:px-6 py-8 md:py-12">
+        <ScrollFadeIn>
+          <GitHubContributionGraph />
+        </ScrollFadeIn>
+      </div>
+      
       {/* Featured Projects Section */}
       <div id="projects">
         <FeaturedProjects />
