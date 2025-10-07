@@ -79,7 +79,33 @@ export default function GitHubContributionGraph({
 
     fetchContributions();
   }, []);
-  const months = ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'];
+
+  // Generate month labels based on actual contribution dates
+  const getMonthLabels = () => {
+    if (weeks.length === 0) return [];
+
+    const labels: { month: string; weekIndex: number }[] = [];
+    let lastMonth = -1;
+
+    weeks.forEach((week, weekIndex) => {
+      if (week.length > 0) {
+        const date = new Date(week[0].date);
+        const month = date.getMonth();
+
+        if (month !== lastMonth) {
+          labels.push({
+            month: date.toLocaleDateString('en-US', { month: 'short' }),
+            weekIndex
+          });
+          lastMonth = month;
+        }
+      }
+    });
+
+    return labels;
+  };
+
+  const monthLabels = getMonthLabels();
   const days = ['Mon', 'Wed', 'Fri'];
 
   const getLevelColor = (level: number): string => {
@@ -125,12 +151,12 @@ export default function GitHubContributionGraph({
         <div className="relative overflow-x-auto">
           <div className="inline-block min-w-full">
             {/* Month labels */}
-            <div className="flex mb-2 pl-8">
-              {months.map((month, i) => (
+            <div className="mb-2 pl-8 relative h-4">
+              {monthLabels.map(({ month, weekIndex }) => (
                 <div
-                  key={month}
-                  className="text-xs text-gray-400"
-                  style={{ width: `${100 / 12}%`, minWidth: '60px' }}
+                  key={`${month}-${weekIndex}`}
+                  className="text-xs text-gray-400 absolute"
+                  style={{ left: `${weekIndex * 16}px` }}
                 >
                   {month}
                 </div>
