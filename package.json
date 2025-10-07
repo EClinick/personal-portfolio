@@ -1,0 +1,17 @@
+{
+  "name": "ethan-clinick-portfolio",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Personal portfolio website for Ethan Clinick - Full Stack Developer",
+  "scripts": {
+    "build": "mkdir -p dist && cp -r *.html assets resume.pdf dist/",
+    "dev": "npx serve . -p 3000",
+    "preview": "npx serve . -p 4173"
+  },
+  "keywords": ["portfolio", "react", "vite", "frontend"],
+  "author": "Ethan Clinick",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}

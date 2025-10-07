@@ -1,0 +1,7 @@
+[build]
+  publish = "dist"
+  command = "npm run build"
+
+# No functions directory since this is a static site
+[functions]
+  # Leave empty to disable functions
