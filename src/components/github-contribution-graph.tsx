@@ -180,6 +180,10 @@ export default function GitHubContributionGraph({
                         key={`${weekIndex}-${dayIndex}`}
                         className={`w-[13px] h-[13px] rounded-sm ${getLevelColor(day.level)} hover:ring-1 hover:ring-white/50 transition-all cursor-pointer`}
                         title={`${day.count} contributions on ${day.date}`}
+                        onClick={() => {
+                          const formattedDate = day.date;
+                          window.open(`https://github.com/EClinick?tab=overview&from=${formattedDate}&to=${formattedDate}`, '_blank');
+                        }}
                       />
                     ))}
                   </div>
