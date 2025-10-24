@@ -89,7 +89,7 @@ const Menu: React.FC<MenuProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) =>
 
       {/* Top Navigation - Desktop */}
       <nav className="hidden md:block fixed top-6 left-1/2 transform -translate-x-1/2 z-[40]">
-        <div className="bg-white/10 backdrop-blur-md rounded-full px-8 py-4 border border-white/20">
+        <div className="bg-glass backdrop-blur-md rounded-2xl px-8 py-4 border border-white/20">
           <div className="flex items-center space-x-8">
             <Link to="/" className="text-gray-400 hover:text-white transition-colors font-medium" onClick={handleHomeClick}>
               Home
@@ -109,7 +109,7 @@ const Menu: React.FC<MenuProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) =>
 
       {/* Mobile Top Navigation */}
       <nav className="md:hidden fixed top-4 left-1/2 transform -translate-x-1/2 z-[40] w-[90%] max-w-sm">
-        <div className="bg-white/10 backdrop-blur-md rounded-full px-6 py-3 border border-white/20">
+        <div className="bg-white/ backdrop-blur-md rounded-2xl px-6 py-3 border border-white/20">
           <div className="flex items-center justify-between">
             <Link to="/" className="text-white hover:text-orange-500 transition-colors font-medium text-sm" onClick={handleHomeClick}>
               Home

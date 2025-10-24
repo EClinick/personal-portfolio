@@ -7,7 +7,7 @@ export default {
         xs: '2px',
       },
       backgroundColor: {
-        'glass': 'rgba(255, 255, 255, 0.25)',
+        'glass': 'rgba(24, 23, 23, 0.42)',
         'glass-dark': 'rgba(255, 255, 255, 0.15)',
         'glass-light': 'rgba(255, 255, 255, 0.35)',
         'glass-card': 'rgba(255, 255, 255, 0.3)',
