@@ -5,17 +5,11 @@ import WelcomeAnimation from './components/WelcomeAnimation';
 import { useState, useEffect } from 'react';
 
 function App() {
-  const [showWelcome, setShowWelcome] = useState(true);
-  const [hasShownWelcome, setHasShownWelcome] = useState(false);
-
-  useEffect(() => {
-    // Check if welcome animation has been shown in this session
-    const welcomed = sessionStorage.getItem('hasShownWelcome');
-    if (welcomed === 'true') {
-      setShowWelcome(false);
-      setHasShownWelcome(true);
-    }
-  }, []);
+  // Check session storage BEFORE initial render to prevent flash
+  const hasSeenWelcome = sessionStorage.getItem('hasShownWelcome') === 'true';
+  
+  const [showWelcome, setShowWelcome] = useState(!hasSeenWelcome);
+  const [hasShownWelcome, setHasShownWelcome] = useState(hasSeenWelcome);
 
   const handleWelcomeComplete = () => {
     setShowWelcome(false);
