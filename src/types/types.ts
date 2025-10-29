@@ -9,6 +9,22 @@ export type ChatBoxProps = {
   isDarkMode?: boolean;
 };
 
+export type BlogPost = {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  author: string;
+  publishedDate: string;
+  updatedDate?: string;
+  tags: string[];
+  category: string;
+  featured: boolean;
+  readingTime: number;
+  thumbnailUrl?: string;
+};
+
 export const SYSTEM_CONTEXT = {
     context: {
       name: "Ethan Clinick",
