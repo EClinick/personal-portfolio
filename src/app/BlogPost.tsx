@@ -75,7 +75,7 @@ export default function BlogPost() {
       <Menu isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 md:px-6 py-8 md:py-12">
+      <main className="container mx-auto px-4 md:px-6 pt-24 md:pt-28 pb-8 md:pb-12">
         {/* Back Button */}
         <ScrollFadeIn>
           <button

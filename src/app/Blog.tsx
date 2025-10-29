@@ -48,7 +48,7 @@ export default function Blog() {
       <Menu isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 md:px-6 py-8 md:py-12">
+      <main className="container mx-auto px-4 md:px-6 pt-24 md:pt-28 pb-8 md:pb-12">
         {/* Header */}
         <ScrollFadeIn className="text-center mb-12 md:mb-16">
           <div className="space-y-4">
@@ -68,7 +68,7 @@ export default function Blog() {
           <div className="max-w-4xl mx-auto space-y-6">
             {/* Search Bar */}
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none z-10" />
               <input
                 type="text"
                 placeholder="Search blog posts..."
@@ -78,7 +78,8 @@ export default function Blog() {
                   w-full pl-12 pr-4 py-3 rounded-xl
                   bg-black/40 backdrop-blur-sm
                   border border-white/10
-                  focus:border-orange-500/50 focus:outline-none
+                  hover:border-white/20
+                  focus:border-orange-500/50 focus:outline-none focus:ring-2 focus:ring-orange-500/20
                   text-white placeholder-gray-500
                   transition-all duration-300
                 "
@@ -89,48 +90,74 @@ export default function Blog() {
             <div className="flex flex-col sm:flex-row gap-4">
               {/* Category Filter */}
               <div className="flex-1">
-                <label className="block text-sm text-gray-400 mb-2">Category</label>
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="
-                    w-full px-4 py-2 rounded-lg
-                    bg-black/40 backdrop-blur-sm
-                    border border-white/10
-                    focus:border-orange-500/50 focus:outline-none
-                    text-white
-                    cursor-pointer
-                  "
-                >
-                  {categories.map((category) => (
-                    <option key={category} value={category} className="bg-black">
-                      {category}
-                    </option>
-                  ))}
-                </select>
+                <label htmlFor="category-filter" className="block text-sm font-medium text-gray-400 mb-2">
+                  Category
+                </label>
+                <div className="relative">
+                  <select
+                    id="category-filter"
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    className="
+                      w-full px-4 py-3 rounded-xl
+                      bg-black/40 backdrop-blur-sm
+                      border border-white/10
+                      hover:border-white/20
+                      focus:border-orange-500/50 focus:outline-none focus:ring-2 focus:ring-orange-500/20
+                      text-white
+                      cursor-pointer
+                      appearance-none
+                      transition-all duration-300
+                    "
+                  >
+                    {categories.map((category) => (
+                      <option key={category} value={category} className="bg-black text-white">
+                        {category}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                    <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
               </div>
 
               {/* Tag Filter */}
               <div className="flex-1">
-                <label className="block text-sm text-gray-400 mb-2">Tag</label>
-                <select
-                  value={selectedTag}
-                  onChange={(e) => setSelectedTag(e.target.value)}
-                  className="
-                    w-full px-4 py-2 rounded-lg
-                    bg-black/40 backdrop-blur-sm
-                    border border-white/10
-                    focus:border-orange-500/50 focus:outline-none
-                    text-white
-                    cursor-pointer
-                  "
-                >
-                  {tags.map((tag) => (
-                    <option key={tag} value={tag} className="bg-black">
-                      {tag}
-                    </option>
-                  ))}
-                </select>
+                <label htmlFor="tag-filter" className="block text-sm font-medium text-gray-400 mb-2">
+                  Tag
+                </label>
+                <div className="relative">
+                  <select
+                    id="tag-filter"
+                    value={selectedTag}
+                    onChange={(e) => setSelectedTag(e.target.value)}
+                    className="
+                      w-full px-4 py-3 rounded-xl
+                      bg-black/40 backdrop-blur-sm
+                      border border-white/10
+                      hover:border-white/20
+                      focus:border-orange-500/50 focus:outline-none focus:ring-2 focus:ring-orange-500/20
+                      text-white
+                      cursor-pointer
+                      appearance-none
+                      transition-all duration-300
+                    "
+                  >
+                    {tags.map((tag) => (
+                      <option key={tag} value={tag} className="bg-black text-white">
+                        {tag}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                    <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
               </div>
             </div>
 
