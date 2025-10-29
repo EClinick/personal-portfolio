@@ -4,6 +4,8 @@ import Menu from '../components/Menu';
 import Footer from '../components/Footer';
 import BlogCard from '../components/BlogCard';
 import { ScrollFadeIn } from '../components/scroll-animations';
+import { Input } from '../components/ui/input';
+import { Select } from '../components/ui/select';
 import { getAllPosts } from '../blog/blogData';
 import { searchPosts, filterByCategory, filterByTag, getAllCategories, getAllTags } from '../blog/blogUtils';
 
@@ -48,7 +50,7 @@ export default function Blog() {
       <Menu isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 md:px-6 py-8 md:py-12">
+      <main className="container mx-auto px-4 md:px-6 pt-24 md:pt-28 pb-8 md:pb-12">
         {/* Header */}
         <ScrollFadeIn className="text-center mb-12 md:mb-16">
           <div className="space-y-4">
@@ -68,17 +70,18 @@ export default function Blog() {
           <div className="max-w-4xl mx-auto space-y-6">
             {/* Search Bar */}
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 z-10" />
+              <Input
                 type="text"
                 placeholder="Search blog posts..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                aria-label="Search blog posts"
                 className="
-                  w-full pl-12 pr-4 py-3 rounded-xl
+                  w-full pl-12 pr-4 py-3 h-12 rounded-xl
                   bg-black/40 backdrop-blur-sm
-                  border border-white/10
-                  focus:border-orange-500/50 focus:outline-none
+                  border-white/10
+                  focus:border-orange-500/50
                   text-white placeholder-gray-500
                   transition-all duration-300
                 "
@@ -89,17 +92,18 @@ export default function Blog() {
             <div className="flex flex-col sm:flex-row gap-4">
               {/* Category Filter */}
               <div className="flex-1">
-                <label className="block text-sm text-gray-400 mb-2">Category</label>
-                <select
+                <label htmlFor="category-filter" className="block text-sm text-gray-400 mb-2">Category</label>
+                <Select
+                  id="category-filter"
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
+                  aria-label="Filter by category"
                   className="
-                    w-full px-4 py-2 rounded-lg
+                    w-full px-4 py-2 h-10 rounded-lg
                     bg-black/40 backdrop-blur-sm
-                    border border-white/10
-                    focus:border-orange-500/50 focus:outline-none
+                    border-white/10
+                    focus:border-orange-500/50
                     text-white
-                    cursor-pointer
                   "
                 >
                   {categories.map((category) => (
@@ -107,22 +111,23 @@ export default function Blog() {
                       {category}
                     </option>
                   ))}
-                </select>
+                </Select>
               </div>
 
               {/* Tag Filter */}
               <div className="flex-1">
-                <label className="block text-sm text-gray-400 mb-2">Tag</label>
-                <select
+                <label htmlFor="tag-filter" className="block text-sm text-gray-400 mb-2">Tag</label>
+                <Select
+                  id="tag-filter"
                   value={selectedTag}
                   onChange={(e) => setSelectedTag(e.target.value)}
+                  aria-label="Filter by tag"
                   className="
-                    w-full px-4 py-2 rounded-lg
+                    w-full px-4 py-2 h-10 rounded-lg
                     bg-black/40 backdrop-blur-sm
-                    border border-white/10
-                    focus:border-orange-500/50 focus:outline-none
+                    border-white/10
+                    focus:border-orange-500/50
                     text-white
-                    cursor-pointer
                   "
                 >
                   {tags.map((tag) => (
@@ -130,7 +135,7 @@ export default function Blog() {
                       {tag}
                     </option>
                   ))}
-                </select>
+                </Select>
               </div>
             </div>
 
