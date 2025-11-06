@@ -4,7 +4,7 @@ import Menu from '../components/Menu';
 import Footer from '../components/Footer';
 import BlogCard from '../components/BlogCard';
 import { ScrollFadeIn } from '../components/scroll-animations';
-import { getAllPosts } from '../blog/blogData';
+import { getAllPosts } from '../blog/blogLoader';
 import { searchPosts, filterByCategory, filterByTag, getAllCategories, getAllTags } from '../blog/blogUtils';
 
 export default function Blog() {

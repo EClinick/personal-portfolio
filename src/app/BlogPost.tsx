@@ -1,14 +1,17 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, Calendar, Clock, Tag, Share2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 import { useState } from 'react';
 import Menu from '../components/Menu';
 import Footer from '../components/Footer';
 import BlogCard from '../components/BlogCard';
 import { ScrollFadeIn } from '../components/scroll-animations';
-import { getPostBySlug } from '../blog/blogData';
+import { getPostBySlug, getAllPosts } from '../blog/blogLoader';
 import { formatDate, getRelatedPosts } from '../blog/blogUtils';
-import { getAllPosts } from '../blog/blogData';
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
@@ -178,33 +181,59 @@ export default function BlogPost() {
           <article className="
             prose prose-invert prose-lg max-w-none
             prose-headings:text-white prose-headings:font-bold
-            prose-h1:text-4xl prose-h1:mb-6 prose-h1:mt-8
-            prose-h2:text-3xl prose-h2:mb-4 prose-h2:mt-8 prose-h2:text-orange-500
-            prose-h3:text-2xl prose-h3:mb-3 prose-h3:mt-6
-            prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-4
-            prose-a:text-orange-500 prose-a:no-underline hover:prose-a:underline
+            prose-h1:text-4xl prose-h1:mb-8 prose-h1:mt-12 prose-h1:leading-tight
+            prose-h2:text-3xl prose-h2:mb-6 prose-h2:mt-12 prose-h2:text-orange-500 prose-h2:leading-tight
+            prose-h3:text-2xl prose-h3:mb-4 prose-h3:mt-8 prose-h3:leading-tight
+            prose-h4:text-xl prose-h4:mb-3 prose-h4:mt-6
+            prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6 prose-p:text-base
+            prose-a:text-orange-500 prose-a:no-underline hover:prose-a:underline prose-a:transition-colors
             prose-strong:text-white prose-strong:font-semibold
-            prose-code:text-orange-400 prose-code:bg-white/5 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm
-            prose-pre:bg-black/60 prose-pre:border prose-pre:border-white/10 prose-pre:rounded-xl prose-pre:p-6
-            prose-pre:overflow-x-auto
-            prose-ul:text-gray-300 prose-ul:my-4
-            prose-ol:text-gray-300 prose-ol:my-4
-            prose-li:my-2
-            prose-blockquote:border-l-4 prose-blockquote:border-orange-500 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-gray-400
-            prose-img:rounded-xl prose-img:shadow-2xl prose-img:my-8
-            prose-hr:border-white/10 prose-hr:my-8
-            prose-table:w-full prose-table:my-8
-            prose-th:bg-white/5 prose-th:p-3 prose-th:text-left
-            prose-td:p-3 prose-td:border-t prose-td:border-white/10
+            prose-code:text-orange-400 prose-code:bg-white/5 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
+            prose-pre:bg-transparent prose-pre:p-0 prose-pre:my-8
+            prose-ul:text-gray-300 prose-ul:my-6 prose-ul:space-y-2
+            prose-ol:text-gray-300 prose-ol:my-6 prose-ol:space-y-2
+            prose-li:my-2 prose-li:leading-relaxed
+            prose-blockquote:border-l-4 prose-blockquote:border-orange-500 prose-blockquote:pl-6 prose-blockquote:py-2 prose-blockquote:my-8 prose-blockquote:italic prose-blockquote:text-gray-400 prose-blockquote:bg-white/5 prose-blockquote:rounded-r-lg
+            prose-img:rounded-xl prose-img:shadow-2xl prose-img:my-10
+            prose-hr:border-white/10 prose-hr:my-12
+            prose-table:w-full prose-table:my-8 prose-table:border-collapse
+            prose-th:bg-white/5 prose-th:p-4 prose-th:text-left prose-th:border prose-th:border-white/10 prose-th:font-semibold
+            prose-td:p-4 prose-td:border prose-td:border-white/10
           ">
             <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeRaw]}
               components={{
-                // Custom code block styling
+                // Custom code block styling with syntax highlighting
                 code: ({ node, inline, className, children, ...props }) => {
-                  return inline ? (
-                    <code className={className} {...props}>
-                      {children}
-                    </code>
+                  const match = /language-(\w+)/.exec(className || '');
+                  const language = match ? match[1] : '';
+
+                  return !inline && language ? (
+                    <div className="my-6 rounded-xl overflow-hidden border border-white/10 shadow-lg">
+                      <div className="bg-white/5 px-4 py-2 border-b border-white/10 flex items-center justify-between">
+                        <span className="text-xs text-gray-400 font-mono uppercase">{language}</span>
+                      </div>
+                      <SyntaxHighlighter
+                        style={vscDarkPlus}
+                        language={language}
+                        PreTag="div"
+                        customStyle={{
+                          margin: 0,
+                          padding: '1.5rem',
+                          background: 'rgba(0, 0, 0, 0.4)',
+                          fontSize: '0.875rem',
+                          lineHeight: '1.7',
+                        }}
+                        codeTagProps={{
+                          style: {
+                            fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
+                          }
+                        }}
+                      >
+                        {String(children).replace(/\n$/, '')}
+                      </SyntaxHighlighter>
+                    </div>
                   ) : (
                     <code className={className} {...props}>
                       {children}
@@ -224,6 +253,17 @@ export default function BlogPost() {
                       {children}
                     </a>
                   );
+                },
+                // Better paragraph spacing
+                p: ({ node, children, ...props }) => {
+                  return <p className="mb-6" {...props}>{children}</p>;
+                },
+                // Better list styling
+                ul: ({ node, children, ...props }) => {
+                  return <ul className="space-y-3 my-6" {...props}>{children}</ul>;
+                },
+                ol: ({ node, children, ...props }) => {
+                  return <ol className="space-y-3 my-6" {...props}>{children}</ol>;
                 },
               }}
             >

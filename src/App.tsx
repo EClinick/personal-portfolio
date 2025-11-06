@@ -3,6 +3,7 @@ import Portfolio from './app/Portfolio';
 import About from './app/About';
 import Blog from './app/Blog';
 import BlogPost from './app/BlogPost';
+import BlogEditor from './app/BlogEditor';
 import WelcomeAnimation from './components/WelcomeAnimation';
 import { useState, useEffect } from 'react';
 
@@ -27,6 +28,7 @@ function App() {
       <Route path="/" element={<Portfolio />} />
       <Route path="/about" element={<About />} />
       <Route path="/blog" element={<Blog />} />
+      <Route path="/blog/editor" element={<BlogEditor />} />
       <Route path="/blog/:slug" element={<BlogPost />} />
     </Routes>
       </div>
