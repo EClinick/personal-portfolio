@@ -184,7 +184,9 @@ export default function BlogPost() {
             prose-h1:text-4xl prose-h1:mb-8 prose-h1:mt-12 prose-h1:leading-tight
             prose-h2:text-3xl prose-h2:mb-6 prose-h2:mt-12 prose-h2:text-orange-500 prose-h2:leading-tight
             prose-h3:text-2xl prose-h3:mb-4 prose-h3:mt-8 prose-h3:leading-tight
-            prose-h4:text-xl prose-h4:mb-3 prose-h4:mt-6
+            prose-h4:text-xl prose-h4:mb-3 prose-h4:mt-6 prose-h4:leading-tight
+            prose-h5:text-lg prose-h5:mb-2 prose-h5:mt-4 prose-h5:leading-tight prose-h5:text-gray-100
+            prose-h6:text-base prose-h6:mb-2 prose-h6:mt-4 prose-h6:leading-tight prose-h6:text-gray-200 prose-h6:font-semibold
             prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6 prose-p:text-base
             prose-a:text-orange-400 prose-a:underline prose-a:decoration-orange-500/50 prose-a:underline-offset-4 prose-a:decoration-2
             hover:prose-a:text-orange-300 hover:prose-a:decoration-orange-400 prose-a:transition-all
