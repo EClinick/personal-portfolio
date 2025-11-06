@@ -315,7 +315,8 @@ ${content}
                   prose-h2:text-xl prose-h2:mb-3 prose-h2:mt-6 prose-h2:text-orange-500
                   prose-h3:text-lg prose-h3:mb-2 prose-h3:mt-4
                   prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-4
-                  prose-a:text-orange-500 prose-a:no-underline hover:prose-a:underline
+                  prose-a:text-orange-400 prose-a:underline prose-a:decoration-orange-500/50 prose-a:underline-offset-2 prose-a:decoration-1
+                  hover:prose-a:text-orange-300 hover:prose-a:decoration-orange-400 prose-a:transition-all
                   prose-strong:text-white
                   prose-code:text-orange-400 prose-code:bg-white/5 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-xs
                   prose-pre:bg-transparent prose-pre:p-0 prose-pre:my-4

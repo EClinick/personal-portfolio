@@ -186,7 +186,8 @@ export default function BlogPost() {
             prose-h3:text-2xl prose-h3:mb-4 prose-h3:mt-8 prose-h3:leading-tight
             prose-h4:text-xl prose-h4:mb-3 prose-h4:mt-6
             prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6 prose-p:text-base
-            prose-a:text-orange-500 prose-a:no-underline hover:prose-a:underline prose-a:transition-colors
+            prose-a:text-orange-400 prose-a:underline prose-a:decoration-orange-500/50 prose-a:underline-offset-4 prose-a:decoration-2
+            hover:prose-a:text-orange-300 hover:prose-a:decoration-orange-400 prose-a:transition-all
             prose-strong:text-white prose-strong:font-semibold
             prose-code:text-orange-400 prose-code:bg-white/5 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
             prose-pre:bg-transparent prose-pre:p-0 prose-pre:my-8
@@ -240,7 +241,7 @@ export default function BlogPost() {
                     </code>
                   );
                 },
-                // Make external links open in new tab
+                // Enhanced link styling with external link indicators
                 a: ({ node, children, href, ...props }) => {
                   const isExternal = href?.startsWith('http');
                   return (
@@ -248,9 +249,31 @@ export default function BlogPost() {
                       href={href}
                       target={isExternal ? '_blank' : undefined}
                       rel={isExternal ? 'noopener noreferrer' : undefined}
+                      className="
+                        text-orange-400 underline decoration-orange-500/50
+                        underline-offset-4 decoration-2
+                        hover:text-orange-300 hover:decoration-orange-400
+                        transition-all duration-200
+                        inline-flex items-center gap-1
+                      "
                       {...props}
                     >
                       {children}
+                      {isExternal && (
+                        <svg
+                          className="w-3.5 h-3.5 inline-block flex-shrink-0"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                          />
+                        </svg>
+                      )}
                     </a>
                   );
                 },
