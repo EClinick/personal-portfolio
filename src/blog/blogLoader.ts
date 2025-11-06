@@ -1,6 +1,12 @@
+import { Buffer } from 'buffer';
 import matter from 'gray-matter';
 import { BlogPost } from '../types/types';
 import { calculateReadingTime } from './blogUtils';
+
+// Make Buffer available globally for gray-matter
+if (typeof window !== 'undefined') {
+  (window as any).Buffer = Buffer;
+}
 
 // Import all markdown files
 // @ts-ignore - Vite handles this import pattern
