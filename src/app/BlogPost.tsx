@@ -180,28 +180,32 @@ export default function BlogPost() {
         <ScrollFadeIn delay={200} className="max-w-4xl mx-auto">
           <article className="
             prose prose-invert prose-lg max-w-none
+            text-gray-300
             prose-headings:text-white prose-headings:font-bold
-            prose-h1:text-4xl prose-h1:mb-8 prose-h1:mt-12 prose-h1:leading-tight
+            prose-h1:text-4xl prose-h1:mb-8 prose-h1:mt-12 prose-h1:leading-tight prose-h1:text-white
             prose-h2:text-3xl prose-h2:mb-6 prose-h2:mt-12 prose-h2:text-orange-500 prose-h2:leading-tight
-            prose-h3:text-2xl prose-h3:mb-4 prose-h3:mt-8 prose-h3:leading-tight
-            prose-h4:text-xl prose-h4:mb-3 prose-h4:mt-6 prose-h4:leading-tight
+            prose-h3:text-2xl prose-h3:mb-4 prose-h3:mt-8 prose-h3:leading-tight prose-h3:text-white
+            prose-h4:text-xl prose-h4:mb-3 prose-h4:mt-6 prose-h4:leading-tight prose-h4:text-white
             prose-h5:text-lg prose-h5:mb-2 prose-h5:mt-4 prose-h5:leading-tight prose-h5:text-gray-100
             prose-h6:text-base prose-h6:mb-2 prose-h6:mt-4 prose-h6:leading-tight prose-h6:text-gray-200 prose-h6:font-semibold
             prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6 prose-p:text-base
             prose-a:text-orange-400 prose-a:underline prose-a:decoration-orange-500/50 prose-a:underline-offset-4 prose-a:decoration-2
             hover:prose-a:text-orange-300 hover:prose-a:decoration-orange-400 prose-a:transition-all
             prose-strong:text-white prose-strong:font-semibold
+            prose-em:text-gray-200
             prose-code:text-orange-400 prose-code:bg-white/5 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
             prose-pre:bg-transparent prose-pre:p-0 prose-pre:my-8
-            prose-ul:text-gray-300 prose-ul:my-6 prose-ul:space-y-2
-            prose-ol:text-gray-300 prose-ol:my-6 prose-ol:space-y-2
-            prose-li:my-2 prose-li:leading-relaxed
+            prose-ul:text-gray-300 prose-ul:my-6 prose-ul:space-y-2 prose-ul:list-disc prose-ul:pl-6
+            prose-ol:text-gray-300 prose-ol:my-6 prose-ol:space-y-2 prose-ol:list-decimal prose-ol:pl-6
+            prose-li:my-2 prose-li:leading-relaxed prose-li:text-gray-300
             prose-blockquote:border-l-4 prose-blockquote:border-orange-500 prose-blockquote:pl-6 prose-blockquote:py-2 prose-blockquote:my-8 prose-blockquote:italic prose-blockquote:text-gray-400 prose-blockquote:bg-white/5 prose-blockquote:rounded-r-lg
             prose-img:rounded-xl prose-img:shadow-2xl prose-img:my-10
             prose-hr:border-white/10 prose-hr:my-12
-            prose-table:w-full prose-table:my-8 prose-table:border-collapse
-            prose-th:bg-white/5 prose-th:p-4 prose-th:text-left prose-th:border prose-th:border-white/10 prose-th:font-semibold
-            prose-td:p-4 prose-td:border prose-td:border-white/10
+            prose-table:w-full prose-table:my-8 prose-table:border-collapse prose-table:text-gray-300
+            prose-thead:text-white
+            prose-th:bg-white/5 prose-th:p-4 prose-th:text-left prose-th:border prose-th:border-white/10 prose-th:font-semibold prose-th:text-white
+            prose-td:p-4 prose-td:border prose-td:border-white/10 prose-td:text-gray-300
+            [&>*]:text-gray-300
           ">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
@@ -281,14 +285,33 @@ export default function BlogPost() {
                 },
                 // Better paragraph spacing
                 p: ({ node, children, ...props }) => {
-                  return <p className="mb-6" {...props}>{children}</p>;
+                  return <p className="mb-6 text-gray-300" {...props}>{children}</p>;
                 },
                 // Better list styling
                 ul: ({ node, children, ...props }) => {
-                  return <ul className="space-y-3 my-6" {...props}>{children}</ul>;
+                  return <ul className="space-y-3 my-6 text-gray-300 list-disc pl-6" {...props}>{children}</ul>;
                 },
                 ol: ({ node, children, ...props }) => {
-                  return <ol className="space-y-3 my-6" {...props}>{children}</ol>;
+                  return <ol className="space-y-3 my-6 text-gray-300 list-decimal pl-6" {...props}>{children}</ol>;
+                },
+                // Headings with explicit colors
+                h1: ({ node, children, ...props }) => {
+                  return <h1 className="text-4xl font-bold text-white mb-8 mt-12" {...props}>{children}</h1>;
+                },
+                h2: ({ node, children, ...props }) => {
+                  return <h2 className="text-3xl font-bold text-orange-500 mb-6 mt-12" {...props}>{children}</h2>;
+                },
+                h3: ({ node, children, ...props }) => {
+                  return <h3 className="text-2xl font-bold text-white mb-4 mt-8" {...props}>{children}</h3>;
+                },
+                h4: ({ node, children, ...props }) => {
+                  return <h4 className="text-xl font-bold text-white mb-3 mt-6" {...props}>{children}</h4>;
+                },
+                h5: ({ node, children, ...props }) => {
+                  return <h5 className="text-lg font-bold text-gray-100 mb-2 mt-4" {...props}>{children}</h5>;
+                },
+                h6: ({ node, children, ...props }) => {
+                  return <h6 className="text-base font-semibold text-gray-200 mb-2 mt-4" {...props}>{children}</h6>;
                 },
               }}
             >
