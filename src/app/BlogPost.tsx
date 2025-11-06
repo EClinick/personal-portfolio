@@ -181,13 +181,6 @@ export default function BlogPost() {
           <article className="
             prose prose-invert prose-lg max-w-none
             text-gray-300
-            prose-headings:text-white prose-headings:font-bold
-            prose-h1:text-4xl prose-h1:mb-8 prose-h1:mt-12 prose-h1:leading-tight prose-h1:text-white
-            prose-h2:text-3xl prose-h2:mb-6 prose-h2:mt-12 prose-h2:text-orange-500 prose-h2:leading-tight
-            prose-h3:text-2xl prose-h3:mb-4 prose-h3:mt-8 prose-h3:leading-tight prose-h3:text-white
-            prose-h4:text-xl prose-h4:mb-3 prose-h4:mt-6 prose-h4:leading-tight prose-h4:text-white
-            prose-h5:text-lg prose-h5:mb-2 prose-h5:mt-4 prose-h5:leading-tight prose-h5:text-gray-100
-            prose-h6:text-base prose-h6:mb-2 prose-h6:mt-4 prose-h6:leading-tight prose-h6:text-gray-200 prose-h6:font-semibold
             prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6 prose-p:text-base
             prose-a:text-orange-400 prose-a:underline prose-a:decoration-orange-500/50 prose-a:underline-offset-4 prose-a:decoration-2
             hover:prose-a:text-orange-300 hover:prose-a:decoration-orange-400 prose-a:transition-all
@@ -294,24 +287,24 @@ export default function BlogPost() {
                 ol: ({ node, children, ...props }) => {
                   return <ol className="space-y-3 my-6 text-gray-300 list-decimal pl-6" {...props}>{children}</ol>;
                 },
-                // Headings with explicit colors
+                // Headings with explicit colors and sizes
                 h1: ({ node, children, ...props }) => {
-                  return <h1 className="text-4xl font-bold text-white mb-8 mt-12" {...props}>{children}</h1>;
+                  return <h1 className="!text-5xl !font-extrabold !text-white !mb-10 !mt-16 !leading-tight" {...props}>{children}</h1>;
                 },
                 h2: ({ node, children, ...props }) => {
-                  return <h2 className="text-3xl font-bold text-orange-500 mb-6 mt-12" {...props}>{children}</h2>;
+                  return <h2 className="!text-4xl !font-bold !text-orange-500 !mb-8 !mt-14 !leading-tight" {...props}>{children}</h2>;
                 },
                 h3: ({ node, children, ...props }) => {
-                  return <h3 className="text-2xl font-bold text-white mb-4 mt-8" {...props}>{children}</h3>;
+                  return <h3 className="!text-3xl !font-bold !text-white !mb-6 !mt-12 !leading-tight" {...props}>{children}</h3>;
                 },
                 h4: ({ node, children, ...props }) => {
-                  return <h4 className="text-xl font-bold text-white mb-3 mt-6" {...props}>{children}</h4>;
+                  return <h4 className="!text-2xl !font-semibold !text-white !mb-5 !mt-10 !leading-tight" {...props}>{children}</h4>;
                 },
                 h5: ({ node, children, ...props }) => {
-                  return <h5 className="text-lg font-bold text-gray-100 mb-2 mt-4" {...props}>{children}</h5>;
+                  return <h5 className="!text-xl !font-semibold !text-gray-100 !mb-4 !mt-8 !leading-tight" {...props}>{children}</h5>;
                 },
                 h6: ({ node, children, ...props }) => {
-                  return <h6 className="text-base font-semibold text-gray-200 mb-2 mt-4" {...props}>{children}</h6>;
+                  return <h6 className="!text-lg !font-medium !text-gray-200 !mb-3 !mt-6 !leading-tight" {...props}>{children}</h6>;
                 },
               }}
             >
