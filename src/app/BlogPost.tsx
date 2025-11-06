@@ -278,33 +278,120 @@ export default function BlogPost() {
                 },
                 // Better paragraph spacing
                 p: ({ node, children, ...props }) => {
-                  return <p className="mb-6 text-gray-300" {...props}>{children}</p>;
+                  return <p style={{ marginBottom: '1.5rem', color: '#d1d5db', lineHeight: '1.75' }} {...props}>{children}</p>;
                 },
                 // Better list styling
                 ul: ({ node, children, ...props }) => {
-                  return <ul className="space-y-3 my-6 text-gray-300 list-disc pl-6" {...props}>{children}</ul>;
+                  return <ul style={{ marginTop: '1.5rem', marginBottom: '1.5rem', color: '#d1d5db', listStyleType: 'disc', paddingLeft: '1.5rem' }} {...props}>{children}</ul>;
                 },
                 ol: ({ node, children, ...props }) => {
-                  return <ol className="space-y-3 my-6 text-gray-300 list-decimal pl-6" {...props}>{children}</ol>;
+                  return <ol style={{ marginTop: '1.5rem', marginBottom: '1.5rem', color: '#d1d5db', listStyleType: 'decimal', paddingLeft: '1.5rem' }} {...props}>{children}</ol>;
                 },
-                // Headings with explicit colors and sizes
+                li: ({ node, children, ...props }) => {
+                  return <li style={{ marginTop: '0.5rem', marginBottom: '0.5rem', color: '#d1d5db' }} {...props}>{children}</li>;
+                },
+                // Headings with inline styles for guaranteed visibility
                 h1: ({ node, children, ...props }) => {
-                  return <h1 className="!text-5xl !font-extrabold !text-white !mb-10 !mt-16 !leading-tight" {...props}>{children}</h1>;
+                  return (
+                    <h1
+                      style={{
+                        fontSize: '3rem',
+                        fontWeight: '800',
+                        color: 'white',
+                        marginTop: '4rem',
+                        marginBottom: '2.5rem',
+                        lineHeight: '1.2'
+                      }}
+                      {...props}
+                    >
+                      {children}
+                    </h1>
+                  );
                 },
                 h2: ({ node, children, ...props }) => {
-                  return <h2 className="!text-4xl !font-bold !text-orange-500 !mb-8 !mt-14 !leading-tight" {...props}>{children}</h2>;
+                  return (
+                    <h2
+                      style={{
+                        fontSize: '2.25rem',
+                        fontWeight: '700',
+                        color: '#fb923c',
+                        marginTop: '3.5rem',
+                        marginBottom: '2rem',
+                        lineHeight: '1.2'
+                      }}
+                      {...props}
+                    >
+                      {children}
+                    </h2>
+                  );
                 },
                 h3: ({ node, children, ...props }) => {
-                  return <h3 className="!text-3xl !font-bold !text-white !mb-6 !mt-12 !leading-tight" {...props}>{children}</h3>;
+                  return (
+                    <h3
+                      style={{
+                        fontSize: '1.875rem',
+                        fontWeight: '700',
+                        color: 'white',
+                        marginTop: '3rem',
+                        marginBottom: '1.5rem',
+                        lineHeight: '1.2'
+                      }}
+                      {...props}
+                    >
+                      {children}
+                    </h3>
+                  );
                 },
                 h4: ({ node, children, ...props }) => {
-                  return <h4 className="!text-2xl !font-semibold !text-white !mb-5 !mt-10 !leading-tight" {...props}>{children}</h4>;
+                  return (
+                    <h4
+                      style={{
+                        fontSize: '1.5rem',
+                        fontWeight: '600',
+                        color: 'white',
+                        marginTop: '2.5rem',
+                        marginBottom: '1.25rem',
+                        lineHeight: '1.2'
+                      }}
+                      {...props}
+                    >
+                      {children}
+                    </h4>
+                  );
                 },
                 h5: ({ node, children, ...props }) => {
-                  return <h5 className="!text-xl !font-semibold !text-gray-100 !mb-4 !mt-8 !leading-tight" {...props}>{children}</h5>;
+                  return (
+                    <h5
+                      style={{
+                        fontSize: '1.25rem',
+                        fontWeight: '600',
+                        color: '#f3f4f6',
+                        marginTop: '2rem',
+                        marginBottom: '1rem',
+                        lineHeight: '1.2'
+                      }}
+                      {...props}
+                    >
+                      {children}
+                    </h5>
+                  );
                 },
                 h6: ({ node, children, ...props }) => {
-                  return <h6 className="!text-lg !font-medium !text-gray-200 !mb-3 !mt-6 !leading-tight" {...props}>{children}</h6>;
+                  return (
+                    <h6
+                      style={{
+                        fontSize: '1.125rem',
+                        fontWeight: '500',
+                        color: '#e5e7eb',
+                        marginTop: '1.5rem',
+                        marginBottom: '0.75rem',
+                        lineHeight: '1.2'
+                      }}
+                      {...props}
+                    >
+                      {children}
+                    </h6>
+                  );
                 },
               }}
             >
