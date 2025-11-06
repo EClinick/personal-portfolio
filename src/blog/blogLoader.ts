@@ -8,9 +8,8 @@ if (typeof window !== 'undefined') {
   (window as any).Buffer = Buffer;
 }
 
-// Import all markdown files as raw strings
-// @ts-ignore - Vite handles this import pattern
-const postFiles = import.meta.glob('../posts/*.md', { as: 'raw', eager: true });
+// Import markdown file directly
+import welcomePost from '../posts/welcome-to-my-blog.md?raw';
 
 /**
  * Load and parse all blog posts from markdown files
@@ -18,31 +17,26 @@ const postFiles = import.meta.glob('../posts/*.md', { as: 'raw', eager: true });
 export function loadBlogPosts(): BlogPost[] {
   const posts: BlogPost[] = [];
 
-  for (const path in postFiles) {
-    const fileContent = postFiles[path];
+  // Parse the welcome post
+  const { data, content } = matter(welcomePost);
 
-    // Parse front matter
-    const { data, content } = matter(fileContent);
+  const post: BlogPost = {
+    id: data.id || '',
+    slug: 'welcome-to-my-blog',
+    title: data.title || '',
+    excerpt: data.excerpt || '',
+    content: content,
+    author: data.author || 'Ethan Clinick',
+    publishedDate: data.publishedDate || '',
+    updatedDate: data.updatedDate,
+    tags: data.tags || [],
+    category: data.category || 'General',
+    featured: data.featured || false,
+    readingTime: calculateReadingTime(content),
+    thumbnailUrl: data.thumbnailUrl,
+  };
 
-    // Create blog post object
-    const post: BlogPost = {
-      id: data.id || '',
-      slug: path.split('/').pop()?.replace('.md', '') || '',
-      title: data.title || '',
-      excerpt: data.excerpt || '',
-      content: content,
-      author: data.author || 'Ethan Clinick',
-      publishedDate: data.publishedDate || '',
-      updatedDate: data.updatedDate,
-      tags: data.tags || [],
-      category: data.category || 'General',
-      featured: data.featured || false,
-      readingTime: calculateReadingTime(content),
-      thumbnailUrl: data.thumbnailUrl,
-    };
-
-    posts.push(post);
-  }
+  posts.push(post);
 
   // Sort by date (newest first)
   return posts.sort((a, b) =>
