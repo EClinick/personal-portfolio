@@ -8,9 +8,9 @@ if (typeof window !== 'undefined') {
   (window as any).Buffer = Buffer;
 }
 
-// Import all markdown files
+// Import all markdown files as raw strings
 // @ts-ignore - Vite handles this import pattern
-const postFiles = import.meta.glob('../posts/*.md', { query: '?raw', import: 'default', eager: true });
+const postFiles = import.meta.glob('../posts/*.md', { as: 'raw', eager: true });
 
 /**
  * Load and parse all blog posts from markdown files
