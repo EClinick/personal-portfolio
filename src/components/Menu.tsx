@@ -39,6 +39,14 @@ const Menu: React.FC<MenuProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) =>
     setIsMobileMenuOpen(false);
   };
 
+  const handleBlogClick = () => {
+    if (location.pathname === '/blog') {
+      // If already on blog page, scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <>
       {/* Mobile Menu Button */}
@@ -60,15 +68,22 @@ const Menu: React.FC<MenuProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) =>
             >
               Home
             </Link>
-            <Link 
-              to={location.pathname === '/projects' ? '/projects' : '/#projects'} 
+            <Link
+              to={location.pathname === '/projects' ? '/projects' : '/#projects'}
               className="text-white text-2xl font-medium hover:text-orange-500 transition-colors"
               onClick={handleProjectsClick}
             >
               Projects
             </Link>
-            <Link 
-              to="/about" 
+            <Link
+              to="/blog"
+              className="text-white text-2xl font-medium hover:text-orange-500 transition-colors"
+              onClick={handleBlogClick}
+            >
+              Blog
+            </Link>
+            <Link
+              to="/about"
               className="text-white text-2xl font-medium hover:text-orange-500 transition-colors"
               onClick={handleAboutClick}
             >
@@ -97,6 +112,9 @@ const Menu: React.FC<MenuProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) =>
             <Link to={location.pathname === '/projects' ? '/projects' : '/#projects'} className="text-gray-400 hover:text-white transition-colors font-medium" onClick={handleProjectsClick}>
               Projects
             </Link>
+            <Link to="/blog" className="text-gray-400 hover:text-white transition-colors font-medium" onClick={handleBlogClick}>
+              Blog
+            </Link>
             <Link to="/about" className="text-gray-400 hover:text-white transition-colors" onClick={handleAboutClick}>
               About
             </Link>
@@ -108,14 +126,17 @@ const Menu: React.FC<MenuProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) =>
       </nav>
 
       {/* Mobile Top Navigation */}
-      <nav className="md:hidden fixed top-4 left-1/2 transform -translate-x-1/2 z-[40] w-[90%] max-w-sm">
-        <div className="bg-white/ backdrop-blur-md rounded-2xl px-6 py-3 border border-white/20">
+      <nav className="md:hidden fixed top-4 left-1/2 transform -translate-x-1/2 z-[40] w-[95%] max-w-md">
+        <div className="bg-white/ backdrop-blur-md rounded-2xl px-4 py-3 border border-white/20">
           <div className="flex items-center justify-between">
             <Link to="/" className="text-white hover:text-orange-500 transition-colors font-medium text-sm" onClick={handleHomeClick}>
               Home
             </Link>
             <Link to={location.pathname === '/projects' ? '/projects' : '/#projects'} className="text-gray-400 hover:text-white transition-colors text-sm" onClick={handleProjectsClick}>
               Projects
+            </Link>
+            <Link to="/blog" className="text-gray-400 hover:text-white transition-colors text-sm" onClick={handleBlogClick}>
+              Blog
             </Link>
             <Link to="/about" className="text-gray-400 hover:text-white transition-colors text-sm" onClick={handleAboutClick}>
               About
