@@ -62,7 +62,7 @@ export default function WelcomeAnimation({ onComplete }: WelcomeAnimationProps) 
     >
       {/* Welcome Text - Stays centered */}
       <div className="relative z-10 text-center px-4">
-        <div className="text-4xl md:text-6xl lg:text-8xl font-light text-white transition-opacity duration-300">
+        <div className="text-4xl md:text-6xl lg:text-8xl font-light text-white transition-opacity duration-300 font-header">
           {WELCOME_LANGUAGES[currentLanguageIndex]}
         </div>
       </div>

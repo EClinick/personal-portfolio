@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const headingVariants = cva(
-  "tracking-tight pb-3 bg-clip-text text-transparent",
+  "tracking-tight pb-3 bg-clip-text text-transparent font-header",
   {
     variants: {
       variant: {

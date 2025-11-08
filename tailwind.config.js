@@ -3,6 +3,9 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        'header': ['HeaderFont', 'Inter', 'sans-serif'],
+      },
       backdropBlur: {
         xs: '2px',
       },

@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'HeaderFont';
+  src: url('/fonts/6f324551b041d4dd-s.p.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -11,6 +19,11 @@ body {
   -webkit-tap-highlight-color: transparent;
   min-height: 100vh;
   transition: background 0.3s ease;
+}
+
+/* Apply custom font to main headers */
+h1, h2 {
+  font-family: 'HeaderFont', 'Inter', sans-serif;
 }
 
 /* Remove Safari/Chrome mobile browser default styles */
