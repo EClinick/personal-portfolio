@@ -6,6 +6,7 @@ import BlogCard from '../components/BlogCard';
 import { ScrollFadeIn } from '../components/scroll-animations';
 import { getAllBlogPosts } from '../lib/blog';
 import { searchPosts, filterByCategory, filterByTag, getAllCategories, getAllTags } from '../lib/blogUtils';
+import { FilterDropdown } from '../components/ui/filter-dropdown';
 
 export default function BlogList() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -16,6 +17,17 @@ export default function BlogList() {
   const allPosts = getAllBlogPosts();
   const categories = ['All', ...getAllCategories(allPosts)];
   const tags = ['All', ...getAllTags(allPosts)];
+
+  // Format options for FilterDropdown
+  const categoryOptions = categories.map((cat) => ({
+    value: cat,
+    label: cat,
+  }));
+
+  const tagOptions = tags.map((tag) => ({
+    value: tag,
+    label: tag,
+  }));
 
   // Filter posts based on search and filters
   const filteredPosts = useMemo(() => {
@@ -89,76 +101,20 @@ export default function BlogList() {
             {/* Filters */}
             <div className="flex flex-col sm:flex-row gap-4">
               {/* Category Filter */}
-              <div className="flex-1">
-                <label htmlFor="category-filter" className="block text-sm font-medium text-gray-400 mb-2">
-                  Category
-                </label>
-                <div className="relative">
-                  <select
-                    id="category-filter"
-                    value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="
-                      w-full px-4 py-3 rounded-xl
-                      bg-black/40 backdrop-blur-sm
-                      border border-white/10
-                      hover:border-white/20
-                      focus:border-orange-500/50 focus:outline-none focus:ring-2 focus:ring-orange-500/20
-                      text-white
-                      cursor-pointer
-                      appearance-none
-                      transition-all duration-300
-                    "
-                  >
-                    {categories.map((category) => (
-                      <option key={category} value={category} className="bg-black text-white">
-                        {category}
-                      </option>
-                    ))}
-                  </select>
-                  <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                    <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
+              <FilterDropdown
+                options={categoryOptions}
+                selectedValue={selectedCategory}
+                onValueChange={setSelectedCategory}
+                label="Category"
+              />
 
               {/* Tag Filter */}
-              <div className="flex-1">
-                <label htmlFor="tag-filter" className="block text-sm font-medium text-gray-400 mb-2">
-                  Tag
-                </label>
-                <div className="relative">
-                  <select
-                    id="tag-filter"
-                    value={selectedTag}
-                    onChange={(e) => setSelectedTag(e.target.value)}
-                    className="
-                      w-full px-4 py-3 rounded-xl
-                      bg-black/40 backdrop-blur-sm
-                      border border-white/10
-                      hover:border-white/20
-                      focus:border-orange-500/50 focus:outline-none focus:ring-2 focus:ring-orange-500/20
-                      text-white
-                      cursor-pointer
-                      appearance-none
-                      transition-all duration-300
-                    "
-                  >
-                    {tags.map((tag) => (
-                      <option key={tag} value={tag} className="bg-black text-white">
-                        {tag}
-                      </option>
-                    ))}
-                  </select>
-                  <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                    <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
+              <FilterDropdown
+                options={tagOptions}
+                selectedValue={selectedTag}
+                onValueChange={setSelectedTag}
+                label="Tag"
+              />
             </div>
 
             {/* Active Filters Display */}
