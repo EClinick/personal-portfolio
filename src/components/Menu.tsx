@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu as MenuIcon, X } from 'lucide-react';
 import ChatBox from './ChatBox';
 
 interface MenuProps {
@@ -31,9 +30,9 @@ const Menu: React.FC<MenuProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) =>
     setIsMobileMenuOpen(false);
   };
 
-  const handleAboutClick = () => {
-    if (location.pathname === '/about') {
-      // If already on about page, scroll to top
+  const handleBlogClick = () => {
+    if (location.pathname === '/blog') {
+      // If already on blog page, scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     setIsMobileMenuOpen(false);
@@ -68,11 +67,11 @@ const Menu: React.FC<MenuProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) =>
               Projects
             </Link>
             <Link 
-              to="/about" 
+              to="/blog" 
               className="text-white text-2xl font-medium hover:text-orange-500 transition-colors"
-              onClick={handleAboutClick}
+              onClick={handleBlogClick}
             >
-              About
+              Blog
             </Link>
             <button 
               onClick={() => {
@@ -97,8 +96,8 @@ const Menu: React.FC<MenuProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) =>
             <Link to={location.pathname === '/projects' ? '/projects' : '/#projects'} className="text-gray-400 hover:text-white transition-colors font-medium" onClick={handleProjectsClick}>
               Projects
             </Link>
-            <Link to="/about" className="text-gray-400 hover:text-white transition-colors" onClick={handleAboutClick}>
-              About
+            <Link to="/blog" className="text-gray-400 hover:text-white transition-colors font-medium" onClick={handleBlogClick}>
+              Blog
             </Link>
             <button onClick={() => setIsChatOpen(true)} className="text-gray-400 hover:text-white transition-colors font-medium">
               Chat
@@ -117,8 +116,8 @@ const Menu: React.FC<MenuProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) =>
             <Link to={location.pathname === '/projects' ? '/projects' : '/#projects'} className="text-gray-400 hover:text-white transition-colors text-sm" onClick={handleProjectsClick}>
               Projects
             </Link>
-            <Link to="/about" className="text-gray-400 hover:text-white transition-colors text-sm" onClick={handleAboutClick}>
-              About
+            <Link to="/blog" className="text-gray-400 hover:text-white transition-colors text-sm" onClick={handleBlogClick}>
+              Blog
             </Link>
             <button onClick={() => setIsChatOpen(true)} className="text-gray-400 hover:text-white transition-colors font-medium text-sm">
               Chat

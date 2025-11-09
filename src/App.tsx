@@ -1,6 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import Portfolio from './app/Portfolio';
 import About from './app/About';
+import BlogList from './app/BlogList';
+import BlogPost from './app/BlogPost';
 import WelcomeAnimation from './components/WelcomeAnimation';
 import { useState, useEffect } from 'react';
 
@@ -24,6 +26,8 @@ function App() {
     <Routes>
       <Route path="/" element={<Portfolio />} />
       <Route path="/about" element={<About />} />
+      <Route path="/blog" element={<BlogList />} />
+      <Route path="/blog/:slug" element={<BlogPost />} />
     </Routes>
       </div>
     </div>
