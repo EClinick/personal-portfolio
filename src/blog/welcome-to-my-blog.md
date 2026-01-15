@@ -24,11 +24,3 @@ In this blog, you'll find:
 ## Getting Started
 
 Stay tuned for more content coming soon!
-
-```typescript
-console.log("Hello, World!");
-```
-
----
-
-*Happy coding!*
