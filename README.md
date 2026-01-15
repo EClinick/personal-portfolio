@@ -60,7 +60,7 @@ Visit the live site: [https://ethanclinick.netlify.app](https://ethanclinick.net
 ## 📋 Prerequisites
 
 - Node.js (v20 or higher)
-- npm or yarn
+- pnpm
 - Azure AI API key (for chat functionality)
 
 ## 🚀 Getting Started
@@ -73,7 +73,7 @@ Visit the live site: [https://ethanclinick.netlify.app](https://ethanclinick.net
 
 2. **Install dependencies**
    ```bash
-   npm install
+   pnpm install
    ```
 
 3. **Set up environment variables**
@@ -85,12 +85,12 @@ Visit the live site: [https://ethanclinick.netlify.app](https://ethanclinick.net
 
 4. **Start the development server**
    ```bash
-   npm run dev
+   pnpm run dev
    ```
 
 5. **Build for production**
    ```bash
-   npm run build
+   pnpm run build
    ```
 
 ## 🌐 Deployment
@@ -158,7 +158,7 @@ Project Link: [https://github.com/eclinick/personal-portfolio](https://github.co
    - Select your repository
    - Configure build settings:
      ```
-     Build command: npm run build
+    Build command: pnpm run build
      Publish directory: dist
      Functions directory: netlify/functions
      ```
@@ -175,7 +175,7 @@ Project Link: [https://github.com/eclinick/personal-portfolio](https://github.co
 1. **netlify.toml** (must be in root directory)
    ```toml
    [build]
-     command = "npm run build"
+    command = "pnpm run build"
      publish = "dist"
      functions = "netlify/functions"
 
@@ -202,7 +202,7 @@ Project Link: [https://github.com/eclinick/personal-portfolio](https://github.co
 1. **Local Testing**
    ```bash
    # Install Netlify CLI
-   npm install -g netlify-cli
+  pnpm add -g netlify-cli
 
    # Login to Netlify
    netlify login
@@ -214,7 +214,7 @@ Project Link: [https://github.com/eclinick/personal-portfolio](https://github.co
 2. **Manual Deployment**
    ```bash
    # Build the project
-   npm run build
+   pnpm run build
 
    # Deploy to Netlify
    netlify deploy
