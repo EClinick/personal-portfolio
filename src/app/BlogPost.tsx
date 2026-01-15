@@ -4,15 +4,32 @@ import { getBlogPost } from '../lib/blog';
 import { ScrollFadeIn, ScrollSlideIn } from '../components/scroll-animations';
 import Menu from '../components/Menu';
 import Footer from '../components/Footer';
-import { useState } from 'react';
-import { Calendar, Clock, ArrowLeft, Share2, Tag } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { useMutation, useQuery } from 'convex/react';
+import { Calendar, Clock, ArrowLeft, Share2, Tag, Eye } from 'lucide-react';
 import { formatDate } from '../lib/blogUtils';
+import { api } from '../../convex/_generated/api';
 
 export default function BlogPost() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const { slug } = useParams<{ slug: string }>();
   const post = slug ? getBlogPost(slug) : null;
+  const postSlug = post?.slug;
+  const incrementView = useMutation(api.views.incrementView);
+  const viewCount = useQuery(api.views.getViewCount, { slug: postSlug ?? '' });
+  const hasTrackedRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (postSlug && hasTrackedRef.current !== postSlug) {
+      const sessionKey = `blog_viewed_${postSlug}`;
+      if (!sessionStorage.getItem(sessionKey)) {
+        incrementView({ slug: postSlug });
+        sessionStorage.setItem(sessionKey, '1');
+      }
+      hasTrackedRef.current = postSlug;
+    }
+  }, [incrementView, postSlug]);
 
   const handleShare = () => {
     if (navigator.share) {
@@ -110,6 +127,15 @@ export default function BlogPost() {
                   <div className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-gray-500" />
                     <span className="text-sm">{post.readingTime} min read</span>
+                  </div>
+                </>
+              )}
+              {viewCount !== undefined && (
+                <>
+                  <span className="text-gray-600">•</span>
+                  <div className="flex items-center gap-2">
+                    <Eye className="w-4 h-4 text-gray-500" />
+                    <span className="text-sm">{viewCount} views</span>
                   </div>
                 </>
               )}
