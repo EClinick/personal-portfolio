@@ -39,3 +39,6 @@ Thumbs.db
 .netlify
 dist/assets/index-DBCbKdaL.js
 dist/index.html
+
+#convex generated files
+convex\_generated
