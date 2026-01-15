@@ -4,7 +4,7 @@ import { getBlogPost } from '../lib/blog';
 import { ScrollFadeIn, ScrollSlideIn } from '../components/scroll-animations';
 import Menu from '../components/Menu';
 import Footer from '../components/Footer';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useMutation, useQuery } from 'convex/react';
 import { Calendar, Clock, ArrowLeft, Share2, Tag, Eye } from 'lucide-react';
 import { formatDate } from '../lib/blogUtils';
@@ -18,10 +18,16 @@ export default function BlogPost() {
   const postSlug = post?.slug;
   const incrementView = useMutation(api.views.incrementView);
   const viewCount = useQuery(api.views.getViewCount, { slug: postSlug ?? '' });
+  const hasTrackedRef = useRef<string | null>(null);
 
   useEffect(() => {
-    if (postSlug) {
-      incrementView({ slug: postSlug });
+    if (postSlug && hasTrackedRef.current !== postSlug) {
+      const sessionKey = `blog_viewed_${postSlug}`;
+      if (!sessionStorage.getItem(sessionKey)) {
+        incrementView({ slug: postSlug });
+        sessionStorage.setItem(sessionKey, '1');
+      }
+      hasTrackedRef.current = postSlug;
     }
   }, [incrementView, postSlug]);
 
