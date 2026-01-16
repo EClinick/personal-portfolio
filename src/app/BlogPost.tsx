@@ -4,15 +4,19 @@ import { getBlogPost } from '../lib/blog';
 import { ScrollFadeIn, ScrollSlideIn } from '../components/scroll-animations';
 import Menu from '../components/Menu';
 import Footer from '../components/Footer';
+import ChatBox from '../components/ChatBox';
 import { useEffect, useRef, useState } from 'react';
 import { useMutation, useQuery } from 'convex/react';
-import { Calendar, Clock, ArrowLeft, Share2, Tag, Eye } from 'lucide-react';
+import { Calendar, Clock, ArrowLeft, Share2, Tag, Eye, Sparkles } from 'lucide-react';
 import { formatDate } from '../lib/blogUtils';
 import { api } from '../../convex/_generated/api';
+import { BlogContext } from '../types/types';
 
 export default function BlogPost() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [blogContextForChat, setBlogContextForChat] = useState<BlogContext | undefined>(undefined);
   const { slug } = useParams<{ slug: string }>();
   const post = slug ? getBlogPost(slug) : null;
   const postSlug = post?.slug;
@@ -43,6 +47,22 @@ export default function BlogPost() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
+  };
+
+  const handleSummarize = () => {
+    if (post) {
+      setBlogContextForChat({
+        title: post.title,
+        content: post.content,
+        excerpt: post.excerpt,
+      });
+      setIsChatOpen(true);
+    }
+  };
+
+  const handleChatClose = () => {
+    setIsChatOpen(false);
+    setBlogContextForChat(undefined);
   };
 
   if (!post) {
@@ -165,21 +185,39 @@ export default function BlogPost() {
                   ))}
                 </>
               )}
-              <button
-                onClick={handleShare}
-                className="
-                  ml-auto flex items-center gap-2
-                  px-4 py-2 rounded-lg
-                  bg-white/5 hover:bg-orange-500/20
-                  border border-white/10 hover:border-orange-500/30
-                  text-gray-400 hover:text-orange-400
-                  transition-all duration-300
-                "
-                title="Share this post"
-              >
-                <Share2 className="w-4 h-4" />
-                {copied ? 'Copied!' : 'Share'}
-              </button>
+              <div className="ml-auto flex items-center gap-2">
+                <button
+                  onClick={handleSummarize}
+                  className="
+                    flex items-center gap-2
+                    px-4 py-2 rounded-lg
+                    bg-gradient-to-r from-orange-500/10 to-orange-600/10
+                    hover:from-orange-500/20 hover:to-orange-600/20
+                    border border-orange-500/30 hover:border-orange-500/50
+                    text-orange-400 hover:text-orange-300
+                    transition-all duration-300
+                  "
+                  title="AI Summarize"
+                >
+                  <Sparkles className="w-4 h-4" />
+                  AI Summary
+                </button>
+                <button
+                  onClick={handleShare}
+                  className="
+                    flex items-center gap-2
+                    px-4 py-2 rounded-lg
+                    bg-white/5 hover:bg-orange-500/20
+                    border border-white/10 hover:border-orange-500/30
+                    text-gray-400 hover:text-orange-400
+                    transition-all duration-300
+                  "
+                  title="Share this post"
+                >
+                  <Share2 className="w-4 h-4" />
+                  {copied ? 'Copied!' : 'Share'}
+                </button>
+              </div>
             </div>
           </div>
         </ScrollSlideIn>
@@ -248,6 +286,14 @@ export default function BlogPost() {
 
       {/* Footer Section */}
       <Footer />
+
+      {/* ChatBox for AI Summarization */}
+      <ChatBox 
+        isOpen={isChatOpen} 
+        onClose={handleChatClose}
+        blogContext={blogContextForChat}
+        initialMessage={blogContextForChat ? `Please summarize this blog post "${blogContextForChat.title}" for me.` : undefined}
+      />
     </div>
   );
 }
