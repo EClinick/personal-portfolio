@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { X, Trash2, Maximize2, Minimize2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
-import { Message, ChatBoxProps } from '../types/types';
+import { Message, ChatBoxProps, BlogContext } from '../types/types';
 import { AIInput } from './ui/ai-input';
 import { createEnhancedSystemPrompt } from '../prompts/system-prompt-loader'; 
 
@@ -30,12 +30,14 @@ const formatAIResponse = (text: string): string => {
   return text.trim();
 };
 
-export default function ChatBox({ isOpen, onClose, isDarkMode = true }: ChatBoxProps) {
+export default function ChatBox({ isOpen, onClose, isDarkMode = true, initialMessage, blogContext }: ChatBoxProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [currentBlogContext, setCurrentBlogContext] = useState<BlogContext | undefined>(undefined);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const hasProcessedInitialMessage = useRef<string | null>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -45,12 +47,17 @@ export default function ChatBox({ isOpen, onClose, isDarkMode = true }: ChatBoxP
     scrollToBottom();
   }, [messages]);
 
+  // Initialize with default greeting when no blog context
   useEffect(() => {
-    setMessages([{
-      role: 'assistant',
-      content: "Hi! I'm Ethan's AI assistant. Feel free to ask me about his experience, projects, or skills in software development, AI solutions, and project management."
-    }]);
-  }, []);
+    if (!blogContext) {
+      setMessages([{
+        role: 'assistant',
+        content: "Hi! I'm Ethan's AI assistant. Feel free to ask me about his experience, projects, or skills in software development, AI solutions, and project management."
+      }]);
+      setCurrentBlogContext(undefined);
+      hasProcessedInitialMessage.current = null;
+    }
+  }, [blogContext]);
 
   console.log('ChatBox mounted');
   
@@ -62,9 +69,32 @@ export default function ChatBox({ isOpen, onClose, isDarkMode = true }: ChatBoxP
     });
   }, []);
 
-  const sendMessage = async (messageContent: string) => {
+  // Create system prompt with optional blog context
+  const createSystemPromptWithBlogContext = useCallback((context?: BlogContext) => {
+    const basePrompt = createEnhancedSystemPrompt();
+    
+    if (context) {
+      return `${basePrompt}
+
+You are also helping the user understand a blog post. Here is the blog context:
+
+Blog Title: ${context.title}
+Blog Excerpt: ${context.excerpt}
+
+Blog Content:
+${context.content}
+
+When asked to summarize or discuss this blog, provide helpful insights based on the content above. After summarizing, you can continue to answer any follow-up questions about the blog or any other topics related to Ethan's work and experience.`;
+    }
+    
+    return basePrompt;
+  }, []);
+
+  const sendMessage = useCallback(async (messageContent: string, contextOverride?: BlogContext) => {
     if (!messageContent.trim()) return;
 
+    const activeContext = contextOverride || currentBlogContext;
+    
     setError(null);
     const userMessage: Message = {
       role: 'user' as const,
@@ -84,7 +114,7 @@ export default function ChatBox({ isOpen, onClose, isDarkMode = true }: ChatBoxP
           messages: [
             {
               role: 'system' as const,
-              content: createEnhancedSystemPrompt()
+              content: createSystemPromptWithBlogContext(activeContext)
             },
             ...messages,
             userMessage
@@ -124,7 +154,24 @@ export default function ChatBox({ isOpen, onClose, isDarkMode = true }: ChatBoxP
     }
 
     setIsLoading(false);
-  };
+  }, [messages, currentBlogContext, createSystemPromptWithBlogContext]);
+
+  // Handle initial message with blog context
+  useEffect(() => {
+    if (isOpen && blogContext && initialMessage && hasProcessedInitialMessage.current !== blogContext.title) {
+      // Set the blog context for future messages
+      setCurrentBlogContext(blogContext);
+      hasProcessedInitialMessage.current = blogContext.title;
+      
+      // Clear previous messages and send the initial summarize request
+      setMessages([]);
+      
+      // Small delay to ensure state is updated before sending
+      setTimeout(() => {
+        sendMessage(initialMessage, blogContext);
+      }, 100);
+    }
+  }, [isOpen, blogContext, initialMessage, sendMessage]);
 
   const renderMessage = (message: Message) => {
     if (message.role === 'assistant') {
@@ -193,7 +240,12 @@ export default function ChatBox({ isOpen, onClose, isDarkMode = true }: ChatBoxP
   };
 
   const handleClearChat = () => {
-    setMessages([]);
+    setMessages([{
+      role: 'assistant',
+      content: currentBlogContext 
+        ? `Chat cleared. I still have context about the blog "${currentBlogContext.title}". Feel free to ask more questions about it or anything else!`
+        : "Hi! I'm Ethan's AI assistant. Feel free to ask me about his experience, projects, or skills in software development, AI solutions, and project management."
+    }]);
   };
 
   const toggleFullscreen = () => {

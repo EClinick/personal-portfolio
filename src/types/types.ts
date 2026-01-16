@@ -3,10 +3,18 @@ export type Message = {
   content: string;
 };
 
+export type BlogContext = {
+  title: string;
+  content: string;
+  excerpt: string;
+};
+
 export type ChatBoxProps = {
   isOpen: boolean;
   onClose: () => void;
   isDarkMode?: boolean;
+  initialMessage?: string;
+  blogContext?: BlogContext;
 };
 
 export const SYSTEM_CONTEXT = {
