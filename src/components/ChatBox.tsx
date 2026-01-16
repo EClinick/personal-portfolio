@@ -180,40 +180,40 @@ When asked to summarize or discuss this blog, provide helpful insights based on 
         <ReactMarkdown
           components={{
             p: ({children}) => (
-              <p className="mb-4 last:mb-0 text-sm">{children}</p>
+              <p className="mb-4 last:mb-0 text-sm leading-relaxed text-gray-200">{children}</p>
             ),
             h1: ({children}) => (
-              <h1 className="text-xl font-bold mb-4 mt-6">{children}</h1>
+              <h1 className="text-xl font-bold mb-4 mt-6 text-white">{children}</h1>
             ),
             h2: ({children}) => (
-              <h2 className="text-lg font-bold mb-3 mt-5">{children}</h2>
+              <h2 className="text-lg font-bold mb-3 mt-5 text-white">{children}</h2>
             ),
             h3: ({children}) => (
-              <h3 className="text-md font-bold mb-2 mt-4">{children}</h3>
+              <h3 className="text-md font-semibold mb-2 mt-4 text-white">{children}</h3>
             ),
             ul: ({children}) => (
-              <ul className="list-disc pl-4 mb-4 space-y-2">{children}</ul>
+              <ul className="list-disc pl-5 mb-4 space-y-2 marker:text-gray-500">{children}</ul>
             ),
             ol: ({children}) => (
-              <ol className="list-decimal pl-4 mb-4 space-y-2">{children}</ol>
+              <ol className="list-decimal pl-5 mb-4 space-y-2 marker:text-gray-500">{children}</ol>
             ),
             li: ({children}) => (
-              <li className="mb-1">{children}</li>
+              <li className="mb-1 text-sm leading-relaxed text-gray-200">{children}</li>
             ),
             code: ({inline, className, children}: {inline?: boolean, className?: string, children?: React.ReactNode}) => {
               if (inline) {
-                return <code className="bg-gray-800 text-orange-400 px-2 py-1 rounded transition-colors duration-300">{children}</code>;
+                return <code className="bg-gray-800 text-orange-400 px-1.5 py-0.5 rounded text-sm font-mono">{children}</code>;
               }
               return (
                 <div className="my-4">
-                  <pre className="bg-gray-900 border border-gray-700 p-4 rounded-xl overflow-x-auto">
-                    <code className={className}>{children}</code>
+                  <pre className="bg-gray-900 border border-gray-800 p-4 rounded-lg overflow-x-auto">
+                    <code className={`${className} text-sm font-mono`}>{children}</code>
                   </pre>
                 </div>
               );
             },
             blockquote: ({children}) => (
-              <blockquote className="bg-gray-900 border-l-4 border-orange-500/50 pl-4 my-4 italic rounded-r-lg p-3">
+              <blockquote className="border-l-2 border-gray-600 pl-4 my-4 text-gray-300">
                 {children}
               </blockquote>
             ),
@@ -222,10 +222,13 @@ When asked to summarize or discuss this blog, provide helpful insights based on 
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-orange-400 hover:text-orange-300 hover:underline transition-colors duration-300"
+                className="text-orange-400 hover:text-orange-300 hover:underline transition-colors duration-200"
               >
                 {children}
               </a>
+            ),
+            strong: ({children}) => (
+              <strong className="font-bold text-white">{children}</strong>
             ),
           }}
         >
@@ -235,7 +238,7 @@ When asked to summarize or discuss this blog, provide helpful insights based on 
     }
     
     return (
-      <p className="whitespace-pre-wrap break-words">{message.content}</p>
+      <p className="whitespace-pre-wrap break-words text-sm">{message.content}</p>
     );
   };
 
@@ -310,27 +313,23 @@ When asked to summarize or discuss this blog, provide helpful insights based on 
                 message.role === 'user' ? 'justify-end' : 'justify-start'
               }`}
             >
-              <div
-                className={`${
-                  isFullscreen ? 'max-w-[70%]' : 'max-w-[85%]'
-                } rounded-xl p-4 transition-all duration-300 ${
-                  message.role === 'user'
-                    ? 'bg-gray-900 border border-gray-700 text-white'
-                    : 'bg-gray-900/50 border border-gray-800 text-gray-200'
-                }`}
-              >
-                {renderMessage(message)}
-              </div>
+              {message.role === 'user' ? (
+                <div className="max-w-[85%] rounded-2xl px-4 py-3 bg-gray-800/80 text-white text-sm">
+                  {renderMessage(message)}
+                </div>
+              ) : (
+                <div className={`${isFullscreen ? 'max-w-[90%]' : 'w-full'}`}>
+                  {renderMessage(message)}
+                </div>
+              )}
             </div>
           ))}
           {isLoading && (
             <div className="flex justify-start">
-              <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-4 text-gray-200">
-                <div className="flex space-x-2">
-                  <div className="w-2 h-2 rounded-full animate-bounce bg-orange-500" />
-                  <div className="w-2 h-2 rounded-full animate-bounce bg-orange-500" style={{ animationDelay: '0.2s' }} />
-                  <div className="w-2 h-2 rounded-full animate-bounce bg-orange-500" style={{ animationDelay: '0.4s' }} />
-                </div>
+              <div className="flex items-center space-x-2 py-2">
+                <div className="w-2 h-2 rounded-full animate-bounce bg-gray-500" />
+                <div className="w-2 h-2 rounded-full animate-bounce bg-gray-500" style={{ animationDelay: '0.2s' }} />
+                <div className="w-2 h-2 rounded-full animate-bounce bg-gray-500" style={{ animationDelay: '0.4s' }} />
               </div>
             </div>
           )}
@@ -345,11 +344,11 @@ When asked to summarize or discuss this blog, provide helpful insights based on 
             : ''
         }`}>
           <AIInput
-            placeholder="Type your message..."
+            placeholder="Ask anything"
             onSubmit={sendMessage}
             isDarkMode={true}
-            className="px-6 py-4"
-            minHeight={48}
+            className="px-4 py-3"
+            minHeight={44}
             maxHeight={120}
           />
         </div>
