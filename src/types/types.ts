@@ -1,6 +1,10 @@
 export type Message = {
   role: 'user' | 'assistant' | 'system';
   content: string;
+  agent?: {
+    id: string;
+    label: string;
+  };
 };
 
 export type BlogContext = {
