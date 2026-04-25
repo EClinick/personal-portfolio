@@ -1,18 +1,17 @@
 import React, { useState } from 'react'
-import FeaturedProjects from "../components/featured-projects"
+// import FeaturedProjects from "../components/featured-projects"
 import { EmploymentTimeline } from "../components/employment-timeline"
 import profileImage from '../assets/profile.jpg';
 import Menu from '../components/Menu';
 import Footer from '../components/Footer';
 import GitHubContributionGraph from '../components/github-contribution-graph';
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
-import { SiLeetcode, SiTryhackme } from 'react-icons/si';
+import { FaGithub, FaLinkedin, FaXTwitter } from 'react-icons/fa6';
 
 const socialLinks = [
   {
     label: 'Twitter',
-    icon: <FaTwitter className="w-3.5 h-3.5" />,
-    href: 'https://x.com/ethanclinick',
+    icon: <FaXTwitter className="w-3.5 h-3.5" />,
+    href: 'https://x.com/EthanClinick',
   },
   {
     label: 'Github',
@@ -22,17 +21,7 @@ const socialLinks = [
   {
     label: 'LinkedIn',
     icon: <FaLinkedin className="w-3.5 h-3.5" />,
-    href: 'https://linkedin.com/in/ethanclinick',
-  },
-  {
-    label: 'LeetCode',
-    icon: <SiLeetcode className="w-3.5 h-3.5" />,
-    href: 'https://leetcode.com/eclinick',
-  },
-  {
-    label: 'TryHackMe',
-    icon: <SiTryhackme className="w-3.5 h-3.5" />,
-    href: 'https://tryhackme.com/p/eclinick',
+    href: 'https://www.linkedin.com/in/ethanclinick',
   },
 ];
 
@@ -70,20 +59,24 @@ export default function Portfolio() {
           <div className="font-mono text-sm leading-relaxed text-gray-300 space-y-4">
             <p>
               Hey there! I'm a{' '}
-              <strong className="text-white">software professional</strong> passionate about building{' '}
-              <strong className="text-white">scalable, user-centric applications</strong> with expertise in{' '}
-              <strong className="text-white">cloud infrastructure and microservices architecture</strong>.
+              <strong className="text-white">software engineer</strong> who loves building{' '}
+              <strong className="text-white">AI-powered products</strong> and{' '}
+              <strong className="text-white">full-stack applications</strong> across cloud, fintech,
+              and developer tooling.
             </p>
             <p>
-              Currently working as a{' '}
-              <strong className="text-white">Software Engineer at Seeq</strong> with{' '}
-              <strong className="text-white">2+ years</strong> of experience in full-stack development.
-              Previously founded{' '}
-              <strong className="text-white">TradeMind</strong> and{' '}
-              <strong className="text-white">PlanGenie</strong>, building AI-powered products for thousands of
-              users. In my free time, I enjoy{' '}
-              <strong className="text-white">building products</strong>, exploring{' '}
-              <strong className="text-white">cybersecurity</strong>, and contributing to{' '}
+              Currently a <strong className="text-white">Software Engineer at Seeq</strong>, working on{' '}
+              <strong className="text-white">AI integrations</strong> and internal Copilot tooling for
+              industrial data analysis. Alongside that I've founded{' '}
+              <strong className="text-white">PlanGenie</strong> and{' '}
+              <strong className="text-white">Tan.ai</strong>, and co-founded{' '}
+              <strong className="text-white">Vcrypt Software</strong>, building algorithmic trading
+              systems in Rust.
+            </p>
+            <p>
+              When I'm not shipping, you'll find me{' '}
+              <strong className="text-white">prototyping new ideas</strong>, exploring{' '}
+              <strong className="text-white">AI and systems engineering</strong>, or contributing to{' '}
               <strong className="text-white">open-source</strong>.
             </p>
           </div>
@@ -116,9 +109,11 @@ export default function Portfolio() {
       </main>
 
       {/* ── Featured Projects ── */}
+      {/*
       <div id="projects">
         <FeaturedProjects />
       </div>
+      */}
 
       {/* ── Employment Timeline ── */}
       <div id="experience">
