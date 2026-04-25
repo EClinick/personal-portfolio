@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, FolderOpen, FileText, Bot, Moon, X as XIcon, AlignJustify } from 'lucide-react';
+import { Home, FolderOpen, FileText, Fingerprint, X as XIcon, AlignJustify } from 'lucide-react';
 import ChatBox from './ChatBox';
 
 interface MenuProps {
@@ -71,7 +71,7 @@ const Menu: React.FC<MenuProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) =>
               className="text-white text-2xl font-medium flex items-center gap-3 hover:text-gray-400 transition-colors"
               onClick={() => { setIsChatOpen(true); setIsMobileMenuOpen(false); }}
             >
-              <Bot size={20} /> AI
+              <Fingerprint size={20} /> AI
             </button>
           </div>
         </div>
@@ -111,12 +111,8 @@ const Menu: React.FC<MenuProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) =>
             onClick={() => setIsChatOpen(true)}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-gray-400 hover:text-white hover:bg-zinc-800 transition-all text-sm"
           >
-            <Bot size={13} />
+            <Fingerprint size={13} />
             <span>AI</span>
-          </button>
-          <div className="w-px h-4 bg-zinc-700 mx-1.5" />
-          <button className="p-1.5 rounded-full text-gray-400 hover:text-white hover:bg-zinc-800 transition-all">
-            <Moon size={14} />
           </button>
         </div>
       </nav>
