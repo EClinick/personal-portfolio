@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, FolderOpen, FileText, Briefcase, Minimize2, X as XIcon, AlignJustify } from 'lucide-react';
+import { Home, FolderOpen, FileText, Briefcase, Moon, X as XIcon, AlignJustify } from 'lucide-react';
 import ChatBox from './ChatBox';
-import { useMinimalMode } from '../contexts/MinimalModeContext';
 
 interface MenuProps {
   isMobileMenuOpen: boolean;
@@ -14,7 +13,6 @@ const Menu: React.FC<MenuProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) =>
   const [isAtTop, setIsAtTop] = useState(true);
   const location = useLocation();
   const isBlogPage = location.pathname.startsWith('/blog');
-  const { isMinimal, toggleMinimal } = useMinimalMode();
 
   useEffect(() => {
     const updateScrollState = () => {
@@ -123,17 +121,8 @@ const Menu: React.FC<MenuProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) =>
             <span>Experience</span>
           </button>
           <div className="w-px h-4 bg-zinc-700 mx-1.5" />
-          <button
-            onClick={toggleMinimal}
-            aria-label={isMinimal ? 'Switch to detailed view' : 'Switch to minimal view'}
-            title={isMinimal ? 'Detailed view' : 'Minimal view'}
-            className={`p-1.5 rounded-full transition-all ${
-              isMinimal
-                ? 'bg-white text-black hover:bg-zinc-200'
-                : 'text-gray-400 hover:text-white hover:bg-zinc-800'
-            }`}
-          >
-            <Minimize2 size={14} />
+          <button className="p-1.5 rounded-full text-gray-400 hover:text-white hover:bg-zinc-800 transition-all">
+            <Moon size={14} />
           </button>
         </div>
       </nav>
