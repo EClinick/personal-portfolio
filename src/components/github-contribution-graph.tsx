@@ -111,10 +111,10 @@ export default function GitHubContributionGraph({
   const getLevelColor = (level: number): string => {
     switch (level) {
       case 0: return 'bg-zinc-900';
-      case 1: return 'bg-green-900/40';
-      case 2: return 'bg-green-700/60';
-      case 3: return 'bg-green-600/80';
-      case 4: return 'bg-green-500';
+      case 1: return 'bg-zinc-700';
+      case 2: return 'bg-zinc-600';
+      case 3: return 'bg-zinc-500';
+      case 4: return 'bg-zinc-400';
       default: return 'bg-zinc-900';
     }
   };

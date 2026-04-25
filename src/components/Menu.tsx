@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { Home, FolderOpen, FileText, Briefcase, Moon, X as XIcon, AlignJustify } from 'lucide-react';
 import ChatBox from './ChatBox';
 
 interface MenuProps {
@@ -17,34 +18,19 @@ const Menu: React.FC<MenuProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) =>
     const updateScrollState = () => {
       setIsAtTop(window.scrollY <= 10);
     };
-
     updateScrollState();
     window.addEventListener('scroll', updateScrollState, { passive: true });
     return () => window.removeEventListener('scroll', updateScrollState);
   }, [location.pathname]);
 
-  const handleHomeClick = () => {
-    if (location.pathname === '/') {
-      // If already on home page, scroll to top
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
     setIsMobileMenuOpen(false);
   };
 
-  const handleProjectsClick = () => {
+  const handleAbout = () => {
     if (location.pathname === '/') {
-      // If on home page, scroll to projects section
-      const projectsSection = document.getElementById('projects');
-      if (projectsSection) {
-        projectsSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-    setIsMobileMenuOpen(false);
-  };
-
-  const handleBlogClick = () => {
-    if (location.pathname === '/blog') {
-      // If already on blog page, scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     setIsMobileMenuOpen(false);
@@ -52,45 +38,44 @@ const Menu: React.FC<MenuProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) =>
 
   return (
     <>
-      {/* Mobile Menu Button */}
-      {/* <button 
-        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        className="md:hidden bg-orange-500 hover:bg-orange-600 text-white rounded-full p-3 transition-all z-[40] relative"
-      >
-        {isMobileMenuOpen ? <X className="w-5 h-5" /> : <MenuIcon className="w-5 h-5" />}
-      </button> */}
-
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 bg-black/90 backdrop-blur-md z-[40] md:hidden">
-          <div className="flex flex-col items-center justify-center h-full space-y-8">
-            <Link 
-              to="/" 
-              className="text-white text-2xl font-medium hover:text-orange-500 transition-colors"
-              onClick={handleHomeClick}
+        <div className="fixed inset-0 bg-black/95 backdrop-blur-md z-[40] md:hidden flex flex-col">
+          <div className="flex justify-end p-6">
+            <button onClick={() => setIsMobileMenuOpen(false)} className="text-white">
+              <XIcon size={24} />
+            </button>
+          </div>
+          <div className="flex flex-col items-center justify-center flex-1 space-y-8">
+            <Link
+              to="/"
+              className="text-white text-2xl font-medium flex items-center gap-3 hover:text-gray-400 transition-colors"
+              onClick={handleAbout}
             >
-              Home
+              <Home size={20} /> About
             </Link>
-            <Link 
-              to={location.pathname === '/projects' ? '/projects' : '/#projects'} 
-              className="text-white text-2xl font-medium hover:text-orange-500 transition-colors"
-              onClick={handleProjectsClick}
+            <button
+              className="text-white text-2xl font-medium flex items-center gap-3 hover:text-gray-400 transition-colors"
+              onClick={() => scrollTo('projects')}
             >
-              Projects
-            </Link>
-            <Link 
-              to="/blog" 
-              className="text-white text-2xl font-medium hover:text-orange-500 transition-colors"
-              onClick={handleBlogClick}
+              <FolderOpen size={20} /> Projects
+            </button>
+            <Link
+              to="/blog"
+              className="text-white text-2xl font-medium flex items-center gap-3 hover:text-gray-400 transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
             >
-              Blog
+              <FileText size={20} /> Blogs
             </Link>
-            <button 
-              onClick={() => {
-                setIsChatOpen(true);
-                setIsMobileMenuOpen(false);
-              }} 
-              className="text-white text-2xl font-medium hover:text-orange-500 transition-colors"
+            <button
+              className="text-white text-2xl font-medium flex items-center gap-3 hover:text-gray-400 transition-colors"
+              onClick={() => scrollTo('experience')}
+            >
+              <Briefcase size={20} /> Experience
+            </button>
+            <button
+              onClick={() => { setIsChatOpen(true); setIsMobileMenuOpen(false); }}
+              className="text-gray-500 text-lg font-medium hover:text-gray-400 transition-colors"
             >
               Chat
             </button>
@@ -98,47 +83,72 @@ const Menu: React.FC<MenuProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) =>
         </div>
       )}
 
-      {/* Top Navigation - Desktop */}
+      {/* Top Navigation — Desktop */}
       <nav
-        className={`hidden md:block fixed top-6 left-1/2 transform -translate-x-1/2 z-[40] transition-opacity duration-300 ${isBlogPage && !isAtTop ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+        className={`hidden md:block fixed top-6 left-1/2 -translate-x-1/2 z-[40] transition-opacity duration-300 ${
+          isBlogPage && !isAtTop ? 'opacity-0 pointer-events-none' : 'opacity-100'
+        }`}
       >
-        <div className="bg-glass backdrop-blur-md rounded-2xl px-8 py-4 border border-white/20">
-          <div className="flex items-center space-x-8">
-            <Link to="/" className="text-gray-400 hover:text-white transition-colors font-medium" onClick={handleHomeClick}>
-              Home
-            </Link>
-            <Link to={location.pathname === '/projects' ? '/projects' : '/#projects'} className="text-gray-400 hover:text-white transition-colors font-medium" onClick={handleProjectsClick}>
-              Projects
-            </Link>
-            <Link to="/blog" className="text-gray-400 hover:text-white transition-colors font-medium" onClick={handleBlogClick}>
-              Blog
-            </Link>
-            <button onClick={() => setIsChatOpen(true)} className="text-gray-400 hover:text-white transition-colors font-medium">
-              Chat
-            </button>
-          </div>
+        <div className="bg-zinc-900 border border-zinc-700 rounded-full px-5 py-2.5 flex items-center gap-0.5">
+          <Link
+            to="/"
+            onClick={handleAbout}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-white bg-zinc-800 text-sm font-medium"
+          >
+            <Home size={13} />
+            <span>About</span>
+          </Link>
+          <button
+            onClick={() => scrollTo('projects')}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-gray-400 hover:text-white hover:bg-zinc-800 transition-all text-sm"
+          >
+            <FolderOpen size={13} />
+            <span>Projects</span>
+          </button>
+          <Link
+            to="/blog"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-gray-400 hover:text-white hover:bg-zinc-800 transition-all text-sm"
+          >
+            <FileText size={13} />
+            <span>Blogs</span>
+          </Link>
+          <button
+            onClick={() => scrollTo('experience')}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-gray-400 hover:text-white hover:bg-zinc-800 transition-all text-sm"
+          >
+            <Briefcase size={13} />
+            <span>Experience</span>
+          </button>
+          <div className="w-px h-4 bg-zinc-700 mx-1.5" />
+          <button className="p-1.5 rounded-full text-gray-400 hover:text-white hover:bg-zinc-800 transition-all">
+            <Moon size={14} />
+          </button>
         </div>
       </nav>
 
       {/* Mobile Top Navigation */}
       <nav
-        className={`md:hidden fixed top-4 left-1/2 transform -translate-x-1/2 z-[40] w-[90%] max-w-sm transition-opacity duration-300 ${isBlogPage && !isAtTop ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+        className={`md:hidden fixed top-4 left-1/2 -translate-x-1/2 z-[40] transition-opacity duration-300 ${
+          isBlogPage && !isAtTop ? 'opacity-0 pointer-events-none' : 'opacity-100'
+        }`}
       >
-        <div className="bg-white/ backdrop-blur-md rounded-2xl px-6 py-3 border border-white/20">
-          <div className="flex items-center justify-between">
-            <Link to="/" className="text-white hover:text-orange-500 transition-colors font-medium text-sm" onClick={handleHomeClick}>
-              Home
-            </Link>
-            <Link to={location.pathname === '/projects' ? '/projects' : '/#projects'} className="text-gray-400 hover:text-white transition-colors text-sm" onClick={handleProjectsClick}>
-              Projects
-            </Link>
-            <Link to="/blog" className="text-gray-400 hover:text-white transition-colors text-sm" onClick={handleBlogClick}>
-              Blog
-            </Link>
-            <button onClick={() => setIsChatOpen(true)} className="text-gray-400 hover:text-white transition-colors font-medium text-sm">
-              Chat
-            </button>
-          </div>
+        <div className="bg-zinc-900 border border-zinc-700 rounded-full px-4 py-2 flex items-center gap-3">
+          <Link to="/" onClick={handleAbout} className="text-white text-sm font-medium flex items-center gap-1.5">
+            <Home size={12} /> About
+          </Link>
+          <span className="text-zinc-700">|</span>
+          <button onClick={() => scrollTo('projects')} className="text-gray-400 text-sm flex items-center gap-1.5">
+            <FolderOpen size={12} /> Projects
+          </button>
+          <span className="text-zinc-700">|</span>
+          <Link to="/blog" className="text-gray-400 text-sm flex items-center gap-1.5">
+            <FileText size={12} /> Blogs
+          </Link>
+          <span className="text-zinc-700">|</span>
+          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-400">
+            <AlignJustify size={16} />
+          </button>
         </div>
       </nav>
 
