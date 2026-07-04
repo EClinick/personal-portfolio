@@ -30,73 +30,29 @@ export const SYSTEM_CONTEXT = {
         university: "Oregon State University",
         years: "2022-2026"
       },
-      summary: "Technical Product Manager with expertise in software development and AI-driven solutions, skilled in scalable backend infrastructures and cloud services. Experienced in leading cross-functional teams, optimizing system performance, and delivering impactful B2B SaaS products. Adept at project planning, risk management, and ensuring timely delivery of high-quality solutions in fast-paced, innovation-driven environments.",
+      summary: "I'm an AI Engineer at Seeq and an independent software engineering consultant. Previously, I built software at Microsoft. I work at the intersection of applied AI, thoughtful product engineering, and real operational problems.",
       experience: [
-        {
-          role: "Founder",
-          company: "Tan.ai",
-          location: "Fall City, WA",
-          dates: "July 2024 - Present",
-          responsibilities: [
-            "Developed and launched an AI-driven iOS application providing personalized tanning advice",
-            "Created a secure, account-free authentication process using UUID-based user identification",
-            "Optimized backend architecture through AWS integration, enhancing data security and reducing latency by 25%",
-            "Implemented a custom-trained AI model for skin tone detection using OpenAI's API",
-            "Utilized image analysis techniques to generate data-driven user insights"
-          ],
-          links: [
-            {
-              name: "Website",
-              url: "https://tanai.app"
-            },
-            {
-              name: "LinkedIn",
-              url: "https://www.linkedin.com/feed/update/urn:li:activity:7238027109045088256/"
-            }
-          ]
-        },  
-        {
-          "role": "Founder",
-          "company": "PlanGenie",
-          "location": "Fall City, WA",
-          "dates": "November 2024 - Present",
-          "responsibilities": [
-            "Conceptualized and developed an AI-powered task management platform tailored for neurodivergent individuals",
-            "Integrated advanced AI models for intelligent task breakdown and scheduling",
-            "Designed a user-friendly interface to facilitate natural task creation and organization for individuals with ADHD",
-            "Implemented features like interactive timeline views, multi-calendar synchronization, and customizable notifications",
-            "Developed scalable backend architecture supporting secure user authentication and subscription-based services",
-            "Collaborated with neurodivergent communities to ensure the platform meets their unique needs and challenges"
-          ],
-          "links": [
-            {
-              "name": "Website",
-              "url": "https://plangenie.net"
-            },
-  
-          ]
-        },
         {
           role: "Co-founder/President of Algorithms and Analytics",
           company: "Vcrypt Software LLC",
           location: "Corvallis, OR",
           dates: "January 2024 - Present",
           responsibilities: [
-            "Led the development of backend systems for financial market data solutions using Rust, Python, and React Native",
+            "Led the development of backend systems for financial market data solutions using Rust and Python",
             "Integrated Stripe for payments and OAuth for secure authentication",
             "Designed and deployed trading algorithms, including long-term, intra-week, and high-frequency strategies",
             "Enhanced data processing efficiency by 30% through algorithm optimization",
             "Secured initial funding by demonstrating business acumen and algorithmic performance"
           ],
           links: [
-            {
-              name: "Website",
-              url: "https://vcryptfinancial.com"
-            },
-            {
-              name: "LinkedIn",
-              url: "https://www.linkedin.com/company/vcrypt"
-            }
+            // {
+            //   name: "Website",
+            //   url: "https://vcryptfinancial.com"
+            // },
+            // {
+            //   name: "LinkedIn",
+            //   url: "https://www.linkedin.com/company/vcrypt"
+            // }
           ]
         },
         {
@@ -105,11 +61,9 @@ export const SYSTEM_CONTEXT = {
             "location": "Remote / Seattle, WA",
             "dates": "April 2025 – Present",
             "responsibilities": [
-              "Led AI integration initiatives across Seeq’s platform, including internal Copilot development for data analysis and time series workflows",
-              "Enhanced interoperability with Microsoft’s ecosystem (Teams, Outlook, Azure) using custom APIs and AI assistants",
-              "Developed backend features using TypeScript, Python, and Gradle in a large-scale monorepo",
-              "Improved developer productivity by optimizing LLM prompt chains, formatting logic, and retrieval-based agents",
-              "Created automated testing frameworks for UI components and backend logic with Playwright and Jest"
+              "Built and scaled Agent Builder, Seeq’s visual workflow canvas for turning expert industrial workflows into reusable AI agents; enabled users to compose multi-step analyses, connect Seeq context and Data Lab tools, reuse workflow templates, and operationalize repeatable decision-support processes inside Seeq Intelligence",
+              "Redesigned Seeq’s AI Assistant and shared Intelligence experience, making Agent Q more useful in real industrial workflows by giving it persistent user context, the ability to ask clarifying questions, and support for PDFs, images, and CSVs as inputs so users can get grounded answers from their own data and documents",
+              "Built internal AI engineering agents and automations that help Seeq developers investigate PRs, broken builds, vulnerabilities, support tickets, and product bugs faster, improving engineering velocity and reliability for customer-facing AI features"
             ],
             "links": [
               {
@@ -117,7 +71,20 @@ export const SYSTEM_CONTEXT = {
                 "url": "https://www.seeq.com"
               }
             ]
-          },       
+          },
+        {
+          role: "Contract Software Engineer",
+          company: "Microsoft",
+          location: "Redmond, WA",
+          dates: "August 2024 – Present",
+          responsibilities: [],
+          links: [
+            {
+              name: "Company",
+              url: "https://www.microsoft.com"
+            }
+          ]
+        },
       ],
       projects: [
         {

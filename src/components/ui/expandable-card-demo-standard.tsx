@@ -261,7 +261,7 @@ const cards = [
   //   ctaLink: "https://vcryptfinancial.com",
   //   content: () => (
   //     <ul className="list-disc pl-4">
-  //       <li>Led backend systems for financial market data solutions using Rust, Python, and React Native</li>
+  //       <li>Led backend systems for financial market data solutions using Rust and Python</li>
   //       <li>Integrated Stripe for payments and OAuth for secure authentication</li>
   //       <li>Designed and deployed trading algorithms (long-term, intra-week, high-frequency)</li>
   //       <li>Enhanced data processing efficiency by 30% through algorithm optimization</li>

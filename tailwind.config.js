@@ -42,6 +42,7 @@ export default {
         'chat-glow': 'chat-glow 2.5s ease-in-out infinite alternate',
         'gradient-shift': 'gradient-shift 3s ease-in-out infinite',
         'fade-scale': 'fade-scale 0.2s ease-out',
+        'text-shine': 'text-shine 0.9s ease-out 0.1s both',
       },
       keyframes: {
         'fade-scale': {
@@ -86,6 +87,10 @@ export default {
         'gradient-shift': {
           '0%, 100%': { 'background-position': '0% 50%' },
           '50%': { 'background-position': '100% 50%' },
+        },
+        'text-shine': {
+          '0%': { 'background-position': '200% 0' },
+          '100%': { 'background-position': '-100% 0' },
         },
       },
     },
