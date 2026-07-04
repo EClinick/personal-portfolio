@@ -109,24 +109,26 @@ const Menu: React.FC<MenuProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) =>
       <nav
         className={`hidden md:flex fixed left-0 right-0 z-[40] justify-center transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${isAtTop ? 'top-0' : 'top-6'} ${isBlogPage && !isAtTop ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
       >
+        {/* While docked, the container spans the full width but is invisible, so it
+            must not swallow clicks on content beneath it — only the links stay hot. */}
         <div
           className={`flex items-center justify-center space-x-8 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
             isAtTop
-              ? 'w-full rounded-none border border-transparent bg-transparent px-8 py-5'
+              ? 'w-full rounded-none border border-transparent bg-transparent px-8 py-5 pointer-events-none'
               : 'w-auto rounded-2xl border border-white/20 bg-glass px-8 py-4 shadow-2xl backdrop-blur-md'
           }`}
         >
-          <Link to="/" className="text-gray-400 hover:text-white transition-colors font-medium" onClick={handleHomeClick}>
+          <Link to="/" className={`text-gray-400 hover:text-white transition-colors font-medium ${isAtTop ? 'pointer-events-auto' : ''}`} onClick={handleHomeClick}>
             Home
           </Link>
           {/* Projects link disabled while the site is résumé-only.
           <Link to={location.pathname === '/projects' ? '/projects' : '/#projects'} className="text-gray-400 hover:text-white transition-colors font-medium" onClick={handleProjectsClick}>
             Projects
           </Link> */}
-          <Link to="/blog" className="text-gray-400 hover:text-white transition-colors font-medium" onClick={handleBlogClick}>
+          <Link to="/blog" className={`text-gray-400 hover:text-white transition-colors font-medium ${isAtTop ? 'pointer-events-auto' : ''}`} onClick={handleBlogClick}>
             Blog
           </Link>
-          <button onClick={() => setIsChatOpen(true)} className="text-gray-400 hover:text-white transition-colors font-medium">
+          <button onClick={() => setIsChatOpen(true)} className={`text-gray-400 hover:text-white transition-colors font-medium ${isAtTop ? 'pointer-events-auto' : ''}`}>
             Chat
           </button>
         </div>

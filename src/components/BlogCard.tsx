@@ -30,19 +30,19 @@ export const BlogCard = ({ post, featured = false }: BlogCardProps) => {
         {/* Header */}
         <div className="flex items-start justify-between mb-4">
           <div className="flex-1">
-            <div className="flex items-center gap-2 text-sm text-gray-400 mb-2">
-              <Calendar className="w-4 h-4" />
+            <div className="flex items-center gap-2 text-xs text-gray-400 mb-2">
+              <Calendar className="w-3.5 h-3.5" />
               <time dateTime={post.publishedDate}>
                 {formatDate(post.publishedDate)}
               </time>
               <span className="text-gray-600">•</span>
-              <Clock className="w-4 h-4" />
+              <Clock className="w-3.5 h-3.5" />
               <span>{post.readingTime || 1} min read</span>
             </div>
             <h3 className={`
-              font-bold text-white mb-3
+              font-semibold text-white mb-3
               group-hover:text-orange-500 transition-colors
-              ${featured ? 'text-2xl md:text-3xl' : 'text-xl'}
+              ${featured ? 'text-lg' : 'text-base'}
             `}>
               {post.title}
             </h3>
@@ -59,10 +59,7 @@ export const BlogCard = ({ post, featured = false }: BlogCardProps) => {
         </div>
 
         {/* Excerpt */}
-        <p className={`
-          text-gray-300 mb-4 line-clamp-3
-          ${featured ? 'text-lg' : 'text-base'}
-        `}>
+        <p className="text-gray-300 text-sm mb-4 line-clamp-3">
           {post.excerpt}
         </p>
 

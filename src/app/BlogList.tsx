@@ -60,16 +60,16 @@ export default function BlogList() {
       <Menu isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 md:px-6 pt-24 md:pt-28 pb-8 md:pb-12">
+      <main className="container mx-auto max-w-4xl px-4 md:px-6 pt-24 md:pt-28 pb-8 md:pb-12">
         {/* Header */}
-        <ScrollFadeIn className="text-center mb-12 md:mb-16">
-          <div className="space-y-4">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold">
+        <ScrollFadeIn className="text-center mb-10 md:mb-12">
+          <div className="space-y-3">
+            <h1 className="text-2xl md:text-3xl font-semibold">
               <span className="bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
                 Blog
               </span>
             </h1>
-            <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
+            <p className="text-gray-400 text-sm md:text-base max-w-2xl mx-auto">
               Insights on software development, AI, and finance
             </p>
           </div>
@@ -87,7 +87,7 @@ export default function BlogList() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="
-                  w-full pl-12 pr-4 py-3 rounded-xl
+                  w-full pl-12 pr-4 py-2.5 rounded-xl text-sm
                   bg-black/40 backdrop-blur-sm
                   border border-white/10
                   hover:border-white/20
@@ -154,7 +154,7 @@ export default function BlogList() {
         {/* Results Count */}
         {filteredPosts.length > 0 && (
           <ScrollFadeIn delay={150} className="text-center mb-8">
-            <p className="text-gray-400">
+            <p className="text-gray-400 text-sm">
               Showing {filteredPosts.length} {filteredPosts.length === 1 ? 'post' : 'posts'}
             </p>
           </ScrollFadeIn>
@@ -163,7 +163,7 @@ export default function BlogList() {
         {/* Featured Posts */}
         {featuredPosts.length > 0 && (
           <ScrollFadeIn delay={200} className="mb-12">
-            <h2 className="text-2xl font-bold text-white mb-6">Featured Posts</h2>
+            <h2 className="text-lg font-semibold text-white mb-6">Featured Posts</h2>
             <div className="grid md:grid-cols-2 gap-6">
               {featuredPosts.map((post) => (
                 <BlogCard key={post.id} post={post} featured={true} />
@@ -176,9 +176,9 @@ export default function BlogList() {
         {regularPosts.length > 0 && (
           <ScrollFadeIn delay={250}>
             {featuredPosts.length > 0 && (
-              <h2 className="text-2xl font-bold text-white mb-6">All Posts</h2>
+              <h2 className="text-lg font-semibold text-white mb-6">All Posts</h2>
             )}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 gap-6">
               {regularPosts.map((post) => (
                 <BlogCard key={post.id} post={post} />
               ))}
@@ -190,8 +190,8 @@ export default function BlogList() {
         {filteredPosts.length === 0 && (
           <ScrollFadeIn className="text-center py-12">
             <div className="space-y-4">
-              <p className="text-gray-400 text-xl">No posts found</p>
-              <p className="text-gray-500">
+              <p className="text-gray-400 text-base">No posts found</p>
+              <p className="text-gray-500 text-sm">
                 Try adjusting your search or filters
               </p>
               <button

@@ -23,6 +23,9 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+      // Allow `({ node, ...props })` destructures that exist only to keep a
+      // property (e.g. react-markdown's `node`) from leaking onto DOM elements.
+      '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
     },
   }
 );
