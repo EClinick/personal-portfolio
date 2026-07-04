@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import ChatBox from './ChatBox';
+// Portfolio view is disabled for now, so the Portfolio/Résumé switch is unused.
+// import ViewModeSwitch from './ViewModeSwitch';
 
 interface MenuProps {
   isMobileMenuOpen: boolean;
@@ -12,6 +14,9 @@ const Menu: React.FC<MenuProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) =>
   const [isAtTop, setIsAtTop] = useState(true);
   const location = useLocation();
   const isBlogPage = location.pathname.startsWith('/blog');
+  // The view switch only changes how the home page renders, so only reveal it there.
+  // (Disabled while the site is résumé-only.)
+  // const showViewToggle = location.pathname === '/';
 
   useEffect(() => {
     const updateScrollState = () => {
@@ -31,16 +36,16 @@ const Menu: React.FC<MenuProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) =>
     setIsMobileMenuOpen(false);
   };
 
-  const handleProjectsClick = () => {
-    if (location.pathname === '/') {
-      // If on home page, scroll to projects section
-      const projectsSection = document.getElementById('projects');
-      if (projectsSection) {
-        projectsSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-    setIsMobileMenuOpen(false);
-  };
+  // Projects nav entry is disabled while the site is résumé-only.
+  // const handleProjectsClick = () => {
+  //   if (location.pathname === '/') {
+  //     const projectsSection = document.getElementById('projects');
+  //     if (projectsSection) {
+  //       projectsSection.scrollIntoView({ behavior: 'smooth' });
+  //     }
+  //   }
+  //   setIsMobileMenuOpen(false);
+  // };
 
   const handleBlogClick = () => {
     if (location.pathname === '/blog') {
@@ -71,15 +76,16 @@ const Menu: React.FC<MenuProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) =>
             >
               Home
             </Link>
-            <Link 
-              to={location.pathname === '/projects' ? '/projects' : '/#projects'} 
+            {/* Projects link disabled while the site is résumé-only.
+            <Link
+              to={location.pathname === '/projects' ? '/projects' : '/#projects'}
               className="text-white text-2xl font-medium hover:text-orange-500 transition-colors"
               onClick={handleProjectsClick}
             >
               Projects
-            </Link>
-            <Link 
-              to="/blog" 
+            </Link> */}
+            <Link
+              to="/blog"
               className="text-white text-2xl font-medium hover:text-orange-500 transition-colors"
               onClick={handleBlogClick}
             >
@@ -98,25 +104,31 @@ const Menu: React.FC<MenuProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) =>
         </div>
       )}
 
-      {/* Top Navigation - Desktop */}
+      {/* Top Navigation - Desktop. Docked (full-width, borderless) at the top of the
+          page; morphs into the floating glass pill once the user scrolls. */}
       <nav
-        className={`hidden md:block fixed top-6 left-1/2 transform -translate-x-1/2 z-[40] transition-opacity duration-300 ${isBlogPage && !isAtTop ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+        className={`hidden md:flex fixed left-0 right-0 z-[40] justify-center transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${isAtTop ? 'top-0' : 'top-6'} ${isBlogPage && !isAtTop ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
       >
-        <div className="bg-glass backdrop-blur-md rounded-2xl px-8 py-4 border border-white/20">
-          <div className="flex items-center space-x-8">
-            <Link to="/" className="text-gray-400 hover:text-white transition-colors font-medium" onClick={handleHomeClick}>
-              Home
-            </Link>
-            <Link to={location.pathname === '/projects' ? '/projects' : '/#projects'} className="text-gray-400 hover:text-white transition-colors font-medium" onClick={handleProjectsClick}>
-              Projects
-            </Link>
-            <Link to="/blog" className="text-gray-400 hover:text-white transition-colors font-medium" onClick={handleBlogClick}>
-              Blog
-            </Link>
-            <button onClick={() => setIsChatOpen(true)} className="text-gray-400 hover:text-white transition-colors font-medium">
-              Chat
-            </button>
-          </div>
+        <div
+          className={`flex items-center justify-center space-x-8 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+            isAtTop
+              ? 'w-full rounded-none border border-transparent bg-transparent px-8 py-5'
+              : 'w-auto rounded-2xl border border-white/20 bg-glass px-8 py-4 shadow-2xl backdrop-blur-md'
+          }`}
+        >
+          <Link to="/" className="text-gray-400 hover:text-white transition-colors font-medium" onClick={handleHomeClick}>
+            Home
+          </Link>
+          {/* Projects link disabled while the site is résumé-only.
+          <Link to={location.pathname === '/projects' ? '/projects' : '/#projects'} className="text-gray-400 hover:text-white transition-colors font-medium" onClick={handleProjectsClick}>
+            Projects
+          </Link> */}
+          <Link to="/blog" className="text-gray-400 hover:text-white transition-colors font-medium" onClick={handleBlogClick}>
+            Blog
+          </Link>
+          <button onClick={() => setIsChatOpen(true)} className="text-gray-400 hover:text-white transition-colors font-medium">
+            Chat
+          </button>
         </div>
       </nav>
 
@@ -129,9 +141,10 @@ const Menu: React.FC<MenuProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) =>
             <Link to="/" className="text-white hover:text-orange-500 transition-colors font-medium text-sm" onClick={handleHomeClick}>
               Home
             </Link>
+            {/* Projects link disabled while the site is résumé-only.
             <Link to={location.pathname === '/projects' ? '/projects' : '/#projects'} className="text-gray-400 hover:text-white transition-colors text-sm" onClick={handleProjectsClick}>
               Projects
-            </Link>
+            </Link> */}
             <Link to="/blog" className="text-gray-400 hover:text-white transition-colors text-sm" onClick={handleBlogClick}>
               Blog
             </Link>

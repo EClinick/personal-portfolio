@@ -4,6 +4,7 @@ import About from './app/About';
 import BlogList from './app/BlogList';
 import BlogPost from './app/BlogPost';
 import WelcomeAnimation from './components/WelcomeAnimation';
+import { ViewModeProvider } from './components/view-mode-provider';
 import { useState, useEffect } from 'react';
 
 function App() {
@@ -20,17 +21,19 @@ function App() {
   };
 
   return (
-    <div className="bg-black min-h-screen">
-      {showWelcome && <WelcomeAnimation onComplete={handleWelcomeComplete} />}
-      <div className={`${!hasShownWelcome ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}>
-    <Routes>
-      <Route path="/" element={<Portfolio />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/blog" element={<BlogList />} />
-      <Route path="/blog/:slug" element={<BlogPost />} />
-    </Routes>
+    <ViewModeProvider>
+      <div className="bg-black min-h-screen">
+        {showWelcome && <WelcomeAnimation onComplete={handleWelcomeComplete} />}
+        <div className={`${!hasShownWelcome ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}>
+          <Routes>
+            <Route path="/" element={<Portfolio />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/blog" element={<BlogList />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </ViewModeProvider>
   );
 }
 

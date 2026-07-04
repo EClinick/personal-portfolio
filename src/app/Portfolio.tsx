@@ -6,10 +6,31 @@ import profileImage from '../assets/profile.jpg';
 import Menu from '../components/Menu';
 import Footer from '../components/Footer';
 import GitHubContributionGraph from '../components/github-contribution-graph';
+import MinimalView from '../components/MinimalView';
+import ViewModeToggle from '../components/ViewModeToggle';
+import { useViewMode } from '../components/view-mode-provider';
 import { useState } from 'react';
 
 export default function Portfolio() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { viewMode } = useViewMode();
+
+  // The full portfolio view is disabled for now — the résumé/minimal view is the
+  // only experience. Flip this to false to bring back the Portfolio/Résumé toggle
+  // (also re-enable <ViewModeToggle /> below and the switch in Menu.tsx).
+  const minimalOnly = true;
+
+  if (minimalOnly || viewMode === 'minimal') {
+    return (
+      <div className="min-h-screen bg-black text-white">
+        <Menu isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
+        <MinimalView />
+        <Footer />
+        {/* <ViewModeToggle /> */}
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Menu Component */}
@@ -67,6 +88,9 @@ export default function Portfolio() {
 
       {/* Footer Section */}
       <Footer />
+
+      {/* Floating Portfolio / Résumé view switch */}
+      <ViewModeToggle />
     </div>
   )
 }
