@@ -42,3 +42,6 @@ dist/index.html
 
 #convex generated files
 convex\_generated
+
+# .lavish
+.lavish/

@@ -1,5 +1,6 @@
 import React from 'react';
-import { MapPin, Mail, ArrowUpRight, GraduationCap, Github, Linkedin, Twitter } from 'lucide-react';
+import { MapPin, Mail, ArrowUpRight, GraduationCap, Github, Linkedin } from 'lucide-react';
+import { SiX } from 'react-icons/si';
 import { SYSTEM_CONTEXT } from '../types/types';
 import { projects as featuredProjects, type Project } from '../data/projects';
 import profileImage from '../assets/profile.jpg';
@@ -25,7 +26,7 @@ const PROFILE_LINKS = [
   { label: 'Email', href: 'mailto:ethan@clinick.net', Icon: Mail },
   { label: 'LinkedIn', href: context.linkedin, Icon: Linkedin },
   { label: 'GitHub', href: 'https://github.com/eclinick', Icon: Github },
-  { label: 'X', href: 'https://x.com/EthanClinick', Icon: Twitter },
+  { label: 'X', href: 'https://x.com/EthanClinick', Icon: SiX },
 ];
 
 const MONTHS: Record<string, number> = {
@@ -187,10 +188,11 @@ export default function MinimalView() {
                 href={href}
                 target={href.startsWith('mailto:') ? undefined : '_blank'}
                 rel="noopener noreferrer"
+                aria-label={label}
                 className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-gray-300 hover:bg-white/10 hover:text-white transition-colors"
               >
                 <Icon className="w-3.5 h-3.5" />
-                {label}
+                {label !== 'X' && label}
               </a>
             ))}
           </div>
