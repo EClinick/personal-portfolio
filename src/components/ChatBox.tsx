@@ -3,6 +3,7 @@ import { X, Trash2, Maximize2, Minimize2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { Message, ChatBoxProps, BlogContext } from '../types/types';
 import { AIInput } from './ui/ai-input';
+import { AIMessageBubble, AIMessagePanel, AIMessageShell, AIAgentBadge } from './ui/ai-elements';
 import { createEnhancedSystemPrompt } from '../prompts/system-prompt-loader'; 
 
 
@@ -52,7 +53,11 @@ export default function ChatBox({ isOpen, onClose, isDarkMode = true, initialMes
     if (!blogContext) {
       setMessages([{
         role: 'assistant',
-        content: "Hi! I'm Ethan's AI assistant. Feel free to ask me about his experience, projects, or skills in software development, AI solutions, and project management."
+        content: "Hi! I'm Ethan's AI assistant. Feel free to ask me about his experience, projects, or skills in software development, AI solutions, and project management.",
+        agent: {
+          id: 'general',
+          label: 'General Assistant'
+        }
       }]);
       setCurrentBlogContext(undefined);
       hasProcessedInitialMessage.current = null;
@@ -139,7 +144,8 @@ When asked to summarize or discuss this blog, provide helpful insights based on 
 
       const assistantMessage: Message = {
         role: 'assistant' as const,
-        content: data.choices[0].message.content
+        content: data.choices[0].message.content,
+        agent: data.agent ?? undefined
       };
       
       setMessages(prev => [...prev, assistantMessage]);
@@ -247,7 +253,11 @@ When asked to summarize or discuss this blog, provide helpful insights based on 
       role: 'assistant',
       content: currentBlogContext 
         ? `Chat cleared. I still have context about the blog "${currentBlogContext.title}". Feel free to ask more questions about it or anything else!`
-        : "Hi! I'm Ethan's AI assistant. Feel free to ask me about his experience, projects, or skills in software development, AI solutions, and project management."
+        : "Hi! I'm Ethan's AI assistant. Feel free to ask me about his experience, projects, or skills in software development, AI solutions, and project management.",
+      agent: {
+        id: 'general',
+        label: 'General Assistant'
+      }
     }]);
   };
 
@@ -307,22 +317,23 @@ When asked to summarize or discuss this blog, provide helpful insights based on 
             </div>
           )}
           {messages.map((message, index) => (
-            <div
+            <AIMessageShell
               key={index}
-              className={`flex ${
-                message.role === 'user' ? 'justify-end' : 'justify-start'
-              }`}
+              role={message.role === 'user' ? 'user' : 'assistant'}
             >
               {message.role === 'user' ? (
-                <div className="max-w-[85%] rounded-2xl px-4 py-3 bg-gray-800/80 text-white text-sm">
+                <AIMessageBubble>
                   {renderMessage(message)}
-                </div>
+                </AIMessageBubble>
               ) : (
-                <div className={`${isFullscreen ? 'max-w-[90%]' : 'w-full'}`}>
+                <AIMessagePanel className={`${isFullscreen ? 'max-w-[90%]' : 'w-full'}`}>
+                  {message.agent?.label && (
+                    <AIAgentBadge label={message.agent.label} />
+                  )}
                   {renderMessage(message)}
-                </div>
+                </AIMessagePanel>
               )}
-            </div>
+            </AIMessageShell>
           ))}
           {isLoading && (
             <div className="flex justify-start">
