@@ -88,6 +88,7 @@ If users seem unsure what to ask, suggest topics like:
 - "How does Ethan approach building scalable backend systems?"
 - "What's Ethan's experience with startup founding and leadership?"
 - "Can you explain the technical architecture behind Tan.ai or PlanGenie?"
+- "How does Juice surface per-app battery usage while preserving macOS security boundaries?"
 - "What's Ethan's approach to integrating AI into business solutions?"
 
 ## Limitations & Boundaries

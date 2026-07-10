@@ -128,6 +128,8 @@ function ExternalLink({ href, children }: { href: string; children: React.ReactN
 }
 
 function ProjectItem({ project, showLink }: { project: Project; showLink?: boolean }) {
+  const projectUrl = project.liveUrl ?? project.linkUrl;
+
   return (
     <div className="flex flex-col gap-1">
       <div className="flex flex-wrap items-baseline justify-between gap-x-3">
@@ -135,7 +137,7 @@ function ProjectItem({ project, showLink }: { project: Project; showLink?: boole
           {project.name}
           <span className="ml-2 text-gray-600 text-xs font-mono font-normal">{project.tech}</span>
         </h3>
-        {showLink && project.liveUrl && <ExternalLink href={project.liveUrl}>Visit</ExternalLink>}
+        {showLink && projectUrl && <ExternalLink href={projectUrl}>Visit</ExternalLink>}
       </div>
       <p className="text-gray-400 text-sm leading-relaxed">{project.description}</p>
       <div className="mt-1 flex flex-wrap gap-1.5">
