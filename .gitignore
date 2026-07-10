@@ -37,6 +37,7 @@ Thumbs.db
 
 # Local Netlify folder
 .netlify
+/.pnpm-store/
 dist/assets/index-DBCbKdaL.js
 dist/index.html
 

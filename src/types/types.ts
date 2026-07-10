@@ -88,6 +88,20 @@ export const SYSTEM_CONTEXT = {
       ],
       projects: [
         {
+          name: "Juice",
+          description: "A privacy-first macOS menu-bar app that makes the system's per-app energy accounting useful, showing what is draining the battery and how usage changes over time.",
+          technologies: ["Swift 6", "SwiftUI", "XPC", "SQLite", "macOS"],
+          features: [
+            "Live battery percentage and charging or draw wattage in the menu bar",
+            "Per-app energy rankings for today, three days, or a week, with CPU, GPU, and Neural Engine breakdowns",
+            "Local charge timelines, long-term rollups, and personalized energy-use insights",
+            "A development privileged helper that reads macOS powerlog data through XPC; a Team ID-pinned release trust model is planned",
+            "Fully local operation with no network access, telemetry, or accounts"
+          ],
+          githubUrl: "https://github.com/EClinick/juice",
+          status: "Early development"
+        },
+        {
           name: "Crypto Mining Monitor Bot",
           description: "A comprehensive Discord bot for monitoring cryptocurrency mining operations",
           technologies: ["Python", "Discord.py", "Docker", "API Integration"],
@@ -120,7 +134,7 @@ export const SYSTEM_CONTEXT = {
           ]
         }
       ],
-      
+
       skills: [
         "Python (2022)", 
         "Rust (2023)", 
@@ -151,4 +165,3 @@ export const SYSTEM_CONTEXT = {
       ]
     }
   };
-  
