@@ -98,7 +98,12 @@ export const SYSTEM_CONTEXT = {
             "A privileged helper that reads macOS powerlog data through XPC; packaged Developer ID releases use a Team ID-pinned trust model",
             "Keeps energy data local with no telemetry or accounts; users can optionally enable release-update checks"
           ],
-          githubUrl: "https://github.com/EClinick/juice",
+          links: [
+            {
+              name: "Website",
+              url: "https://getjuice.vercel.app/"
+            }
+          ],
           status: "Early development"
         },
         {

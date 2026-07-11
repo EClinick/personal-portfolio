@@ -33,7 +33,7 @@ export const projects: Project[] = [
     color: "from-lime-500 via-emerald-600 to-green-800",
     image: "https://raw.githubusercontent.com/EClinick/juice/main/docs/images/popover.png",
     tags: ["macOS", "SwiftUI", "Battery Analytics"],
-    linkUrl: "https://github.com/EClinick/juice",
+    linkUrl: "https://getjuice.vercel.app/",
     mockupContent: {
       title: "Juice",
       subtitle: "Battery analytics from macOS power data",
