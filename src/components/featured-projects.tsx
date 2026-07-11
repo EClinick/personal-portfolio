@@ -233,6 +233,16 @@ export default function FeaturedProjects() {
                     <p className="text-gray-400 text-lg leading-relaxed max-w-4xl">
                       {currentProject.description}
                     </p>
+                    {currentProject.linkUrl && (
+                      <a
+                        href={currentProject.linkUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex text-sm font-medium text-orange-400 transition-colors hover:text-orange-300"
+                      >
+                        View project ↗
+                      </a>
+                    )}
                   </div>
 
                   {/* Navigation Dots */}
@@ -327,6 +337,16 @@ export default function FeaturedProjects() {
                     <p className="text-gray-400 text-sm leading-relaxed">
                       {project.description}
                     </p>
+                    {project.linkUrl && (
+                      <a
+                        href={project.linkUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex text-sm font-medium text-orange-400 transition-colors hover:text-orange-300"
+                      >
+                        View project ↗
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>

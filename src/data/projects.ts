@@ -11,6 +11,7 @@ export interface Project {
   image: string
   tags: string[]
   liveUrl?: string
+  linkUrl?: string
   retired?: boolean
   mockupContent: {
     title: string
@@ -24,6 +25,21 @@ export interface Project {
  * FeaturedProjects section and the condensed Résumé view so the two never drift.
  */
 export const projects: Project[] = [
+  {
+    id: 5,
+    name: "Juice",
+    tech: "Swift 6 + SwiftUI",
+    description: "A privacy-first macOS menu-bar app that reveals the apps draining your battery, with per-app watt-hour history, charge timelines, and plain-English energy insights.",
+    color: "from-lime-500 via-emerald-600 to-green-800",
+    image: "https://raw.githubusercontent.com/EClinick/juice/main/docs/images/popover.png",
+    tags: ["macOS", "SwiftUI", "Battery Analytics"],
+    linkUrl: "https://github.com/EClinick/juice",
+    mockupContent: {
+      title: "Juice",
+      subtitle: "Battery analytics from macOS power data",
+      interface: "analytics",
+    },
+  },
   {
     id: 1,
     name: "TradeMind",
