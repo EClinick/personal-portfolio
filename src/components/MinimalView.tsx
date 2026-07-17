@@ -15,13 +15,11 @@ type Experience = {
   company: string;
   location: string;
   dates: string;
-  responsibilities: string[];
   links?: Link[];
 };
 
 const HEADLINE = 'AI Engineer & Full-Stack Developer';
 
-// Public-facing contact links (kept in sync with the site Footer).
 const PROFILE_LINKS = [
   { label: 'Email', href: 'mailto:ethan@clinick.net', Icon: Mail },
   { label: 'LinkedIn', href: context.linkedin, Icon: Linkedin },
@@ -97,8 +95,7 @@ function BrandKeyword({ name }: { name: string }) {
   );
 }
 
-// Renders plain summary text, wrapping known company names with their branded hover links,
-// so the copy itself stays single-sourced in SYSTEM_CONTEXT (shared with the chatbot).
+// Renders plain summary text while adding links to known company names.
 function AboutText({ text }: { text: string }) {
   const pattern = new RegExp(`\\b(${Object.keys(BRAND_KEYWORDS).join('|')})\\b`, 'g');
   return (
@@ -129,13 +126,11 @@ function ExternalLink({ href, children }: { href: string; children: React.ReactN
 }
 
 function ProjectItem({ project, showLink }: { project: Project; showLink?: boolean }) {
-  const projectUrl = project.liveUrl ?? project.linkUrl;
-
   return (
     <div className="flex flex-col gap-1">
       <div className="flex flex-wrap items-baseline justify-between gap-x-3">
         <h3 className="text-white font-semibold">{project.name}</h3>
-        {showLink && projectUrl && <ExternalLink href={projectUrl}>Visit</ExternalLink>}
+        {showLink && project.url && <ExternalLink href={project.url}>Visit</ExternalLink>}
       </div>
       <p className="text-gray-400 text-sm leading-relaxed">{project.description}</p>
       <div className="mt-1 flex flex-wrap gap-1.5">
@@ -165,7 +160,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 export default function MinimalView() {
   return (
-    <main className="container mx-auto max-w-3xl px-4 md:px-6 pt-28 md:pt-32 pb-16 space-y-8">
+    <main className="container mx-auto max-w-3xl space-y-8 px-4 pb-16 pt-28 md:px-6 md:pt-32">
       {/* Header */}
       <header className="flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-6">
         <img
@@ -218,14 +213,6 @@ export default function MinimalView() {
                 {job.company}
                 <span className="text-gray-600"> · {job.location}</span>
               </p>
-              {/* <ul className="mt-1.5 space-y-1">
-                {job.responsibilities.map((item, i) => (
-                  <li key={i} className="flex gap-2 text-gray-400 text-sm leading-relaxed">
-                    <span className="text-orange-500/70 select-none">–</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul> */}
               {job.links && job.links.length > 0 && (
                 <div className="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 text-xs">
                   {job.links.map((link) => (
@@ -240,7 +227,7 @@ export default function MinimalView() {
         </div>
       </Section>
 
-      {/* Projects — mirrors the homepage's featured projects */}
+      {/* Projects */}
       <Section title="Projects">
         <div className="space-y-5">
           {featuredProjects

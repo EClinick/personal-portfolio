@@ -30,7 +30,7 @@ const formatAIResponse = (text: string): string => {
   return text.trim();
 };
 
-export default function ChatBox({ isOpen, onClose, isDarkMode = true, initialMessage, blogContext }: ChatBoxProps) {
+export default function ChatBox({ isOpen, onClose, initialMessage, blogContext }: ChatBoxProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -355,4 +355,4 @@ When asked to summarize or discuss this blog, provide helpful insights based on 
       </div>
     </div>
   );
-} 
+}

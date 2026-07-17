@@ -1,40 +1,32 @@
-import { Routes, Route } from 'react-router-dom';
-import Portfolio from './app/Portfolio';
-import About from './app/About';
+import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import BlogList from './app/BlogList';
 import BlogPost from './app/BlogPost';
-import WelcomeAnimation from './components/WelcomeAnimation';
-import { ViewModeProvider } from './components/view-mode-provider';
-import { useState, useEffect } from 'react';
+import Footer from './components/Footer';
+import Menu from './components/Menu';
+import MinimalView from './components/MinimalView';
 
-function App() {
-  // Check session storage BEFORE initial render to prevent flash
-  const hasSeenWelcome = sessionStorage.getItem('hasShownWelcome') === 'true';
-  
-  const [showWelcome, setShowWelcome] = useState(!hasSeenWelcome);
-  const [hasShownWelcome, setHasShownWelcome] = useState(hasSeenWelcome);
-
-  const handleWelcomeComplete = () => {
-    setShowWelcome(false);
-    setHasShownWelcome(true);
-    sessionStorage.setItem('hasShownWelcome', 'true');
-  };
+function Home() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <ViewModeProvider>
-      <div className="bg-black min-h-screen">
-        {showWelcome && <WelcomeAnimation onComplete={handleWelcomeComplete} />}
-        <div className={`${!hasShownWelcome ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}>
-          <Routes>
-            <Route path="/" element={<Portfolio />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/blog" element={<BlogList />} />
-            <Route path="/blog/:slug" element={<BlogPost />} />
-          </Routes>
-        </div>
-      </div>
-    </ViewModeProvider>
+    <div className="min-h-screen bg-black text-white">
+      <Menu
+        isMobileMenuOpen={isMobileMenuOpen}
+        setIsMobileMenuOpen={setIsMobileMenuOpen}
+      />
+      <MinimalView />
+      <Footer />
+    </div>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/blog" element={<BlogList />} />
+      <Route path="/blog/:slug" element={<BlogPost />} />
+    </Routes>
+  );
+}

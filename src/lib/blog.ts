@@ -3,13 +3,25 @@ import { estimateReadingTime } from './blogUtils';
 
 // Import all markdown files from the blog directory as raw text
 // Using Vite's glob import with ?raw suffix
-const blogModules = import.meta.glob('../blog/*.md', { 
+const blogModules = import.meta.glob('../blog/*.md', {
   eager: true,
-  as: 'raw'
+  query: '?raw',
+  import: 'default',
 }) as Record<string, string>;
 
+interface BlogFrontmatter {
+  [key: string]: string | string[] | boolean | undefined;
+  slug?: string;
+  title?: string;
+  date?: string;
+  excerpt?: string;
+  category?: string;
+  tags?: string[];
+  featured?: boolean;
+}
+
 // Parse frontmatter from markdown content
-function parseFrontmatter(content: string): { frontmatter: Record<string, any>; body: string } {
+function parseFrontmatter(content: string): { frontmatter: BlogFrontmatter; body: string } {
   const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
   const match = content.match(frontmatterRegex);
   
@@ -20,7 +32,7 @@ function parseFrontmatter(content: string): { frontmatter: Record<string, any>; 
   const frontmatterText = match[1];
   const body = match[2];
   
-  const frontmatter: Record<string, any> = {};
+  const frontmatter: BlogFrontmatter = {};
   frontmatterText.split('\n').forEach(line => {
     const colonIndex = line.indexOf(':');
     if (colonIndex > -1) {
@@ -103,14 +115,20 @@ export function getBlogPost(slug: string): BlogPost | null {
   const content = blogModules[postPath];
   const { frontmatter, body } = parseFrontmatter(content);
   const readingTime = estimateReadingTime(content);
-  
+
+  const { slug: postSlug, title, date, excerpt } = frontmatter;
+  if (!postSlug || !title || !date || !excerpt) {
+    console.warn(`Blog post at ${postPath} is missing required frontmatter fields`);
+    return null;
+  }
+
   return {
-    id: frontmatter.slug, // Use slug as id
-    slug: frontmatter.slug,
-    title: frontmatter.title,
-    date: frontmatter.date,
-    publishedDate: frontmatter.date, // Alias for date
-    excerpt: frontmatter.excerpt,
+    id: postSlug,
+    slug: postSlug,
+    title,
+    date,
+    publishedDate: date,
+    excerpt,
     content: body,
     category: frontmatter.category,
     tags: frontmatter.tags || [],
@@ -118,4 +136,3 @@ export function getBlogPost(slug: string): BlogPost | null {
     readingTime: readingTime,
   };
 }
-
