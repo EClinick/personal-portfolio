@@ -30,7 +30,7 @@ export const SYSTEM_CONTEXT = {
         university: "Oregon State University",
         years: "2022-2026"
       },
-      summary: "I'm an AI Engineer at Seeq and an independent software engineering consultant. Previously, I built software at Microsoft. I work at the intersection of applied AI, thoughtful product engineering, and real operational problems.",
+      summary: "I'm an AI Engineer at Seeq and an independent software engineering consultant. I also build software at Microsoft. I work at the intersection of applied AI, thoughtful product engineering, and real operational problems.",
       experience: [
         {
           role: "Co-founder/President of Algorithms and Analytics",
