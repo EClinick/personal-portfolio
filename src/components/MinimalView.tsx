@@ -210,7 +210,7 @@ export default function MinimalView() {
         <div className="space-y-6">
           {experiences.map((job) => (
             <div key={`${job.company}-${job.role}`} className="flex flex-col gap-1">
-              <div className="flex flex-wrap items-baseline justify-between gap-x-3">
+              <div className="flex flex-col items-start gap-0.5">
                 <h3 className="text-white font-semibold">{job.role}</h3>
                 <span className="text-gray-500 text-xs font-mono">{job.dates}</span>
               </div>
