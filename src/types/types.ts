@@ -12,7 +12,6 @@ export type BlogContext = {
 export type ChatBoxProps = {
   isOpen: boolean;
   onClose: () => void;
-  isDarkMode?: boolean;
   initialMessage?: string;
   blogContext?: BlogContext;
 };

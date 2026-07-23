@@ -16,6 +16,34 @@ interface AIInputProps {
   isDarkMode?: boolean
 }
 
+interface SpeechRecognitionResultEvent {
+  results: {
+    [index: number]: {
+      [index: number]: { transcript: string }
+    }
+  }
+}
+
+interface SpeechRecognitionInstance {
+  continuous: boolean
+  interimResults: boolean
+  lang: string
+  onresult: ((event: SpeechRecognitionResultEvent) => void) | null
+  onerror: (() => void) | null
+  onend: (() => void) | null
+  start: () => void
+  stop: () => void
+}
+
+type SpeechRecognitionConstructor = new () => SpeechRecognitionInstance
+
+declare global {
+  interface Window {
+    SpeechRecognition?: SpeechRecognitionConstructor
+    webkitSpeechRecognition?: SpeechRecognitionConstructor
+  }
+}
+
 export function AIInput({
   id = "ai-input",
   placeholder = "Type your message...",
@@ -31,38 +59,41 @@ export function AIInput({
   });
   const [inputValue, setInputValue] = useState("");
   const [isListening, setIsListening] = useState(false);
-  const recognitionRef = useRef<any>(null);
+  const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
 
   // Speech-to-text logic
   const handleMicClick = () => {
-    if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+    const SpeechRecognition = window.SpeechRecognition ?? window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
       alert('Speech recognition is not supported in this browser.');
       return;
     }
-    let SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!recognitionRef.current) {
-      recognitionRef.current = new SpeechRecognition();
-      recognitionRef.current.continuous = false;
-      recognitionRef.current.interimResults = false;
-      recognitionRef.current.lang = 'en-US';
-      recognitionRef.current.onresult = (event: any) => {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+      recognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
         setInputValue((prev: string) => (prev ? prev + ' ' : '') + transcript);
         adjustHeight();
       };
-      recognitionRef.current.onerror = (event: any) => {
+      recognition.onerror = () => {
         setIsListening(false);
       };
-      recognitionRef.current.onend = () => {
+      recognition.onend = () => {
         setIsListening(false);
       };
+      recognitionRef.current = recognition;
     }
+
+    const recognition = recognitionRef.current;
     if (!isListening) {
       setIsListening(true);
-      recognitionRef.current.start();
+      recognition.start();
     } else {
       setIsListening(false);
-      recognitionRef.current.stop();
+      recognition.stop();
     }
   };
 
