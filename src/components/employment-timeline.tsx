@@ -9,7 +9,7 @@ export function EmploymentTimeline() {
       content: (
         <div>
           <div className="mb-6">
-            <h4 className="text-white text-xl md:text-2xl font-bold mb-2">Software Engineer</h4>
+            <h4 className="text-white text-xl md:text-2xl font-bold mb-2">Senior Software Engineer</h4>
             <p className="text-orange-400 font-semibold mb-4">Seeq Corporation • Remote / Seattle, WA</p>
           </div>
           <p className="text-gray-400 text-sm md:text-base font-normal mb-6">

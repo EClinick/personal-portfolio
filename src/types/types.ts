@@ -56,7 +56,7 @@ export const SYSTEM_CONTEXT = {
           ]
         },
         {
-            "role": "Software Engineer",
+            "role": "Senior Software Engineer",
             "company": "Seeq Corporation",
             "location": "Remote / Seattle, WA",
             "dates": "April 2025 – Present",
